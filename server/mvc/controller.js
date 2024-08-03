@@ -6,10 +6,10 @@ const router = require("./router")
 class qualityController {
     async addApplication(req, res) {
         try {
-            const {isAuthorized, prefferedAge, isMic, games, languages} = req.body
+            const {isAuthorized, isMic, games, languages, minAge, maxAge} = req.body
             const dateCreated = new Date()
             
-            await Package.addApplication(isAuthorized, prefferedAge, isMic, games.join(), languages.join(), dateCreated)
+            await Package.addApplication(isAuthorized, isMic, games, languages, dateCreated, minAge, maxAge)
             return res.status(200).json({ message: 'Application has been added.' })
         } catch (error) {
             console.log(error);
@@ -20,7 +20,9 @@ class qualityController {
 
     async getApplications(req, res) {
         try {  
-            const applications = await Package.getApplications()
+            const {isAuthorized, languages, games, isMic, userAge} = req.body
+            const applications = await Package.getApplications(isAuthorized, languages, games, isMic, userAge)
+
             return res.status(200).json({ applications })
         } catch (error) {
             console.log(error);

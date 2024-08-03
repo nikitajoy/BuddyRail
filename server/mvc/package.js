@@ -11,8 +11,22 @@ const knex = require("knex")({
 
 
 
-exports.addApplication = async (isAuthorized, prefferedAge, isMic, games, languages, dateCreated) =>
-    knex("public.user_applications").insert({is_authorized: isAuthorized, preffered_age: prefferedAge, is_mic: isMic, games: games, languages: languages, date_created: dateCreated})
+exports.addApplication = async (isAuthorized, isMic, games, languages, dateCreated, minAge, maxAge) =>
+    knex("user_applications").insert({is_authorized: isAuthorized, is_mic: isMic, games: games, languages: languages, date_created: dateCreated, min_age: minAge, max_age: maxAge})
 
-exports.getApplications = async () =>
-    knex("public.user_applications").select()
+exports.getApplications = async (isAuthorized, languages, games, isMic, userAge) => 
+    knex("user_applications").select()
+    .where((filter) => {
+        filter.where('is_authorized', isAuthorized)
+        if(userAge) {
+            filter.andWhere('min_age', '<=', userAge)
+            filter.andWhere('max_age', '>=', userAge)
+        }
+        filter.andWhere('is_mic', isMic)
+        if(languages.length > 0) {
+            filter.whereRaw(`languages && ARRAY[${languages}]::integer[]`)
+        }
+        if(games.length > 0) {
+            filter.whereRaw(`games && ARRAY[${games}]::integer[]`)
+        }
+      });
