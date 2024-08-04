@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        "twitter-blue": "#1DA1F2",
+        "main-color": "#fa005a",
       },
     },
   },

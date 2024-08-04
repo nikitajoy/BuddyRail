@@ -6,9 +6,10 @@ import ApplicationForm from './components/ApplicationForm.vue'
 
 <template>
   <div>
+    <TopNavbar />
+    <router-view></router-view>
+    <ApplicationForm :showing="applicationWindow"/>
 
-  <ApplicationForm :showing="applicationWindow"/>
-  <TopNavbar />
 
   </div>
 </template>
