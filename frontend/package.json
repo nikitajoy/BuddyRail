@@ -9,13 +9,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "radix-vue": "^1.9.2",
     "vue": "^3.4.31",
     "vue-router": "^4.4.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.5",
     "autoprefixer": "^10.4.20",
-    "daisyui": "^4.12.10",
     "postcss": "^8.4.40",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.5",

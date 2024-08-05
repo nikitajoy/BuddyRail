@@ -1,11 +1,9 @@
-import { createApp } from 'vue'
+import { createApp } from 'vue';
 import {createRouter, createWebHashHistory, createWebHistory} from 'vue-router'
-import './style.css'
-import App from './App.vue'
-
-import HomeView from '@/views/HomeView.vue'
-import AboutView from '@/views/AboutView.vue'
-
+import './style.css';
+import App from './App.vue';
+import HomeView from '@/views/HomeView.vue';
+import AboutView from '@/views/AboutView.vue';
 
 const router = createRouter(
     {
