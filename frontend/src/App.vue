@@ -1,6 +1,5 @@
 <script setup>
 import TopNavbar from './components/TopNavbar.vue'
-import ApplicationForm from './components/ApplicationForm.vue'
 
 </script>
 
@@ -8,7 +7,6 @@ import ApplicationForm from './components/ApplicationForm.vue'
   <div>
     <TopNavbar />
     <router-view></router-view>
-    <ApplicationForm :showing="applicationWindow"/>
 
 
   </div>

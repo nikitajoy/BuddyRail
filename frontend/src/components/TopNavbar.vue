@@ -1,4 +1,6 @@
 <script >
+import ApplicationForm from './ApplicationForm.vue'
+
 export default {
   data() {
     return {
@@ -6,38 +8,66 @@ export default {
         {title: 'Home', path: '/'},
         {title: 'About', path: '/about'},
         {title: 'Privacy', path: '/privacy'}
-        ]
+        ],
+        isBurger: false,
+        applicationWindow: false,
       }
+  },
+  methods: {
+    openForm() {
+      this.applicationWindow = true
+    },
+    closeForm(val){
+      this.applicationWindow = val
+    },
+    openHeader() {
+      this.isBurger = true
+    }
+  },
+  components: {
+    ApplicationForm,
   }
 }
 </script>
 
 <template>
-<nav class="bg-white border-gray-200 dark:bg-gray-900">
-  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-  <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
-      <img src="https://cdn1.tenchat.ru/static/vbc-gostinder/2024-05-24/dbfa6662-4304-43d1-9742-33b1b76b811b.jpeg?width=2&height=2&fmt=webp" class="h-8" alt="Flowbite Logo" />
-      <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">BuddyRail</span>
-  </a>
-  <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-      <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Find a teammate</button>
-      <button data-collapse-toggle="navbar-cta" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-cta" aria-expanded="false">
-        <span class="sr-only">Open main menu</span>
-    </button>
+  <div>
+    <ApplicationForm :showing="applicationWindow" @close-form="closeForm"/>
+
+    <header class="relative flex flex-wrap sm:justify-start sm:flex-nowrap w-full bg-white text-sm py-3 dark:bg-neutral-800">
+      <nav class="max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between">
+        <div class="flex items-center justify-between">
+          <router-link class="flex-none text-xl font-semibold dark:text-white focus:outline-none focus:opacity-80" :to="'/'" aria-label="Brand">
+            <span class="inline-flex items-center gap-x-2 text-xl font-semibold dark:text-white">
+              <img class="w-10 h-auto" src="https://upload.wikimedia.org/wikipedia/commons/9/91/Buddy_logo.png" alt="Logo">
+              BuddyRail
+            </span>
+          </router-link>
+          <div class="sm:hidden">
+            <button type="button" @click="openHeader" class="hs-collapse-toggle relative size-7 flex justify-center items-center gap-x-2 rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-transparent dark:border-neutral-700 dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10" id="hs-navbar-example-collapse" aria-expanded="false" aria-controls="hs-navbar-example" aria-label="Toggle navigation" data-hs-collapse="#hs-navbar-example">
+              <svg class="hs-collapse-open:hidden shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/></svg>
+              <svg class="hs-collapse-open:block hidden shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+              <span class="sr-only">Toggle navigation</span>
+            </button>
+          </div>
+        </div>
+        <div id="hs-navbar-example" :class="{hidden: !isBurger}" class=" hs-collapse overflow-hidden transition-all duration-300 basis-full grow sm:block" aria-labelledby="hs-navbar-example-collapse">
+          <div class="flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5">
+            <router-link
+            v-for="link in navigationTitles" :key="link.id"
+            class="font-medium text-blue-500 focus:outline-none" :to="link.path" aria-current="page">{{ link.title }}</router-link>
+          </div>
+        </div>
+      </nav>
+     </header>
+
   </div>
-  <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
-    <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-      <li v-for="title in navigationTitles" :key="title.id">
-        <router-link :to="title.path" class="block py-2 px-3 md:p-0 text-white hover:text-red-700" aria-current="page">{{ title.title }}</router-link>
-      </li>
-    </ul>
-  </div>
-  </div>
-</nav>
+
 </template>
 
 <style scoped>
 .router-link-active{
   color: #fa005a
 }
-</style>
+</style>import ApplicationFormVue from './ApplicationForm.vue';
+
