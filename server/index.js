@@ -1,12 +1,12 @@
 const express = require("express");
-const PORT = 8000;
+const PORT = 5000;
 require("dotenv").config();
 const router = require("./mvc/router")
 
 // cors
 const cors = require("cors");
 let corsOptions = {
-    origin: "http://localhost:8080",
+    origin: "http://localhost:3000",
     credentials: true,            //access-control-allow-credentials:true
     optionSuccessStatus: 200
 };
@@ -17,7 +17,12 @@ app.use(express.json());    // middleware for json
 
 // router
 app.use('/api', router)
-
+app.get('/', (req, res) => {
+    res.json({
+      message: 'Test data'
+    });
+  });
+  
 
 // start
 const start = async () => {
@@ -34,3 +39,7 @@ const start = async () => {
 
 start();
 
+
+
+
+ 
