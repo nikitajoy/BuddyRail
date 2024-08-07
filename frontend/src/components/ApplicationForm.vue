@@ -1,6 +1,7 @@
 <template>
   <div class="text-center pa-4">
     <ApplicationButton :message="'create application'" @invokeDialog="invokeDialog"/>
+    {{ chosenLanguages }}
     <v-dialog
       v-model="dialog"
       width="auto"
@@ -30,9 +31,28 @@
             <v-row>
                 <v-col>
                     <v-autocomplete
+                    v-show="languages.length > 0"
                     chips
+                    v-model="chosenLanguages"
                     label="Languages you want to communicate in"
-                    :items="['English', 'Mandarin', 'Hindi', 'Spanish', 'French', 'Arabic', 'Bengali', 'Portuguese', 'Russian', 'Urdu', 'Indonesian', 'German']"
+                    :items="languages"
+                    item-title="language_name"
+                    item-value="id_language"
+                    multiple
+                    variant="outlined"
+                    ></v-autocomplete>
+                </v-col>
+            </v-row>
+
+            <v-row>
+                <v-col>
+                    <v-autocomplete v-show="games.length > 0"
+                    chips
+                    v-model="chosenGames"
+                    label="Choose games you want to play"
+                    :items="games"
+                    item-title="name_game"
+                    item-value="id_game"
                     multiple
                     variant="outlined"
                     ></v-autocomplete>
@@ -63,6 +83,8 @@ export default {
             dialog: false,
             games: [],
             languages: [],
+            chosenGames :[],
+            chosenLanguages: [],
         }
     },
     methods: {
@@ -73,14 +95,15 @@ export default {
           httpServer
             .get("/getInputData")
             .then((response) => {
-                console.log(response.data);
+                this.games = response.data.games
+                this.languages = response.data.languages
             })
             .catch(() => {});
         }
     },
     watch: {
       dialog() {
-        if(this.dialog && games.length == 0 && languages.length == 0) {
+        if(this.dialog && this.games.length == 0 && this.languages.length == 0) {
           this.getData()
         }
       }
