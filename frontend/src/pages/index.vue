@@ -2,7 +2,7 @@
 <div>
   <AppNavbar />
   <h1>Main page</h1>
-  <ApplicationButton :message="'create application'" @invokeDialog="invokeDialog"/>
+  <ApplicationForm />
   <AppFooter />
 </div>
 </template>
@@ -16,9 +16,7 @@ export default {
     }
   },
   methods: {
-    invokeDialog(message) {
-      console.log('dialog is invoked: ', message)
-    }
+ 
   }
 }
 </script>
