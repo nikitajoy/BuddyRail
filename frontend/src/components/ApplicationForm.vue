@@ -16,6 +16,7 @@
             <v-row>
                 <v-col cols="12">
                     <v-autocomplete
+                    autocomplete="off"
                     v-show="languages.length > 0"
                     chips
                     v-model="applicationData.chosenLanguages"
@@ -29,6 +30,7 @@
                 </v-col>
                 <v-col cols="12">
                     <v-autocomplete v-show="games.length > 0"
+                    autocomplete="off"
                     chips
                     v-model="applicationData.chosenGames"
                     label="Choose games you want to play"
@@ -41,6 +43,7 @@
                 </v-col>
                 <v-col cols="12">
                   <v-text-field
+                    autocomplete="off"
                     v-model="applicationData.message"
                     label="Message to your buddy"
                     required
@@ -57,6 +60,7 @@
                 <v-col cols="12">
                   <v-text-field
                       v-model="applicationData.age"
+                      autocomplete="off"
                       label="Your age (not necessary)"
                       required
                       type="number"
