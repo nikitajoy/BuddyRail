@@ -79,6 +79,22 @@
             </v-row>
 
 
+            <v-row>
+                <v-col>
+                <v-checkbox 
+                label="Does your buddy have to have a microphone?" 
+                v-model="applicationData.isMic" 
+                color="yellow"></v-checkbox>
+
+                <v-checkbox 
+                label="Does your buddy have to be authorized to see your application?" 
+                v-model="applicationData.isAuthorized" 
+                color="yellow"></v-checkbox>
+                </v-col>
+            </v-row>
+
+
+
             </v-container>
         </v-form>
  
@@ -105,6 +121,8 @@ export default {
             applicationData: {
               message: '',
               age: null,
+              isMic: false,
+              isAuthorized: false,
               chosenGames :[],
               chosenLanguages: [],
             },

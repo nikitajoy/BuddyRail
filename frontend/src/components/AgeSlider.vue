@@ -2,6 +2,7 @@
 <div>
     <h3>Choose preferred age of your teammate</h3>
     <v-range-slider
+    color="yellow"
     class="align-center"
     hide-details
     step="1"
