@@ -14,12 +14,7 @@
         <v-form @submit.prevent="saveApplication">
             <v-container>
             <v-row>
-                <v-col>
-                    <AgeSlider @setAge="setAge" />
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col>
+                <v-col cols="12">
                     <v-autocomplete
                     v-show="languages.length > 0"
                     chips
@@ -32,9 +27,7 @@
                     variant="outlined"
                     ></v-autocomplete>
                 </v-col>
-            </v-row>
-            <v-row>
-                <v-col>
+                <v-col cols="12">
                     <v-autocomplete v-show="games.length > 0"
                     chips
                     v-model="applicationData.chosenGames"
@@ -46,49 +39,42 @@
                     variant="outlined"
                     ></v-autocomplete>
                 </v-col>
-            </v-row>
-            <v-row>
-                <v-col
-                >
-                <v-text-field
+                <v-col cols="12">
+                  <v-text-field
                     v-model="applicationData.message"
                     label="Message to your buddy"
                     required
-                ></v-text-field>
-                <span
-                :class="messageLimit > 200 ? 'text-red-accent-3' : ''">
-                  {{ messageLimit }} / 200
-                  {{ messageLimit > 200 ? 'Your message is too long!' : '' }}
-                </span>
+                  ></v-text-field>
+                  <span
+                  :class="messageLimit > 200 ? 'text-red-accent-3' : ''">
+                    {{ messageLimit }} / 200
+                    {{ messageLimit > 200 ? 'Your message is too long!' : '' }}
+                  </span>
                 </v-col>
-            </v-row>
-            <v-row>
-                <v-col
-                >
-                <v-text-field
-                    v-model="applicationData.age"
-                    label="Your age (not necessary)"
-                    required
-                    type="number"
-                ></v-text-field>
+                <v-col cols="12">
+                    <AgeSlider @setAge="setAge" />
                 </v-col>
-            </v-row>
-            <v-row>
-                <v-col>
-                <v-checkbox 
-                label="Does your buddy have to have a microphone?" 
-                v-model="applicationData.isMic" 
-                color="yellow"></v-checkbox>
-
-                <v-checkbox 
-                label="Does your buddy have to be authorized to see your application?" 
-                v-model="applicationData.isAuthorized" 
-                color="yellow"></v-checkbox>
+                <v-col cols="12">
+                  <v-text-field
+                      v-model="applicationData.age"
+                      label="Your age (not necessary)"
+                      required
+                      type="number"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-checkbox 
+                  label="Does your buddy have to have a microphone?" 
+                  v-model="applicationData.isMic" 
+                  color="yellow"></v-checkbox>
+                  <v-checkbox 
+                  label="Does your buddy have to be authorized to see your application?" 
+                  v-model="applicationData.isAuthorized" 
+                  color="yellow"></v-checkbox>
                 </v-col>
             </v-row>
             </v-container>
         </v-form>
- 
 
         <template v-slot:actions>
           <div>
@@ -150,6 +136,8 @@ export default {
             .catch(() => {});
         },
         saveApplication() {
+
+
           httpServer
             .post("/addApplication", {
               isAuthorized: this.applicationData.isAuthorized,
@@ -162,6 +150,8 @@ export default {
                 console.log(response.data);
             })
             .catch(() => {});
+
+
         }
     },
     watch: {
