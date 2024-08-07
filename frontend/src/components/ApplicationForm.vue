@@ -11,11 +11,11 @@
         prepend-icon="mdi-progress-check"
         title="Making an application"
       >
-        <v-form v-model="valid">
+        <v-form @submit.prevent="saveApplication">
             <v-container>
             <v-row>
                 <v-col>
-                    <AgeSlider />
+                    <AgeSlider @setAge="setAge" />
                 </v-col>
             </v-row>
             <v-row>
@@ -33,7 +33,6 @@
                     ></v-autocomplete>
                 </v-col>
             </v-row>
-
             <v-row>
                 <v-col>
                     <v-autocomplete v-show="games.length > 0"
@@ -48,7 +47,6 @@
                     ></v-autocomplete>
                 </v-col>
             </v-row>
-
             <v-row>
                 <v-col
                 >
@@ -64,8 +62,6 @@
                 </span>
                 </v-col>
             </v-row>
-
-
             <v-row>
                 <v-col
                 >
@@ -77,8 +73,6 @@
                 ></v-text-field>
                 </v-col>
             </v-row>
-
-
             <v-row>
                 <v-col>
                 <v-checkbox 
@@ -92,19 +86,27 @@
                 color="yellow"></v-checkbox>
                 </v-col>
             </v-row>
-
-
-
             </v-container>
         </v-form>
  
 
         <template v-slot:actions>
-          <v-btn
-            class="ms-auto"
-            text="Ok"
-            @click="dialog = false"
-          ></v-btn>
+          <div>
+            <v-btn
+              color="red"
+              variant="tonal"
+              class="ms-auto mr-5"
+              text="Cancel"
+              @click="dialog = false"
+            ></v-btn>
+            <v-btn
+              color="green-darken-3"
+              variant="tonal"
+              class="ms-auto mr-2"
+              text="Submit"
+              type="submit"
+            ></v-btn>
+          </div>
         </template>
       </v-card>
     </v-dialog>
@@ -125,6 +127,7 @@ export default {
               isAuthorized: false,
               chosenGames :[],
               chosenLanguages: [],
+              ageRange: [],
             },
             
             games: [],
@@ -136,12 +139,27 @@ export default {
         invokeDialog() {
             this.dialog = true
         },
+        setAge(gottenAge) { this.applicationData.ageRange = gottenAge }, // emit
         getData() {
           httpServer
             .get("/getInputData")
             .then((response) => {
                 this.games = response.data.games
                 this.languages = response.data.languages
+            })
+            .catch(() => {});
+        },
+        saveApplication() {
+          httpServer
+            .post("/addApplication", {
+              isAuthorized: this.applicationData.isAuthorized,
+              isMic: this.applicationData.isMic,
+              games: this.applicationData.chosenGames,
+              languages: this.applicationData.chosenLanguages,
+              minAge: this.applicationData.ageRange[0],
+              maxAge: this.applicationData.ageRange[1]})
+            .then((response) => {
+                console.log(response.data);
             })
             .catch(() => {});
         }

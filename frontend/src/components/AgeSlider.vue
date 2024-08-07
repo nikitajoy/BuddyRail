@@ -21,7 +21,12 @@ export default {
         return {
             range: [0, 99]
         }
-    }
+    },
+    watch: {
+      range() {
+        this.$emit('setAge', this.range)
+      }
+    },
 }
 </script>
 
