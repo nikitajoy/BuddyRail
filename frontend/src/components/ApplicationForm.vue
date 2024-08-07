@@ -31,7 +31,7 @@
                 <v-col>
                     <v-autocomplete
                     chips
-                    label="Autocomplete"
+                    label="Languages you want to communicate in"
                     :items="['English', 'Mandarin', 'Hindi', 'Spanish', 'French', 'Arabic', 'Bengali', 'Portuguese', 'Russian', 'Urdu', 'Indonesian', 'German']"
                     multiple
                     variant="outlined"
@@ -56,17 +56,34 @@
 
 
 <script>
-
+import {httpServer} from '@/main'
 export default {
     data() {
         return {
-            dialog: false
+            dialog: false,
+            games: [],
+            languages: [],
         }
     },
     methods: {
         invokeDialog() {
             this.dialog = true
+        },
+        getData() {
+          httpServer
+            .get("/getInputData")
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch(() => {});
         }
     },
+    watch: {
+      dialog() {
+        if(this.dialog && games.length == 0 && languages.length == 0) {
+          this.getData()
+        }
+      }
+    }
 }
 </script>

@@ -30,3 +30,7 @@ exports.getApplications = async (isAuthorized, languages, games, isMic, userAge)
             filter.whereRaw(`games && ARRAY[${games}]::integer[]`)
         }
       });
+
+
+exports.getGames = async () => knex("games").select().orderBy('order');
+exports.getLanguages = async () => knex("languages").select();

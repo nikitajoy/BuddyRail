@@ -18,6 +18,21 @@ class qualityController {
         }
     }
 
+
+    // getting games and languages
+    async getInputData(req, res) {
+        try {
+            let games = await Package.getGames()
+            let languages = await Package.getLanguages()
+            return res.status(200).json({ games, languages })
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({ message: "Error occurred." })
+     
+        }
+    }
+
+
     async getApplications(req, res) {
         try {  
             const {isAuthorized, languages, games, isMic, userAge} = req.body

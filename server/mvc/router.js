@@ -4,6 +4,7 @@ const controller = require("./controller");
 
 
 router.get("/getApplications", controller.getApplications);
+router.get("/getInputData", controller.getInputData);
 
 router.post("/addApplication", controller.addApplication);
 
