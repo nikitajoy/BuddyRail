@@ -6,10 +6,10 @@ const router = require("./router")
 class qualityController {
     async addApplication(req, res) {
         try {
-            const {isAuthorized, isMic, games, languages, minAge, maxAge} = req.body
+            const {isAuthorized, isMic, games, languages, minAge, maxAge, message} = req.body
             const dateCreated = new Date()
             
-            await Package.addApplication(isAuthorized, isMic, games, languages, dateCreated, minAge, maxAge)
+            await Package.addApplication(isAuthorized, isMic, games, languages, dateCreated, minAge, maxAge, message)
             return res.status(200).json({ message: 'Application has been added.' })
         } catch (error) {
             console.log(error);
