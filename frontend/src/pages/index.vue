@@ -1,8 +1,12 @@
 <template>
 <div>
   <AppNavbar />
-  <h1>Main page</h1>
+  <h1 class="text-center">Main page</h1>
   <ApplicationForm />
+  <h2 class="text-center">Buddies page</h2>
+
+
+  <BuddiesList /> 
   <AppFooter />
 </div>
 </template>
@@ -12,7 +16,7 @@
 export default {
   data() {
     return {
-
+      
     }
   },
   methods: {
