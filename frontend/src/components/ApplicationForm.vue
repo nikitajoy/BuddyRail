@@ -67,12 +67,14 @@
                         type="number"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12">
-                    <v-checkbox 
+                  <v-col cols="12" >
+                    <v-checkbox class="ma-0 pa-0"
+                    hide-details
                     label="Does your buddy have to have a microphone?" 
                     v-model="applicationData.isMic" 
                     color="yellow"></v-checkbox>
                     <v-checkbox 
+                    hide-details class="ma-0 pa-0"
                     label="Does your buddy have to be authorized to see your application?" 
                     v-model="applicationData.isAuthorized" 
                     color="yellow"></v-checkbox>

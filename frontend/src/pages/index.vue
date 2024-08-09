@@ -7,6 +7,7 @@
 
 
   <BuddiesList /> 
+  <BuddiesFilter />
   <AppFooter />
 </div>
 </template>

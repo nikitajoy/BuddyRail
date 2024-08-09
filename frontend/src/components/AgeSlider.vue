@@ -1,6 +1,6 @@
 <template>
 <div>
-    <h3>Choose preferred age of your teammate</h3>
+    <h3>Choose preferred age of your buddy</h3>
     <v-range-slider
     color="yellow"
     class="align-center"
