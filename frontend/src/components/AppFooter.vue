@@ -22,7 +22,7 @@
 export default {
   data() {
     return {
-      links: [{title: 'Home', path: '/'}, {title: 'About us', path: 'about'}, {title: 'Privacy', path:'privacy'}]
+      links: [{title: 'Home', path: '/'}, {title: 'About us', path: 'about'}, {title: 'Rules', path:'rules'}]
     }
   }
 }

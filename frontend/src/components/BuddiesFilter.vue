@@ -10,9 +10,6 @@
             <v-checkbox label="Show discord defended applications" color="yellow" hide-details class="ma-0 pa-0"></v-checkbox>
         </v-col>
         <v-col cols="10" class="mx-auto">
-            <AgeSlider @setAge="setAge"  />
-        </v-col>
-        <v-col cols="10" class="mx-auto">
             <v-autocomplete
             autocomplete="off"
             v-show="languages.length > 0"
@@ -49,39 +46,20 @@
 </template>
 
 <script>
-import {httpServer} from '@/main'
-
 export default {
     data() {
         return {
             applicationFilter: {
-              buddyAge: [],
               isMic: true,
               isAuthorized: false,
               chosenGames :[],
               chosenLanguages: [],
             },
-            games: [],
-            languages: [],
         }
     },
-    methods: {
-        setAge(newAge) {this.applicationFilter.buddyAge = newAge},
-        getData() {
-          httpServer
-            .get("/getInputData")
-            .then((response) => {
-                this.games = response.data.games
-                this.languages = response.data.languages
-            })
-            .catch(() => {});
-        },
-
-
-
-    },
-    mounted () {
-        this.getData();
+    props: {
+        games: Array,
+        languages: Array,
     },
     watch: {
         applicationFilter(newFilter) {

@@ -55,18 +55,6 @@
                       {{ messageLimit > 200 ? 'Your message is too long!' : '' }}
                     </span>
                   </v-col>
-                  <v-col cols="12">
-                      <AgeSlider @setAge="setAge" />
-                  </v-col>
-                  <v-col cols="12">
-                    <v-text-field
-                        v-model="applicationData.age"
-                        autocomplete="off"
-                        label="Your age (not necessary)"
-                        required
-                        type="number"
-                    ></v-text-field>
-                  </v-col>
                   <v-col cols="12" >
                     <v-checkbox class="ma-0 pa-0"
                     hide-details
@@ -116,41 +104,27 @@ export default {
             dialog: false,
             applicationData: {
               message: '',
-              age: null,
               isMic: true,
               isAuthorized: false,
               chosenGames :[],
               chosenLanguages: [],
-              ageRange: [],
             },
-            
-            games: [],
-            languages: [],
-            
         }
+    },
+    props: {
+      games: Array,
+      languages: Array,
     },
     methods: {
         invokeDialog() {
             this.dialog = true;
             this.applicationData = {
               message: '',
-              age: null,
               isMic: true,
               isAuthorized: false,
               chosenGames :[],
               chosenLanguages: [],
-              ageRange: [],
             };
-        },
-        setAge(gottenAge) { this.applicationData.ageRange = gottenAge }, // emit
-        getData() {
-          httpServer
-            .get("/getInputData")
-            .then((response) => {
-                this.games = response.data.games
-                this.languages = response.data.languages
-            })
-            .catch(() => {});
         },
         saveApplication(event) {
           if(
@@ -163,9 +137,7 @@ export default {
               isMic: this.applicationData.isMic,
               games: this.applicationData.chosenGames,
               languages: this.applicationData.chosenLanguages,
-              message: this.applicationData.message,
-              minAge: this.applicationData.ageRange[0],
-              maxAge: this.applicationData.ageRange[1]})
+              message: this.applicationData.message,})
             .then((response) => {
               this.dialog = false
             })
@@ -174,13 +146,6 @@ export default {
 
 
         }
-    },
-    watch: {
-      dialog() {
-        if(this.dialog && this.games.length == 0 && this.languages.length == 0) {
-          this.getData()
-        }
-      }
     },
     computed: {
       messageLimit() {

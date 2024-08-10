@@ -28,6 +28,7 @@ export default {
             chosenPage: 1
         }
     },
+    
     methods: {
 
     }
