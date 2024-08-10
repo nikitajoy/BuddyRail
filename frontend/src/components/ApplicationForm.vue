@@ -129,7 +129,8 @@ export default {
         saveApplication(event) {
           if(
           this.applicationData.chosenGames.length >0 &&
-          this.applicationData.chosenLanguages.length > 0
+          this.applicationData.chosenLanguages.length > 0 &&
+          this.applicationData.message.length < 200
           ){
           httpServer
             .post("/addApplication", {
@@ -138,7 +139,7 @@ export default {
               games: this.applicationData.chosenGames,
               languages: this.applicationData.chosenLanguages,
               message: this.applicationData.message,})
-            .then((response) => {
+            .then(() => {
               this.dialog = false
             })
             .catch(() => {});

@@ -19,10 +19,10 @@ exports.getApplications = async (isAuthorized, languages, games, isMic) =>
     .where((filter) => {
         filter.where('is_authorized', isAuthorized)
         filter.andWhere('is_mic', isMic)
-        if(languages.length > 0) {
+        if(languages && languages.length > 0) {
             filter.whereRaw(`languages && ARRAY[${languages}]::integer[]`)
         }
-        if(games.length > 0) {
+        if(games && games.length > 0) {
             filter.whereRaw(`games && ARRAY[${games}]::integer[]`)
         }
       });

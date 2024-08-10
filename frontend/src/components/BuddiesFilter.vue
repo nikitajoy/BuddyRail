@@ -2,12 +2,25 @@
 
 
 <v-sheet :min-height="100" :max-width="600" border rounded class="mx-auto ma-5">
+    <pre>
+        {{ applications }}
+    </pre>
     <v-row>
         <v-col cols="10" class="mx-auto ma-0 pa-0 mt-5">
-            <v-checkbox label="Do you have a microphone?" color="yellow" hide-details class="ma-0 pa-0"></v-checkbox>
+            <v-checkbox 
+            v-model="applicationFilter.isMic"
+            label="Do you have a microphone?" 
+            color="yellow" 
+            hide-details 
+            class="ma-0 pa-0"></v-checkbox>
         </v-col>
         <v-col cols="10" class="mx-auto ma-0 pa-0">
-            <v-checkbox label="Show discord defended applications" color="yellow" hide-details class="ma-0 pa-0"></v-checkbox>
+            <v-checkbox 
+             v-model="applicationFilter.isAuthorized"
+            label="Show discord defended applications" 
+            color="yellow" 
+            hide-details 
+            class="ma-0 pa-0"></v-checkbox>
         </v-col>
         <v-col cols="10" class="mx-auto">
             <v-autocomplete
@@ -23,7 +36,6 @@
             variant="outlined"
             ></v-autocomplete>
         </v-col>
-
         <v-col cols="10" class="mx-auto">
             <v-autocomplete v-show="games.length > 0"
             autocomplete="off"
@@ -38,7 +50,7 @@
             ></v-autocomplete>
         </v-col>
         <v-col cols="10" class="justify-center">
-            <v-btn  class="mx-auto" color="green">Apply</v-btn>
+            <v-btn  class="mx-auto" color="green" @click="applyFilter">Apply</v-btn>
         </v-col>
     </v-row>
 </v-sheet>
@@ -46,6 +58,8 @@
 </template>
 
 <script>
+import {httpServer} from '@/main'
+
 export default {
     data() {
         return {
@@ -55,16 +69,37 @@ export default {
               chosenGames :[],
               chosenLanguages: [],
             },
+            applications: [],
+        }
+    },
+    methods: {
+        applyFilter() {
+            console.log({
+                isAuthorized: this.applicationFilter.isAuthorized,
+                    languages: this.applicationFilter.chosenLanguages,
+                    games: this.applicationFilter.chosenGames,
+                    isMic: this.applicationFilter.isMic
+            });
+            httpServer
+            .get("/getApplications", 
+            {
+            params: 
+                {   
+                    isAuthorized: this.applicationFilter.isAuthorized,
+                    languages: this.applicationFilter.chosenLanguages,
+                    games: this.applicationFilter.chosenGames,
+                    isMic: this.applicationFilter.isMic
+                }
+            })
+            .then((response) => {
+                this.applications = response.data.applications;
+            })
+            .catch(() => {});
         }
     },
     props: {
         games: Array,
         languages: Array,
     },
-    watch: {
-        applicationFilter(newFilter) {
-            console.log(newFilter);
-        }
-    }
 }
 </script>

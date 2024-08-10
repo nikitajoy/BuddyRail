@@ -35,8 +35,9 @@ class qualityController {
 
     async getApplications(req, res) {
         try {  
-            const {isAuthorized, languages, games, isMic, userAge} = req.body
-            const applications = await Package.getApplications(isAuthorized, languages, games, isMic, userAge)
+
+            const {isAuthorized, languages, games, isMic} = req.query
+            const applications = await Package.getApplications(isAuthorized, languages, games, isMic)
 
             return res.status(200).json({ applications })
         } catch (error) {
