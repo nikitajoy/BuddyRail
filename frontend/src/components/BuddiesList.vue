@@ -4,7 +4,7 @@
 <v-container>
 
     <div class="d-flex justify-center flex-wrap ga-3">
-        <v-sheet v-for="(item, index) in 1" :key="index" rounded
+        <v-sheet v-for="(item, index) in applications" :key="index" rounded
         :height="200" :width="200" border></v-sheet>
 
     </div>
@@ -28,7 +28,9 @@ export default {
             chosenPage: 1
         }
     },
-    
+    props: {
+        applications: Array,
+    },
     methods: {
 
     }

@@ -6,8 +6,8 @@
   <h2 class="text-center">Buddies page</h2>
 
 
-  <BuddiesList  /> 
-  <BuddiesFilter :games="games" :languages="languages" />
+  <BuddiesList :applications="applications" /> 
+  <BuddiesFilter :games="games" :languages="languages" @setApplications="setApplications"/>
   <AppFooter />
 </div>
 </template>
@@ -20,6 +20,7 @@ export default {
     return {
       games: [],
       languages: [],
+      applications: [],
     }
   },
   methods: {
@@ -31,7 +32,11 @@ export default {
                 this.languages = response.data.languages
             })
             .catch(() => {});
-        },
+    },
+    setApplications (gottenApplications) {
+      this.applications = gottenApplications
+      console.log('setted: ', this.applications);
+    }
   },
   mounted() {
     this.getData()

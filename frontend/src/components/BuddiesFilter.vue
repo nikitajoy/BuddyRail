@@ -2,9 +2,6 @@
 
 
 <v-sheet :min-height="100" :max-width="600" border rounded class="mx-auto ma-5">
-    <pre>
-        {{ applications }}
-    </pre>
     <v-row>
         <v-col cols="10" class="mx-auto ma-0 pa-0 mt-5">
             <v-checkbox 
@@ -72,14 +69,11 @@ export default {
             applications: [],
         }
     },
+    mounted() {
+        this.applyFilter();
+    },
     methods: {
         applyFilter() {
-            console.log({
-                isAuthorized: this.applicationFilter.isAuthorized,
-                    languages: this.applicationFilter.chosenLanguages,
-                    games: this.applicationFilter.chosenGames,
-                    isMic: this.applicationFilter.isMic
-            });
             httpServer
             .get("/getApplications", 
             {
@@ -101,5 +95,12 @@ export default {
         games: Array,
         languages: Array,
     },
+    watch: {
+        applications: {
+            handler(newApplication) {
+                this.$emit('setApplications', newApplication)
+            },
+         }
+    }
 }
 </script>
