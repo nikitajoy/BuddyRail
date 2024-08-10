@@ -5,7 +5,9 @@
 
     <div class="d-flex justify-center flex-wrap ga-3">
         <v-sheet v-for="(item, index) in applications" :key="index" rounded
-        :height="200" :width="200" border></v-sheet>
+        :height="200" :width="200" border>
+    {{ item }}
+    </v-sheet>
 
     </div>
 

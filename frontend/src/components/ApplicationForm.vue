@@ -98,8 +98,14 @@ export default {
     data() {
         return {
             rules: {
-              games: [(v) =>  v.length>0 || "You have to choose at least 1 game"],
-              languages: [(v) =>  v.length>0 || "You have to choose at least 1 language"],
+              games: [
+                (v) =>  v.length>0 || "You have to choose at least 1 game",
+                (v) =>  v.length <= 5 || "You can`t choose more than 5 games.",
+              ],
+              languages: [
+                (v) =>  v.length>0 || "You have to choose at least 1 language",
+                (v) =>  v.length <= 5 || "You can`t choose more than 5 languages."
+              ],
             },
             dialog: false,
             applicationData: {
@@ -128,8 +134,8 @@ export default {
         },
         saveApplication(event) {
           if(
-          this.applicationData.chosenGames.length >0 &&
-          this.applicationData.chosenLanguages.length > 0 &&
+          (this.applicationData.chosenGames.length >0 && this.applicationData.chosenGames.length <= 5)  &&
+          (this.applicationData.chosenLanguages.length && this.applicationData.chosenLanguages.length <= 5) > 0 &&
           this.applicationData.message.length < 200
           ){
           httpServer
