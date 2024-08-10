@@ -92,7 +92,7 @@ export default {
                 }
             })
             .then((response) => {
-                this.applications = response.data.applications;
+                this.applications = response.data.filteredApplications;
             })
             .catch(() => {});
         }

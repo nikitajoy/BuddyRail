@@ -12,7 +12,7 @@ class qualityController {
             await Package.addApplication(isAuthorized, isMic, games, languages, dateCreated, message)
             return res.status(200).json({ message: 'Application has been added.' })
         } catch (error) {
-            console.log(error);
+            console.log('addApplication error: ', error);
             return res.status(500).json({ message: "Error occurred." })
      
         }
@@ -26,7 +26,7 @@ class qualityController {
             let languages = await Package.getLanguages()
             return res.status(200).json({ games, languages })
         } catch (error) {
-            console.log(error);
+            console.log('getInputDate error: ', error);
             return res.status(500).json({ message: "Error occurred." })
      
         }
@@ -38,12 +38,25 @@ class qualityController {
 
             const {isAuthorized, languages, games, isMic} = req.query
             const applications = await Package.getApplications(isAuthorized, languages, games, isMic)
+            const languagesFromDatabase = await Package.getLanguages()
+            const gamesFromDatabase = await Package.getGames()
 
-            return res.status(200).json({ applications })
+
+            const filteredApplications = applications.map((application)=> {
+               let languagesSorted =  languagesFromDatabase.filter((elDb) => application.languages.includes(elDb.id_language))
+               application.languages = languagesSorted
+
+               let gamesSorted =  gamesFromDatabase.filter((elDb) => application.games.includes(elDb.id_game))
+               application.games = gamesSorted
+               
+               return application
+            })
+
+            return res.status(200).json({ filteredApplications })
         } catch (error) {
-            console.log(error);
+            console.log('getApplications error:', error);
+
             return res.status(500).json({ message: "Error occurred." })
-     
         }
     }
 
