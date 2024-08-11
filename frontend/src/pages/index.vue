@@ -4,8 +4,9 @@
   <h1 class="text-center">Main page</h1>
   <ApplicationForm :games="games" :languages="languages"/>
   <h2 class="text-center">Buddies page</h2>
-
-
+  <v-btn @click="open = true">open</v-btn>
+  {{ open }}
+  <BuddyApplication v-model="open" />
   <BuddiesList :applications="applications" /> 
   <BuddiesFilter :games="games" :languages="languages" @setApplications="setApplications"/>
   <AppFooter />
@@ -21,6 +22,7 @@ export default {
       games: [],
       languages: [],
       applications: [],
+      open: false,
     }
   },
   methods: {
