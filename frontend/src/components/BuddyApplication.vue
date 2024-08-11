@@ -2,7 +2,7 @@
 <div>
   <v-dialog 
     type="text"
-    v-model="value"
+    v-model="isDialog"
     transition="scroll-x-transition"
     width="auto"
     >
@@ -11,16 +11,16 @@
         prepend-icon="mdi-progress-check"
         title="Application of buddy"
       >
-        <v-form >
+        <v-form>
+          {{ buddyInfo }}
             <v-container>
-            <v-row>content</v-row>
               <div>
               <v-btn
                 color="red"
                 variant="tonal"
                 class="ms-auto mr-5"
                 text="Cancel"
-                @click="value = false"
+                @click="isDialog = false"
               ></v-btn>
               </div>
           </v-container>
@@ -33,15 +33,18 @@
 
 <script>
 export default {
-    props: ['modelValue'],
+    props: {
+      modelValue: Boolean,
+      buddyInfo: Object
+    },
     emits: ['update:modelValue'],
     computed: {
-      value: {
+      isDialog: {
         get() {
           return this.modelValue
         },
-        set(value) {
-          this.$emit('update:modelValue', value)
+        set(isDialog) {
+          this.$emit('update:modelValue', isDialog)
         }
       }
     }

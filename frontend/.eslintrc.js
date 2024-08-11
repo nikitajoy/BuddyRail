@@ -1,5 +1,8 @@
 module.exports = {
   root: true,
+  rules: {
+    "vue/no-v-model-argument": "off"
+  },
   env: {
     node: true,
   },
