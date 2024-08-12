@@ -12,8 +12,10 @@
         title="Application of buddy"
       >
         <v-form>
-          {{buddyInfo}}
             <v-container>
+              <pre>
+                {{buddyInfo}}
+              </pre>
               <div>
               <v-btn
                 color="red"

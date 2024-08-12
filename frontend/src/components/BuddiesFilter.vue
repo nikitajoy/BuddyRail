@@ -19,6 +19,16 @@
             hide-details 
             class="ma-0 pa-0"></v-checkbox>
         </v-col>
+
+        <v-col cols="10" class="mx-auto">
+            <v-select
+                variant="outlined"
+                label="Does your buddy have a microphone?"
+                :items="['Both', 'No microphone', 'Has microphone']"
+                v-model="applicationFilter.buddyMicrophone"
+            ></v-select>
+        </v-col>
+
         <v-col cols="10" class="mx-auto">
             <v-autocomplete
             autocomplete="off"
@@ -62,6 +72,7 @@ export default {
         return {
             applicationFilter: {
               isMic: true,
+              buddyMicrophone: 'Has microphone',
               isAuthorized: false,
               chosenGames :[],
               chosenLanguages: [],
@@ -82,7 +93,8 @@ export default {
                     isAuthorized: this.applicationFilter.isAuthorized,
                     languages: this.applicationFilter.chosenLanguages,
                     games: this.applicationFilter.chosenGames,
-                    isMic: this.applicationFilter.isMic
+                    isMic: this.applicationFilter.isMic,
+                    buddyMicrophone: this.applicationFilter.buddyMicrophone
                 }
             })
             .then((response) => {

@@ -36,11 +36,11 @@ class qualityController {
     async getApplications(req, res) {
         try {  
 
-            const {isAuthorized, languages, games, isMic} = req.query
-            const applications = await Package.getApplications(isAuthorized, languages, games, isMic)
+            const {isAuthorized, languages, games, isMic, buddyMicrophone} = req.query
+            const applications = await Package.getApplications(isAuthorized, languages, games, isMic, buddyMicrophone)
             const languagesFromDatabase = await Package.getLanguages()
             const gamesFromDatabase = await Package.getGames()
-
+            console.log(applications);
 
             const filteredApplications = applications.map((application)=> {
                let languagesSorted =  languagesFromDatabase.filter((elDb) => application.languages.includes(elDb.id_language))
