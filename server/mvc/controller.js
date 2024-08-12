@@ -36,10 +36,10 @@ class qualityController {
     async getApplications(req, res) {
         try {  
 
-            const {isAuthorized, languages, games, isMic, buddyMicrophone, currentPage, totalPages} = req.query
+            const {isAuthorized, languages, games, isMic, buddyMicrophone, currentPage} = req.query
             const maxApplications = 5;
 
-            const applications = await Package.getApplications(isAuthorized, languages, games, isMic, buddyMicrophone)
+            const applications = await Package.getApplications(isAuthorized, languages, games, isMic, buddyMicrophone, currentPage, maxApplications)
             const languagesFromDatabase = await Package.getLanguages()
             const gamesFromDatabase = await Package.getGames()
 

@@ -1,5 +1,15 @@
 <template>
 
+<div>
+    current: {{ applicationFilter.currentPage }}
+    total: {{ applicationFilter.totalPages }}
+        <v-pagination
+      v-model="applicationFilter.currentPage"
+      :total-visible="1"
+      :length="applicationFilter.totalPages"
+      rounded="circle"
+    ></v-pagination>
+
 
 <v-sheet :min-height="100" :max-width="600" border rounded class="mx-auto ma-5">
     <v-row>
@@ -59,16 +69,11 @@
         <v-col cols="10" class="justify-center">
             <v-btn  class="mx-auto" color="green" @click="applyFilter">Apply</v-btn>
         </v-col>
-current: {{ applicationFilter.currentPage }}
-total: {{ applicationFilter.totalPages }}
-        <v-pagination
-      v-model="applicationFilter.currentPage"
-      :total-visible="1"
-      :length="applicationFilter.totalPages"
-      rounded="circle"
-    ></v-pagination>
+
     </v-row>
 </v-sheet>
+
+</div>
 
 </template>
 
@@ -84,8 +89,8 @@ export default {
               isAuthorized: false,
               chosenGames :[],
               chosenLanguages: [],
-              currentPage: 1,
-              totalPages: 1,
+              currentPage: 3,
+              totalPages: 4,
             },
             applications: [],
         }
@@ -95,6 +100,7 @@ export default {
     },
     methods: {
         applyFilter() {
+            console.log('called');
             httpServer
             .get("/getApplications", 
             {
@@ -106,7 +112,6 @@ export default {
                     isMic: this.applicationFilter.isMic,
                     buddyMicrophone: this.applicationFilter.buddyMicrophone,
                     currentPage: this.applicationFilter.currentPage,
-                    totalPages: this.applicationFilter.totalPages,
                 }
             })
             .then((response) => {
@@ -124,7 +129,13 @@ export default {
             handler(newApplication) {
                 this.$emit('setApplications', newApplication)
             },
-         }
+         },
+         applicationFilter: {
+            handler() {
+                this.applyFilter();
+            },
+            deep: true
+        }
     }
 }
 </script>

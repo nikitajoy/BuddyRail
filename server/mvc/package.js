@@ -14,7 +14,7 @@ const knex = require("knex")({
 exports.addApplication = async (isAuthorized, isMic, games, languages, dateCreated, message, buddyMicrophone) =>
     knex("user_applications").insert({is_authorized: isAuthorized, is_mic: isMic, games: games, languages: languages, date_created: dateCreated, message: message, is_buddy_mic: buddyMicrophone})
 
-exports.getApplications = async (isAuthorized, languages, games, isMic, buddyMicrophone) => 
+exports.getApplications = async (isAuthorized, languages, games, isMic, buddyMicrophone, currentPage, maxApplications) => 
     knex("user_applications").select()
     .where((filter) => {
         filter.where('is_authorized', isAuthorized)
@@ -38,11 +38,10 @@ exports.getApplications = async (isAuthorized, languages, games, isMic, buddyMic
         if(buddyMicrophone === 'No microphone') {
             filter.where('is_mic', false);
         }
-
-
       })
+      .orderBy('id_application', 'desc').offset((currentPage - 1) * maxApplications).limit(Number(maxApplications))
 
-      
+
 
 
 exports.getGames = async () => knex("games").select().orderBy('order');
