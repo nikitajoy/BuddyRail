@@ -43,6 +43,14 @@
                       ></v-autocomplete>
                   </v-col>
                   <v-col cols="12">
+                    <v-select
+                      variant="outlined"
+                      label="Does your buddy have a microphone?"
+                      :items="['Both', 'No microphone', 'Has microphone']"
+                      v-model="applicationData.buddyMicrophone"
+                    ></v-select>
+                  </v-col>
+                  <v-col cols="12">
                     <v-text-field
                       autocomplete="off"
                       v-model="applicationData.message"
@@ -58,12 +66,12 @@
                   <v-col cols="12" >
                     <v-checkbox class="ma-0 pa-0"
                     hide-details
-                    label="Does your buddy have to have a microphone?" 
+                    label="Do you have a microphone?" 
                     v-model="applicationData.isMic" 
                     color="yellow"></v-checkbox>
                     <v-checkbox 
                     hide-details class="ma-0 pa-0"
-                    label="Does your buddy have to be authorized to see your application?" 
+                    label="Does your buddy have to be authorize through discord to connect you?" 
                     v-model="applicationData.isAuthorized" 
                     color="yellow"></v-checkbox>
                   </v-col>
@@ -114,6 +122,7 @@ export default {
               isAuthorized: false,
               chosenGames :[],
               chosenLanguages: [],
+              buddyMicrophone: 'Has microphone'
             },
         }
     },
@@ -130,6 +139,7 @@ export default {
               isAuthorized: false,
               chosenGames :[],
               chosenLanguages: [],
+              buddyMicrophone: 'Has microphone',
             };
         },
         saveApplication(event) {
@@ -144,6 +154,7 @@ export default {
               isMic: this.applicationData.isMic,
               games: this.applicationData.chosenGames,
               languages: this.applicationData.chosenLanguages,
+              buddyMicrophone: this.applicationData.buddyMicrophone,
               message: this.applicationData.message,})
             .then(() => {
               this.dialog = false

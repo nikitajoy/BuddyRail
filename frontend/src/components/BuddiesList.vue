@@ -68,12 +68,12 @@ export default {
 
 <style scoped>
 .main-train{
-     width: 18%;
-     height: 15%; 
+     width: 7%;
+     height: 5%; 
 }
 .second-train {
-    width: 15%;
-    height: 15%;
+    width: 5%;
+    height: 5%;
     cursor: pointer;
 }
 

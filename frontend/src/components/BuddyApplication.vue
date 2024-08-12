@@ -8,19 +8,25 @@
     >
       <v-card
         max-width="600"
-        prepend-icon="mdi-progress-check"
+        prepend-icon="mdi-information-variant-box"
         title="Application of buddy"
       >
         <v-form>
-          {{ buddyInfo }}
+          {{buddyInfo}}
             <v-container>
               <div>
               <v-btn
                 color="red"
                 variant="tonal"
                 class="ms-auto mr-5"
-                text="Cancel"
+                text="Close"
                 @click="isDialog = false"
+              ></v-btn>
+              <v-btn
+                color="green"
+                variant="tonal"
+                class="ms-auto mr-5"
+                text="Connect"
               ></v-btn>
               </div>
           </v-container>

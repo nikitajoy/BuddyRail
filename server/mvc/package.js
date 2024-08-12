@@ -11,8 +11,8 @@ const knex = require("knex")({
 
 
 
-exports.addApplication = async (isAuthorized, isMic, games, languages, dateCreated, message) =>
-    knex("user_applications").insert({is_authorized: isAuthorized, is_mic: isMic, games: games, languages: languages, date_created: dateCreated, message: message})
+exports.addApplication = async (isAuthorized, isMic, games, languages, dateCreated, message, buddyMicrophone) =>
+    knex("user_applications").insert({is_authorized: isAuthorized, is_mic: isMic, games: games, languages: languages, date_created: dateCreated, message: message, is_buddy_mic: buddyMicrophone})
 
 exports.getApplications = async (isAuthorized, languages, games, isMic) => 
     knex("user_applications").select()
