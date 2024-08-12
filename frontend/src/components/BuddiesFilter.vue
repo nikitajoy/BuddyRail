@@ -59,6 +59,14 @@
         <v-col cols="10" class="justify-center">
             <v-btn  class="mx-auto" color="green" @click="applyFilter">Apply</v-btn>
         </v-col>
+current: {{ applicationFilter.currentPage }}
+total: {{ applicationFilter.totalPages }}
+        <v-pagination
+      v-model="applicationFilter.currentPage"
+      :total-visible="1"
+      :length="applicationFilter.totalPages"
+      rounded="circle"
+    ></v-pagination>
     </v-row>
 </v-sheet>
 
@@ -76,6 +84,8 @@ export default {
               isAuthorized: false,
               chosenGames :[],
               chosenLanguages: [],
+              currentPage: 1,
+              totalPages: 1,
             },
             applications: [],
         }
@@ -94,7 +104,9 @@ export default {
                     languages: this.applicationFilter.chosenLanguages,
                     games: this.applicationFilter.chosenGames,
                     isMic: this.applicationFilter.isMic,
-                    buddyMicrophone: this.applicationFilter.buddyMicrophone
+                    buddyMicrophone: this.applicationFilter.buddyMicrophone,
+                    currentPage: this.applicationFilter.currentPage,
+                    totalPages: this.applicationFilter.totalPages,
                 }
             })
             .then((response) => {
