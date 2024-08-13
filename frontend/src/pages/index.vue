@@ -1,12 +1,12 @@
 <template>
 <div>
   <AppNavbar />
-  <h1 class="text-center">Main page</h1>
+  <MainTitle >Find your perfect teammate on BuddyRail</MainTitle>
   <ApplicationForm :games="games" :languages="languages"/>
   <h2 class="text-center">Buddies page</h2>
-
   <BuddiesList :applications="applications" /> 
   <BuddiesFilter :games="games" :languages="languages" @setApplications="setApplications"/>
+  <HowToUse/>
   <AppFooter />
 </div>
 </template>
