@@ -41,7 +41,33 @@ exports.getApplications = async (isAuthorized, languages, games, isMic, buddyMic
       })
       .orderBy('id_application', 'desc').offset((currentPage - 1) * maxApplications).limit(Number(maxApplications))
 
-
+exports.countApplications = async (isAuthorized, languages, games, isMic, buddyMicrophone, currentPage, maxApplications) => 
+    knex("user_applications").select()
+    .where((filter) => {
+        filter.where('is_authorized', isAuthorized)
+        if(languages && languages.length > 0) {
+            filter.whereRaw(`languages && ARRAY[${languages}]::integer[]`)
+        }
+        if(games && games.length > 0) {
+            filter.whereRaw(`games && ARRAY[${games}]::integer[]`)
+        }
+        if(isMic === 'true') {
+            filter.whereIn('is_buddy_mic', ['Has microphone', 'Both'])
+        } else {
+            filter.whereIn('is_buddy_mic', ['No microphone', 'Both'])
+        }
+        if (buddyMicrophone === 'Has microphone') {
+            filter.where('is_mic', true);
+        } 
+        if(buddyMicrophone === 'Both'){
+            filter.whereIn('is_mic', [true,false]);
+        }
+        if(buddyMicrophone === 'No microphone') {
+            filter.where('is_mic', false);
+        }
+        })
+    .count('id_application', 'totalPages')
+    .groupBy('id_application')
 
 
 exports.getGames = async () => knex("games").select().orderBy('order');

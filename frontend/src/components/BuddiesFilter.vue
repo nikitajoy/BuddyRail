@@ -4,8 +4,8 @@
     <v-row class="justify-center ga-5">
         <v-btn 
         class="bg-cyan-darken-1" 
-        :class="applicationFilter.currentPage == 1 ? 'bg-grey-darken-4 opacity-10' : ''"
-        :disabled="applicationFilter.currentPage == 1"
+        :class="applicationFilter.currentPage == 1 || applicationFilter.currentPage == 0 ? 'bg-grey-darken-4 opacity-10' : ''"
+        :disabled="applicationFilter.currentPage == 1 || applicationFilter.currentPage == 0"
         @click="decreaseCounter">Prev</v-btn>
         <v-btn 
         class="bg-pink-accent-2" 
@@ -14,7 +14,7 @@
         :disabled="applicationFilter.currentPage == applicationFilter.totalPages"
         >Next</v-btn>
     </v-row>
-
+{{ applicationFilter.totalPages }}
 
     {{ applicationFilter.currentPage }}
 
@@ -131,6 +131,11 @@ export default {
                 }
             })
             .then((response) => {
+                if(this.applicationFilter.totalPages != response.data.totalPages) {
+                    this.applicationFilter.currentPage = 1
+                    this.applicationFilter.totalPages = response.data.totalPages
+                    this.applicationFilter.totalPages == 0 ? this.applicationFilter.currentPage = 0 : ''
+                }
                 this.applications = response.data.filteredApplications;
             })
             .catch(() => {});
