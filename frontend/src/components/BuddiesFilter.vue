@@ -1,14 +1,29 @@
 <template>
 
 <div>
-    current: {{ applicationFilter.currentPage }}
-    total: {{ applicationFilter.totalPages }}
-        <v-pagination
+    <v-row class="justify-center ga-5">
+        <v-btn 
+        class="bg-cyan-darken-1" 
+        :class="applicationFilter.currentPage == 1 ? 'bg-grey-darken-4 opacity-10' : ''"
+        :disabled="applicationFilter.currentPage == 1"
+        @click="decreaseCounter">Prev</v-btn>
+        <v-btn 
+        class="bg-pink-accent-2" 
+        @click="increaseCounter"
+        :class="applicationFilter.totalPages == applicationFilter.currentPage ? 'bg-grey-darken-4 opacity-10' : ''"
+        :disabled="applicationFilter.currentPage == applicationFilter.totalPages"
+        >Next</v-btn>
+    </v-row>
+
+
+    {{ applicationFilter.currentPage }}
+
+    <!-- <v-pagination
       v-model="applicationFilter.currentPage"
       :total-visible="1"
       :length="applicationFilter.totalPages"
       rounded="circle"
-    ></v-pagination>
+    ></v-pagination> -->
 
 
 <v-sheet :min-height="100" :max-width="600" border rounded class="mx-auto ma-5">
@@ -66,11 +81,12 @@
             variant="outlined"
             ></v-autocomplete>
         </v-col>
-        <v-col cols="10" class="justify-center">
-            <v-btn  class="mx-auto" color="green" @click="applyFilter">Apply</v-btn>
-        </v-col>
+
 
     </v-row>
+        <!-- <v-row class="justify-center ma-0 mb-2">
+            <v-btn  class="mx-auto" color="green" @click="applyFilter">Apply</v-btn>
+        </v-row> -->
 </v-sheet>
 
 </div>
@@ -118,6 +134,12 @@ export default {
                 this.applications = response.data.filteredApplications;
             })
             .catch(() => {});
+        },
+        decreaseCounter() {
+            this.applicationFilter.currentPage--
+        },
+        increaseCounter() {
+            this.applicationFilter.currentPage++
         }
     },
     props: {
