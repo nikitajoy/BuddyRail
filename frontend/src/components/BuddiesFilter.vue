@@ -102,8 +102,8 @@ export default {
               isAuthorized: false,
               chosenGames :[],
               chosenLanguages: [],
-              currentPage: 3,
-              totalPages: 4,
+              currentPage: 1,
+              totalPages: 1,
             },
             applications: [],
         }
