@@ -4,19 +4,16 @@
     <v-row class="justify-center ga-5">
         <v-btn 
         class="bg-cyan-darken-1" 
-        :class="applicationFilter.currentPage == 1 || applicationFilter.currentPage == 0 ? 'bg-grey-darken-4 opacity-10' : ''"
+        :class="prevBtnStyles"
         :disabled="applicationFilter.currentPage == 1 || applicationFilter.currentPage == 0"
         @click="decreaseCounter">Prev</v-btn>
         <v-btn 
         class="bg-pink-accent-2" 
         @click="increaseCounter"
-        :class="applicationFilter.totalPages == applicationFilter.currentPage ? 'bg-grey-darken-4 opacity-10' : ''"
+        :class="nextBtnStyles"
         :disabled="applicationFilter.currentPage == applicationFilter.totalPages"
         >Next</v-btn>
     </v-row>
-{{ applicationFilter.totalPages }}
-
-    {{ applicationFilter.currentPage }}
 
     <!-- <v-pagination
       v-model="applicationFilter.currentPage"
@@ -116,7 +113,6 @@ export default {
     },
     methods: {
         applyFilter() {
-            console.log('called');
             httpServer
             .get("/getApplications", 
             {
@@ -162,6 +158,20 @@ export default {
                 this.applyFilter();
             },
             deep: true
+        }
+    },
+    computed: {
+        prevBtnStyles() {
+            let btnClasses = ''
+            this.applicationFilter.currentPage == 1 ? btnClasses = 'bg-grey-darken-4 opacity-10' : ''
+            this.applicationFilter.currentPage == 0 ? btnClasses = 'd-none' : ''
+            return btnClasses
+        },
+        nextBtnStyles() {
+            let btnClasses = ''
+            this.applicationFilter.currentPage == this.applicationFilter.totalPages ? btnClasses = 'bg-grey-darken-4 opacity-10' : ''
+            this.applicationFilter.totalPages == 0 ? btnClasses = 'd-none' : ''
+            return btnClasses
         }
     }
 }
