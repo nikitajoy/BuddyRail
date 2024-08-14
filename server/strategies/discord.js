@@ -1,5 +1,6 @@
 const passport = require('passport');
-console.log(__dirname + '../');
+const Package = require("../mvc/package")
+
 const path = require('path')
 
 require("dotenv").config({path: path.resolve(__dirname, '../.env')});
@@ -14,5 +15,18 @@ passport.use(new Strategy({
 }, async(accessToken, refreshToken, profile, done)=> {
 console.log(accessToken, refreshToken);
 console.log(profile);
+
+
+const discordUser = await Package.getUser(profile.id)
+
+if(!discordUser[0]) {
+    await Package.addUser(profile.id, profile.avatar, profile.username);
+    done(null, discordUser)
+} else {
+    await Package.updateUser(profile.id, profile.avatar,  profile.username);
+    done(null, discordUser)
+}
+
+
 }
 ))
