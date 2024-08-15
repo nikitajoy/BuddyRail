@@ -72,3 +72,13 @@ exports.countApplications = async (isAuthorized, languages, games, isMic, buddyM
 
 exports.getGames = async () => knex("games").select().orderBy('order');
 exports.getLanguages = async () => knex("languages").select();
+
+
+exports.addUser = async (id_discord,avatar, username) =>
+    knex("users").insert({id_discord,avatar, username})
+
+exports.getUser = async (idUser) =>
+    knex("users").select().where('id_discord', idUser)
+
+exports.updateUser = async (id_discord,avatar, username) =>
+    knex("users").update({avatar, username}).where('id_discord', id_discord)

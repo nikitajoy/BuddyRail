@@ -66,6 +66,15 @@ class qualityController {
     }
 
 
+
+    async discordRedirect(req, res) {
+        try {
+            res.redirect(`http://localhost:3000`);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 }
 
 module.exports = new qualityController();
