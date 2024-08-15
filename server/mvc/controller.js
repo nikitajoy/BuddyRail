@@ -1,9 +1,26 @@
 const { response } = require("express");
 const Package = require("./package")
 const router = require("./router")
+const path = require('path')
 
+require("dotenv").config({path: path.resolve(__dirname, '../.env')});
 
 class qualityController {
+
+
+    isAuthenticated = async (req, res, next) => {
+        console.log('starting authentication...');
+        console.log('user is', req.user);
+        if (req.isAuthenticated()) {
+            console.log('user is', req.user);
+            // res.locals.user = await PackageAuth.checkUser(req.user);
+            // console.log(`success auth of ${req.user}`)
+            return next();
+        }
+        console.log('not authenticated')
+        res.status(401).send('Unauthorized');
+    };
+
     async addApplication(req, res) {
         try {
             const {isAuthorized, isMic, games, languages, message, buddyMicrophone} = req.body
@@ -69,7 +86,7 @@ class qualityController {
 
     async discordRedirect(req, res) {
         try {
-            res.redirect(`http://localhost:3000`);
+            res.redirect(`${process.env.START_PAGE}`);
         } catch (error) {
             console.log(error);
         }

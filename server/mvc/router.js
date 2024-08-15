@@ -4,7 +4,7 @@ const controller = require("./controller");
 const passport = require("passport");
 
 
-router.get("/getApplications", controller.getApplications);
+router.get("/getApplications",controller.isAuthenticated ,controller.getApplications);
 router.get("/getInputData", controller.getInputData);
 
 router.post("/addApplication", controller.addApplication);
