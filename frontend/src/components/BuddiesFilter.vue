@@ -36,7 +36,7 @@
         <v-col cols="10" class="mx-auto ma-0 pa-0">
             <v-checkbox 
              v-model="applicationFilter.isAuthorized"
-            label="Show discord defended applications" 
+            label="Discord protection" 
             color="yellow" 
             hide-details 
             class="ma-0 pa-0"></v-checkbox>

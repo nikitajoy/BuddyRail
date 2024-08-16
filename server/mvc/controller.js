@@ -9,24 +9,25 @@ class qualityController {
 
 
     isAuthenticated = async (req, res, next) => {
-        console.log('starting authentication...');
-        console.log('user is', req.user);
+
         if (req.isAuthenticated()) {
             console.log('user is', req.user);
-            // res.locals.user = await PackageAuth.checkUser(req.user);
-            // console.log(`success auth of ${req.user}`)
+            res.locals.user = await Package.getUser(req.user);
+            console.log('locals:', res.locals.user);
             return next();
         }
-        console.log('not authenticated')
         res.status(401).send('Unauthorized');
     };
-
+    returnUser = async(req,res) => {
+        return res.status(200).json(res.locals.user[0])
+    }
     async addApplication(req, res) {
         try {
             const {isAuthorized, isMic, games, languages, message, buddyMicrophone} = req.body
+            
             const dateCreated = new Date()
             
-            await Package.addApplication(isAuthorized, isMic, games, languages, dateCreated, message, buddyMicrophone)
+            await Package.addApplication(isAuthorized, isMic, games, languages, dateCreated, message, buddyMicrophone, res.locals.user[0].id_user)
             return res.status(200).json({ message: 'Application has been added.' })
         } catch (error) {
             console.log('addApplication error: ', error);
