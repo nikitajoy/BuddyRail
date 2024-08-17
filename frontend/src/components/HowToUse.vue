@@ -10,13 +10,13 @@
                 max-width="600"
             >
             <v-card-title class="text-wrap text-center">Making your own application</v-card-title>
-            <v-list :items="stepsOwnApplication" class="full-width-text">
-                <v-list-item v-for="(item, index) in stepsOwnApplication" :key="index">
-                    <v-list-item-content>
-                    <v-list-item-title class="full-width-text">{{ item.title }}</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-            </v-list>
+                <v-list :items="stepsOwnApplication" class="full-width-text">
+                    <v-list-item v-for="(item, index) in stepsOwnApplication" :key="index">
+                        <v-list-item-content>
+                        <v-list-item-title class="full-width-text">{{ item.title }}</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-list>
             </v-card>
 
             <v-card
@@ -24,7 +24,13 @@
                 max-width="600"
             >
             <v-card-title class="text-wrap text-center">Checking existing applications</v-card-title>
-                <v-list class="text-wrap full-width-text" :items="stepsCheckingApplications"></v-list>
+                <v-list :items="stepsCheckingApplications" class="full-width-text">
+                <v-list-item v-for="(item, index) in stepsCheckingApplications" :key="index">
+                    <v-list-item-content>
+                    <v-list-item-title class="full-width-text">{{ item.title }}</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+                </v-list>
             </v-card>
 </v-row>
 
@@ -41,11 +47,11 @@ export default {
         return {
             stepsOwnApplication: [
                 {
-                title: '1. Click at create application under this form',
+                title: '1. Click "create application" below this form',
                 value: 1,
                 },
                 {
-                title: '2. Fill in application form',
+                title: '2. Fill out the application form',
                 value: 2,
                 },
                 {
@@ -59,18 +65,18 @@ export default {
             ],
             stepsCheckingApplications: [
                 {
-                title: '1. Apply filters with your preferences',
+                title: '1. Apply filters based on your preferences',
                 value: 1,
                 },
                 {
-                title: '2. Swap through applications to find your perfect buddy',
+                title: '2. Browse through applications to find your buddy',
                 value: 2,
                 },
                 {
-                title: '3. After you find somebody you liked, click at connect through discord',
+                title: '3. Find someone you like, click to connect',
                 value: 3,
                 }, {
-                title: '4. Write a message to your buddy and have fun together!',
+                title: '4. Message your buddy and have fun!',
                 value: 4,
                 },
             ],
