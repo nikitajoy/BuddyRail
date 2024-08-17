@@ -12,7 +12,7 @@ export default {
     },
     methods: {
         invokeDialog() {
-            this.$emit('invokeDialog', 'hello from child')
+            this.$emit('invokeDialog', true)
         }
     },
     props :{

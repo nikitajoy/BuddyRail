@@ -35,7 +35,8 @@
         </v-col>
         <v-col cols="10" class="mx-auto ma-0 pa-0">
             <v-switch 
-             v-model="applicationFilter.isAuthorized"
+            @click="checkAuth"
+            v-model="applicationFilter.isAuthorized"
             label="Discord protection" 
             color="yellow" 
             hide-details 
@@ -112,6 +113,14 @@ export default {
         this.applyFilter();
     },
     methods: {
+        checkAuth() {
+            if(!this.isAuthorized) {
+                setTimeout(() => {
+                    this.applicationFilter.isAuthorized = false 
+                }, 200);
+                this.$emit('callDiscord', true)
+            }
+        },
         applyFilter() {
             httpServer
             .get("/getApplications", 
@@ -146,6 +155,7 @@ export default {
     props: {
         games: Array,
         languages: Array,
+        isAuthorized: Boolean,
     },
     watch: {
         applications: {

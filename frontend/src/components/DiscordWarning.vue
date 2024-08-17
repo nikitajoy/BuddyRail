@@ -1,7 +1,7 @@
 <template>
     <div class="text-center pa-4">
-      <v-dialog
-        v-model="authorizeDialog"
+      <v-dialog style="z-index: 2000;"
+        v-model="discordDialog"
         max-width="400"
         persistent
       >
@@ -13,7 +13,7 @@
           <template v-slot:actions>
             <v-spacer></v-spacer>
 
-            <v-btn @click="closeDialogs">
+            <v-btn @click="this.$emit('update:modelValue', false)">
               Close
             </v-btn>
 
@@ -31,10 +31,19 @@
 <script>
 
 export default {
-data() {
-    return {
-
+    props: {
+      modelValue: Boolean,
+    },
+    emits: ['update:modelValue'],
+    computed: {
+        discordDialog: {
+        get() {
+          return this.modelValue
+        },
+        set(discordDialog) {
+          this.$emit('update:modelValue', discordDialog)
+        }
+      }
     }
-}
 }
 </script>
