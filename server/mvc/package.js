@@ -39,7 +39,10 @@ exports.getApplications = async (isAuthorized, languages, games, isMic, buddyMic
             filter.where('is_mic', false);
         }
       })
+      .innerJoin('users', 'user_applications.id_user', '=', 'users.id_user')
       .orderBy('id_application', 'desc').offset((currentPage - 1) * maxApplications).limit(Number(maxApplications))
+
+
 
 exports.countApplications = async (isAuthorized, languages, games, isMic, buddyMicrophone, currentPage, maxApplications) => 
     knex("user_applications").select()

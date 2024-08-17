@@ -9,27 +9,49 @@
       <v-card
         max-width="600"
         prepend-icon="mdi-information-variant-box"
-        title="Application of buddy"
-      >
+        :title="`Application of ${buddyNickname}`">
         <v-form>
             <v-container>
-              <pre>
+              <div><span class="text-h6">Message:</span> {{ buddyInfo.message ? buddyInfo.message : 'empty' }}</div>
+              <div><span class="text-h6">Date of application:</span> {{ dateFormatted }}</div>
+              <div>
+                <span class="text-h6 mr-3 d-inline">Preferred languages:</span>
+                <v-chip-group>
+                   <v-chip v-for="(language, index) in buddyInfo.languages" :key="index">{{language.language_name}}</v-chip>
+                </v-chip-group>
+              </div>
+              <div>
+                <span class="text-h6 mr-3 d-inline">Preferred videogames:</span>
+                <v-chip-group>
+                   <v-chip v-for="(game, index) in buddyInfo.games" :key="index">{{game.name_game}}</v-chip>
+                </v-chip-group>
+              </div>
+              <div>
+                <span class="text-h6 mr-3 d-inline">Microphone:</span>
+                {{ buddyInfo.is_mic ? 'Has microphone' : 'No microphone' }}
+              </div>
+              <div>
+                <span class="text-h6 mr-3 d-inline">Microphone preference:</span>
+                {{ preferredMicrophone }}
+              </div>
+              <!-- <pre>
                 {{buddyInfo}}
-              </pre>
+              </pre> -->
               <div>
               <v-btn
                 color="red"
                 variant="tonal"
-                class="ms-auto mr-5"
+                class="ms-auto mr-5 mt-5"
                 text="Close"
                 @click="isDialog = false"
               ></v-btn>
               <v-btn
                 color="green"
                 variant="tonal"
-                class="ms-auto mr-5"
-                text="Connect"
-              ></v-btn>
+                class="ms-auto mr-5 mt-5"
+              >
+              <a target="blank" :href="`https://discordapp.com/users/${buddyInfo.id_discord}`">Contact</a>
+            </v-btn>
               </div>
           </v-container>
         </v-form>
@@ -54,7 +76,30 @@ export default {
         set(isDialog) {
           this.$emit('update:modelValue', isDialog)
         }
+      },
+      dateFormatted() {
+        return new Intl.DateTimeFormat('en-GB', {
+          dateStyle: 'full',
+          timeStyle: 'short',
+        }).format(new Date(this.buddyInfo.date_created));
+      },
+      buddyNickname() {
+        return this.buddyInfo.username.charAt(0).toUpperCase() + this.buddyInfo.username.slice(1);
+      },
+      preferredMicrophone() {
+        switch (this.buddyInfo.is_buddy_mic) {
+          case 'Has microphone':
+            return 'Prefers to play with buddy who has a mic'
+          case 'No microphone':
+            return 'Prefers to play with buddy who does not have a mic'
+          case 'Both':
+            return 'Does not care whether the buddy has a mic or not'
+          default:
+            return 'Not chosen'
+        }
       }
+      
+
     }
 }
 </script>

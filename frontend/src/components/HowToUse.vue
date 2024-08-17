@@ -1,38 +1,36 @@
 <template>
     <v-sheet :min-height="100" :max-width="1200" border rounded class="mx-auto ma-5 pa-5">
         <h2 class="text-center">How to use BuddyRail</h2>
-        <div class="mt-2">
-            <h4>You can find your future friend by doing:</h4>
-           
-<v-row class="mt-5">
-    <v-card
-                class="mx-auto"
-                max-width="600"
-            >
-            <v-card-title class="text-wrap text-center">Making your own application</v-card-title>
-                <v-list :items="stepsOwnApplication" class="full-width-text">
-                    <v-list-item v-for="(item, index) in stepsOwnApplication" :key="index">
-                        <v-list-item-content>
-                        <v-list-item-title class="full-width-text">{{ item.title }}</v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
-                </v-list>
-            </v-card>
-
+        <div class="mt-2">           
+        <v-row class="mt-5">
             <v-card
-                class="mx-auto"
-                max-width="600"
-            >
-            <v-card-title class="text-wrap text-center">Checking existing applications</v-card-title>
-                <v-list :items="stepsCheckingApplications" class="full-width-text">
-                <v-list-item v-for="(item, index) in stepsCheckingApplications" :key="index">
-                    <v-list-item-content>
-                    <v-list-item-title class="full-width-text">{{ item.title }}</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-                </v-list>
-            </v-card>
-</v-row>
+                        class="mx-auto"
+                        max-width="600"
+                    >
+                    <v-card-title class="text-wrap text-center">Making your own application</v-card-title>
+                        <v-list :items="stepsOwnApplication" class="full-width-text">
+                            <v-list-item v-for="(item, index) in stepsOwnApplication" :key="index">
+                                <v-list-item-content>
+                                <v-list-item-title class="full-width-text">{{ item.title }}</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                        </v-list>
+                    </v-card>
+
+                    <v-card
+                        class="mx-auto"
+                        max-width="600"
+                    >
+                    <v-card-title class="text-wrap text-center">Checking existing applications</v-card-title>
+                        <v-list :items="stepsCheckingApplications" class="full-width-text">
+                        <v-list-item v-for="(item, index) in stepsCheckingApplications" :key="index">
+                            <v-list-item-content>
+                            <v-list-item-title class="full-width-text">{{ item.title }}</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                        </v-list>
+                    </v-card>
+        </v-row>
 
 
         </div>

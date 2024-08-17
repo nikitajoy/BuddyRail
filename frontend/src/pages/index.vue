@@ -7,7 +7,7 @@
   <MainTitle >Find your perfect teammate on BuddyRail</MainTitle>
   <DiscordWarning v-model="discordDialog" @closeApplicationDialog="discordDialog"/>
   <BuddiesList :applications="applications" :isListLoading="isListLoading"/> 
-  <BuddiesFilter :games="games" :languages="languages" @setApplications="setApplications" @callDiscord="callDiscord" @isLoading="isLoading"/>
+  <BuddiesFilter :games="games" :languages="languages" @setApplications="setApplications" @callDiscord="callDiscord" @isLoading="isLoading" :isAuthorized="isAuthorized"/>
   <HowToUse/>
   <ApplicationForm :games="games" :languages="languages" :isAuthorized="isAuthorized" :isDiscordDialog="discordDialog" @callDiscord="callDiscord"/>
   <AppFooter />
