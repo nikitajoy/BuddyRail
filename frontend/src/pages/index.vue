@@ -1,7 +1,9 @@
 <template>
 <div>
   <AppNavbar />
-  <v-btn><a href="http://localhost:5000/api/discord/auth/redirect">discord</a></v-btn> 
+  <v-btn color="#7289da"><a 
+    class="text-decoration-none	text-white"
+    href="http://localhost:5000/api/discord/auth/redirect">Contact</a></v-btn> 
   {{ isAuthorized ? 'Authorized' : 'Not authorized' }}, {{ authorizedUser }}
   <!-- the link will change to relative, once domain is bought -->
   <MainTitle >Find your perfect teammate on BuddyRail</MainTitle>

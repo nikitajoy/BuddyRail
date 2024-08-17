@@ -46,11 +46,13 @@
                 @click="isDialog = false"
               ></v-btn>
               <v-btn
-                color="green"
-                variant="tonal"
+                color="#7289da"
                 class="ms-auto mr-5 mt-5"
               >
-              <a target="blank" :href="`https://discordapp.com/users/${buddyInfo.id_discord}`">Contact</a>
+              <a 
+              target="blank" 
+              class="text-decoration-none	text-white"
+              :href="`https://discordapp.com/users/${buddyInfo.id_discord}`">Contact</a>
             </v-btn>
               </div>
           </v-container>

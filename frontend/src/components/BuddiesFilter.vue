@@ -1,7 +1,7 @@
 <template>
 
 <div>
-    <v-row class="justify-center ga-5">
+    <v-row class="justify-center ga-5 my-5">
         <v-btn 
         class="bg-cyan-darken-1" 
         :class="prevBtnStyles"

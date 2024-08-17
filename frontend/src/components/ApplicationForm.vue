@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center pa-4">
+  <div class="text-center mb-4">
     <ApplicationButton :message="'create application'" @invokeDialog="invokeDialog"/>
     <v-dialog transition="scroll-x-transition" style="z-index: 1;"
       v-model="dialog"

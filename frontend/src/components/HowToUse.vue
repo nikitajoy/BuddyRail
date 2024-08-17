@@ -45,15 +45,15 @@ export default {
         return {
             stepsOwnApplication: [
                 {
-                title: '1. Click "create application" below this form',
+                title: '1. Authorize with discord to make an application',
                 value: 1,
-                },
+                },    
                 {
-                title: '2. Fill out the application form',
+                title: '2. Click "create application" below this form',
                 value: 2,
                 },
                 {
-                title: '3. Authorize through discord to confirm creation',
+                title: '3. Fill out the application form',
                 value: 3,
                 },
                 {
@@ -71,10 +71,10 @@ export default {
                 value: 2,
                 },
                 {
-                title: '3. Find someone you like, click to connect',
+                title: '3. Find someone you like, click to contact',
                 value: 3,
                 }, {
-                title: '4. Message your buddy and have fun!',
+                title: '4. Message your buddy and have fun! ;D',
                 value: 4,
                 },
             ],
