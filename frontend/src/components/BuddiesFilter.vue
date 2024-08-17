@@ -26,20 +26,20 @@
 <v-sheet :min-height="100" :max-width="600" border rounded class="mx-auto ma-5">
     <v-row>
         <v-col cols="10" class="mx-auto ma-0 pa-0 mt-5">
-            <v-checkbox 
+            <v-switch 
             v-model="applicationFilter.isMic"
             label="Do you have a microphone?" 
             color="yellow" 
             hide-details 
-            class="ma-0 pa-0"></v-checkbox>
+            class="ma-0 pa-0"></v-switch>
         </v-col>
         <v-col cols="10" class="mx-auto ma-0 pa-0">
-            <v-checkbox 
+            <v-switch 
              v-model="applicationFilter.isAuthorized"
             label="Discord protection" 
             color="yellow" 
             hide-details 
-            class="ma-0 pa-0"></v-checkbox>
+            class="ma-0 pa-0"></v-switch>
         </v-col>
 
         <v-col cols="10" class="mx-auto">

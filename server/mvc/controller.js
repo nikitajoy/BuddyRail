@@ -56,11 +56,11 @@ class qualityController {
 
             let {isAuthorized, languages, games, isMic, buddyMicrophone, currentPage} = req.query
             currentPage == 0 ? currentPage = 1 : ''
-            const maxApplications = 5;
+            const maxApplications = 3;
 
             const applications = await Package.getApplications(isAuthorized, languages, games, isMic, buddyMicrophone, currentPage, maxApplications)
             let totalPages = await Package.countApplications(isAuthorized, languages, games, isMic, buddyMicrophone, currentPage, maxApplications)
-            totalPages = Math.ceil(totalPages.length / 5)
+            totalPages = Math.ceil(totalPages.length / maxApplications)
             const languagesFromDatabase = await Package.getLanguages()
             const gamesFromDatabase = await Package.getGames()
 

@@ -64,16 +64,16 @@
                     </span>
                   </v-col>
                   <v-col cols="12" >
-                    <v-checkbox class="ma-0 pa-0"
+                    <v-switch class="ma-0 pa-0"
                     hide-details
                     label="Do you have a microphone?" 
                     v-model="applicationData.isMic" 
-                    color="yellow"></v-checkbox>
-                    <v-checkbox 
+                    color="yellow"></v-switch>
+                    <v-switch 
                     hide-details class="ma-0 pa-0"
                     label="Does your buddy have to be authorize through discord to connect you?" 
                     v-model="applicationData.isAuthorized" 
-                    color="yellow"></v-checkbox>
+                    color="yellow"></v-switch>
                   </v-col>
               </v-row>
               <div>
@@ -96,6 +96,8 @@
         </v-form>
       </v-card>
     </v-dialog>
+    <DiscordWarning />
+
   </div>
 </template>
 
@@ -105,6 +107,7 @@ import {httpServer} from '@/main'
 export default {
     data() {
         return {
+          authorizeDialog: false,
             rules: {
               games: [
                 (v) =>  v.length>0 || "You have to choose at least 1 game",
@@ -129,10 +132,16 @@ export default {
     props: {
       games: Array,
       languages: Array,
+      isAuthorized: Boolean,
     },
     methods: {
         invokeDialog() {
             this.dialog = true;
+            
+            if(!this.isAuthorized) {
+              this.$emit('callDiscord', true)
+            }
+
             this.applicationData = {
               message: '',
               isMic: true,

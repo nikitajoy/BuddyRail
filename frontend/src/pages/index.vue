@@ -2,10 +2,10 @@
 <div>
   <AppNavbar />
   <v-btn><a href="http://localhost:5000/api/discord/auth/redirect">discord</a></v-btn> 
-  {{ isAuthorized }}, {{ authorizedUser }}
+  {{ isAuthorized ? 'Authorized' : 'Not authorized' }}, {{ authorizedUser }}
   <!-- the link will change to relative, once domain is bought -->
   <MainTitle >Find your perfect teammate on BuddyRail</MainTitle>
-  <ApplicationForm :games="games" :languages="languages"/>
+  <ApplicationForm :games="games" :languages="languages" :isAuthorized="isAuthorized" @callDiscord="callDiscord"/>
   <h2 class="text-center">Buddies page</h2>
   <BuddiesList :applications="applications" /> 
   <BuddiesFilter :games="games" :languages="languages" @setApplications="setApplications"/>
@@ -40,6 +40,9 @@ export default {
     setApplications (gottenApplications) {
       this.applications = gottenApplications
     },
+    callDiscord(value) {
+      this.discordDialog = true
+    },  
     checkAuth() {
           httpServer
             .get("/isAuthenticated")

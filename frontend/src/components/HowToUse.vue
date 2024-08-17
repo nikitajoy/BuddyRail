@@ -1,5 +1,5 @@
 <template>
-    <v-sheet :min-height="100" :max-width="900" border rounded class="mx-auto ma-5 pa-5">
+    <v-sheet :min-height="100" :max-width="1200" border rounded class="mx-auto ma-5 pa-5">
         <h2 class="text-center">How to use BuddyRail</h2>
         <div class="mt-2">
             <h4>You can find your future friend by doing:</h4>
@@ -7,7 +7,7 @@
 <v-row class="mt-5">
     <v-card
                 class="mx-auto"
-                max-width="300"
+                max-width="600"
             >
             <v-card-title class="text-wrap text-center">Making your own application</v-card-title>
             <v-list :items="stepsOwnApplication" class="full-width-text">
@@ -21,7 +21,7 @@
 
             <v-card
                 class="mx-auto"
-                max-width="300"
+                max-width="600"
             >
             <v-card-title class="text-wrap text-center">Checking existing applications</v-card-title>
                 <v-list class="text-wrap full-width-text" :items="stepsCheckingApplications"></v-list>
@@ -63,12 +63,15 @@ export default {
                 value: 1,
                 },
                 {
-                title: '2. Swap through traincarts to find your perfect buddy',
-                value: 1,
+                title: '2. Swap through applications to find your perfect buddy',
+                value: 2,
                 },
                 {
                 title: '3. After you find somebody you liked, click at connect through discord',
-                value: 1,
+                value: 3,
+                }, {
+                title: '4. Write a message to your buddy and have fun together!',
+                value: 4,
                 },
             ],
         }
