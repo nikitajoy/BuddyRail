@@ -107,6 +107,7 @@ export default {
               totalPages: 1,
             },
             applications: [],
+            isListLoading: false,
         }
     },
     mounted() {
@@ -122,6 +123,7 @@ export default {
             }
         },
         applyFilter() {
+            this.isListLoading = true
             httpServer
             .get("/getApplications", 
             {
@@ -142,8 +144,9 @@ export default {
                     this.applicationFilter.totalPages == 0 ? this.applicationFilter.currentPage = 0 : ''
                 }
                 this.applications = response.data.filteredApplications;
+                this.isListLoading = false;
             })
-            .catch(() => {});
+            .catch(() => {this.isListLoading=false;});
         },
         decreaseCounter() {
             this.applicationFilter.currentPage--
@@ -168,6 +171,11 @@ export default {
                 this.applyFilter();
             },
             deep: true
+        },
+        isListLoading : {
+            handler(val) {
+                this.$emit('isLoading', val)
+            }
         }
     },
     computed: {

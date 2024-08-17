@@ -7,8 +7,8 @@
       >
         <v-card
           prepend-icon="mdi-account-key"
-          text="You have to be authorized through discord to create applications."
-          title="Authorize through discord"
+          text="Authorize with Discord to create or view protected applications.."
+          title="Authorizing with discord"
         >
           <template v-slot:actions>
             <v-spacer></v-spacer>

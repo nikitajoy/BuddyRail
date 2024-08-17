@@ -8,8 +8,8 @@
   <DiscordWarning v-model="discordDialog"/>
   <ApplicationForm :games="games" :languages="languages" :isAuthorized="isAuthorized" @callDiscord="callDiscord"/>
   <h2 class="text-center">Buddies page</h2>
-  <BuddiesList :applications="applications" /> 
-  <BuddiesFilter :games="games" :languages="languages" @setApplications="setApplications" @callDiscord="callDiscord"/>
+  <BuddiesList :applications="applications" :isListLoading="isListLoading"/> 
+  <BuddiesFilter :games="games" :languages="languages" @setApplications="setApplications" @callDiscord="callDiscord" @isLoading="isLoading"/>
   <HowToUse/>
   <AppFooter />
 </div>
@@ -27,6 +27,7 @@ export default {
       isAuthorized: false,
       authorizedUser: {},
       discordDialog: false,
+      isListLoading: false,
     }
   },
   methods: {
@@ -64,6 +65,9 @@ export default {
               };
           });
     },
+    isLoading(val) { // emit from buddies filter
+      this.isListLoading = val
+    }
   },
   mounted() {
     this.checkAuth()
