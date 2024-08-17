@@ -13,7 +13,7 @@
           <template v-slot:actions>
             <v-spacer></v-spacer>
 
-            <v-btn @click="this.$emit('update:modelValue', false)">
+            <v-btn @click="closeDiscord">
               Close
             </v-btn>
 
@@ -43,6 +43,12 @@ export default {
         set(discordDialog) {
           this.$emit('update:modelValue', discordDialog)
         }
+      }
+    },
+    methods: {
+      closeDiscord () { 
+        this.$emit('update:modelValue', false)
+        this.$emit('closeApplicationDialog', true)
       }
     }
 }

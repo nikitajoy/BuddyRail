@@ -41,7 +41,7 @@ export default {
         return {
             stepsOwnApplication: [
                 {
-                title: '1. Click create application',
+                title: '1. Click at create application under this form',
                 value: 1,
                 },
                 {

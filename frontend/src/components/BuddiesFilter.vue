@@ -35,7 +35,6 @@
         </v-col>
         <v-col cols="10" class="mx-auto ma-0 pa-0">
             <v-switch 
-            @click="checkAuth"
             v-model="applicationFilter.isAuthorized"
             label="Discord protection" 
             color="yellow" 
@@ -114,14 +113,6 @@ export default {
         this.applyFilter();
     },
     methods: {
-        checkAuth() {
-            if(!this.isAuthorized) {
-                setTimeout(() => {
-                    this.applicationFilter.isAuthorized = false 
-                }, 200);
-                this.$emit('callDiscord', true)
-            }
-        },
         applyFilter() {
             this.isListLoading = true
             httpServer
@@ -147,6 +138,7 @@ export default {
                 this.isListLoading = false;
             })
             .catch(() => {this.isListLoading=false;});
+
         },
         decreaseCounter() {
             this.applicationFilter.currentPage--
@@ -168,7 +160,16 @@ export default {
          },
          applicationFilter: {
             handler() {
-                this.applyFilter();
+
+                
+
+                if(this.applicationFilter.isAuthorized && !this.isAuthorized) { // if you're looking for discord applications, you have to be authorized 
+
+                    this.applicationFilter.isAuthorized = false 
+                    this.$emit('callDiscord', true)
+                } else {
+                    this.applyFilter();
+                }
             },
             deep: true
         },

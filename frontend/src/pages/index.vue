@@ -5,12 +5,11 @@
   {{ isAuthorized ? 'Authorized' : 'Not authorized' }}, {{ authorizedUser }}
   <!-- the link will change to relative, once domain is bought -->
   <MainTitle >Find your perfect teammate on BuddyRail</MainTitle>
-  <DiscordWarning v-model="discordDialog"/>
-  <ApplicationForm :games="games" :languages="languages" :isAuthorized="isAuthorized" @callDiscord="callDiscord"/>
-  <h2 class="text-center">Buddies page</h2>
+  <DiscordWarning v-model="discordDialog" @closeApplicationDialog="discordDialog"/>
   <BuddiesList :applications="applications" :isListLoading="isListLoading"/> 
   <BuddiesFilter :games="games" :languages="languages" @setApplications="setApplications" @callDiscord="callDiscord" @isLoading="isLoading"/>
   <HowToUse/>
+  <ApplicationForm :games="games" :languages="languages" :isAuthorized="isAuthorized" :isDiscordDialog="discordDialog" @callDiscord="callDiscord"/>
   <AppFooter />
 </div>
 </template>

@@ -131,6 +131,7 @@ export default {
       games: Array,
       languages: Array,
       isAuthorized: Boolean,
+      isDiscordDialog: Boolean,
     },
     methods: {
         invokeDialog() {
@@ -149,7 +150,7 @@ export default {
               buddyMicrophone: 'Has microphone',
             };
         },
-        saveApplication(event) {
+        saveApplication() {
           if(
           (this.applicationData.chosenGames.length >0 && this.applicationData.chosenGames.length <= 5)  &&
           (this.applicationData.chosenLanguages.length && this.applicationData.chosenLanguages.length <= 5) > 0 &&
@@ -176,6 +177,15 @@ export default {
       messageLimit() {
         return this.applicationData.message.length
       }
+    },
+    watch: {
+      isDiscordDialog: {
+            handler(discordWindowClosed) {
+               if(this.dialog) {
+                this.dialog = discordWindowClosed
+               }
+            },
+         },
     }
 }
 </script>
