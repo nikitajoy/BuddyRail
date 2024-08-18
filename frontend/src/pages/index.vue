@@ -3,10 +3,16 @@
 
     <DiscordBtn v-show="!isAuthorized" />
     <MyApplications v-model="myApplicationsDialog"/>
-    <v-fab class="ml-5" v-show="isAuthorized"
-    @click="openMyApplications"
-    icon="mdi-bookshelf" color="yellow"></v-fab>
-
+    <v-tooltip text="Your applications" 
+    location="bottom"
+    >
+      <template v-slot:activator="{ props }">
+        <v-fab class="ml-5" v-show="isAuthorized" 
+        v-bind="props"
+        @click="openMyApplications"
+        icon="mdi-bookshelf" color="yellow"></v-fab>
+      </template>
+    </v-tooltip>
     <!-- the link will change to relative, once domain is bought -->
     <MainTitle class="mt-5">Find your perfect teammate on BuddyRail</MainTitle>
 

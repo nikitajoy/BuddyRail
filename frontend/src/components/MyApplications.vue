@@ -12,7 +12,7 @@
         >
 
             <template v-slot:text>
-                <v-list lines="one">
+                <v-list lines="one" v-if="formattedApplications.length > 0">
                     <v-list-item class="mt-5"
                     
                         v-for="(application, index) in formattedApplications"
@@ -49,7 +49,9 @@
                     </v-list-item>
                 </v-list>
 
-
+                <div v-else>
+                  You didn't create any applications yet.
+                </div>
             </template>
 
           <template v-slot:actions>
