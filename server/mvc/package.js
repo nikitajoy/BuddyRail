@@ -72,6 +72,7 @@ exports.countApplications = async (isAuthorized, languages, games, isMic, buddyM
     .count('id_application', 'totalPages')
     .groupBy('id_application')
 
+exports.getLastApplication = async (id_user) => knex("user_applications").select().orderBy('date_created', 'desc').limit(1).where('id_user', id_user);
 
 exports.getGames = async () => knex("games").select().orderBy('order');
 exports.getLanguages = async () => knex("languages").select();

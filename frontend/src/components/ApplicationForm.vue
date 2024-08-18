@@ -125,6 +125,7 @@ export default {
               chosenLanguages: [],
               buddyMicrophone: 'Has microphone'
             },
+            lastLessThanHour: false,
         }
     },
     props: {
@@ -132,8 +133,18 @@ export default {
       languages: Array,
       isAuthorized: Boolean,
       isDiscordDialog: Boolean,
+      isWarningDialog: Boolean,
     },
     methods: {
+        checkLastApplication(){
+          httpServer
+              .get("/checkLastApplication")
+              .then((response) => {
+                this.lastLessThanHour = response.data;
+                if(this.lastLessThanHour) {this.$emit('callWarning', true)}
+              })
+              .catch(() => {});
+        },
         invokeDialog() {
             this.dialog = true;
             
@@ -186,6 +197,21 @@ export default {
                }
             },
          },
-    }
+         isWarningDialog: {
+            handler(warningWindowClosed) {
+               if(this.dialog) {
+                this.dialog = warningWindowClosed
+               }
+            },
+         },
+         dialog: {
+            handler() {
+               if(this.dialog && this.isAuthorized) {
+                this.checkLastApplication()
+               }
+            },
+         },
+    },
+ 
 }
 </script>

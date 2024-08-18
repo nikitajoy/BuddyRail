@@ -21,14 +21,52 @@ class qualityController {
     returnUser = async(req,res) => {
         return res.status(200).json(res.locals.user[0])
     }
+
+    
+    async checkLastApplication(req, res) {
+        try {
+            const lastApplication = await Package.getLastApplication(res.locals.user[0].id_user)
+            console.log(lastApplication[0])
+            if(lastApplication[0]) {
+                console.log('enter');
+                const hoursToAdd = 1 /* <- 1hour*/ * 60 * 60 * 1000;
+                const datePlusHour = new Date(lastApplication[0].date_created);
+                datePlusHour.setTime(datePlusHour.getTime() + hoursToAdd);
+                if(datePlusHour < new Date()){
+                    return res.status(200).json(false) 
+                } else {
+                    return res.status(200).json(true)}
+            } else {return res.status(200).json(false)}
+
+        }
+        catch (error) {
+            console.log('checkLastApplication error: ', error);
+            return res.status(500).json({ message: "Error occurred." })
+        }
+    }
     async addApplication(req, res) {
         try {
             const {isAuthorized, isMic, games, languages, message, buddyMicrophone} = req.body
             
             const dateCreated = new Date()
             
-            await Package.addApplication(isAuthorized, isMic, games, languages, dateCreated, message, buddyMicrophone, res.locals.user[0].id_user)
-            return res.status(200).json({ message: 'Application has been added.' })
+            const lastApplication = await Package.getLastApplication(res.locals.user[0].id_user)
+            
+
+            const hoursToAdd = 1 /* <- 1hour*/ * 60 * 60 * 1000;
+            const datePlusHour = new Date(lastApplication[0].date_created);
+            datePlusHour.setTime(datePlusHour.getTime() + hoursToAdd);
+
+            if(datePlusHour < new Date()){
+                console.log('you can create app')
+                await Package.addApplication(isAuthorized, isMic, games, languages, dateCreated, message, buddyMicrophone, res.locals.user[0].id_user)
+                return res.status(200).json({ message: 'Application has been added.' })
+            } else {
+                console.log('you have to wait for an hour!');
+                return res.status(200).json({ message: 'You can create only 1 application per hour.' })
+            }
+
+
         } catch (error) {
             console.log('addApplication error: ', error);
             return res.status(500).json({ message: "Error occurred." })

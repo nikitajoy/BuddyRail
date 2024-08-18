@@ -1,6 +1,5 @@
 <template>
 <div>
-    <AppNavbar />
     <h1>About</h1>
     <AppFooter />
 </div>

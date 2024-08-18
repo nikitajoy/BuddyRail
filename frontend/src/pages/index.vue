@@ -1,17 +1,18 @@
 <template>
 <div>
-  <AppNavbar />
-  <v-btn color="#7289da"><a 
-    class="text-decoration-none	text-white"
-    href="http://localhost:5000/api/discord/auth/redirect">Contact</a></v-btn> 
-  {{ isAuthorized ? 'Authorized' : 'Not authorized' }}, {{ authorizedUser }}
+
+<DiscordBtn v-show="!isAuthorized" />
+  <!-- {{ isAuthorized ? 'Authorized' : 'Not authorized' }}, {{ authorizedUser }} -->
   <!-- the link will change to relative, once domain is bought -->
-  <MainTitle >Find your perfect teammate on BuddyRail</MainTitle>
+  <MainTitle class="mt-5">Find your perfect teammate on BuddyRail</MainTitle>
+
   <DiscordWarning v-model="discordDialog" @closeApplicationDialog="discordDialog"/>
+  <TooManyApplications v-model="warningDialog" @closeApplicationDialog="warningDialog"/>
+
   <BuddiesList :applications="applications" :isListLoading="isListLoading"/> 
   <BuddiesFilter :games="games" :languages="languages" @setApplications="setApplications" @callDiscord="callDiscord" @isLoading="isLoading" :isAuthorized="isAuthorized"/>
   <HowToUse/>
-  <ApplicationForm :games="games" :languages="languages" :isAuthorized="isAuthorized" :isDiscordDialog="discordDialog" @callDiscord="callDiscord"/>
+  <ApplicationForm :games="games" :languages="languages" :isAuthorized="isAuthorized" :isDiscordDialog="discordDialog" :isWarningDialog="warningDialog" @callDiscord="callDiscord" @callWarning="callWarning"/>
   <AppFooter />
 </div>
 </template>
@@ -28,6 +29,7 @@ export default {
       isAuthorized: false,
       authorizedUser: {},
       discordDialog: false,
+      warningDialog: false,
       isListLoading: false,
     }
   },
@@ -47,6 +49,9 @@ export default {
     callDiscord(value) {
       this.discordDialog = value
     },  
+    callWarning(value) {
+      this.warningDialog = value
+    }, 
     checkAuth() {
           httpServer
             .get("/isAuthenticated")

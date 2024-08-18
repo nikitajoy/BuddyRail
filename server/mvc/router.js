@@ -6,6 +6,7 @@ const passport = require("passport");
 
 router.get("/getApplications",controller.getApplications);
 router.get("/getInputData", controller.getInputData);
+router.get("/checkLastApplication", controller.isAuthenticated, controller.checkLastApplication);
 
 router.post("/addApplication", controller.isAuthenticated, controller.addApplication);
 
