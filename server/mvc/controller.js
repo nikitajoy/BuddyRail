@@ -11,9 +11,10 @@ class qualityController {
     isAuthenticated = async (req, res, next) => {
 
         if (req.isAuthenticated()) {
-            console.log('user is', req.user);
+            // console.log('user is', req.user);
             res.locals.user = await Package.getUser(req.user);
-            console.log('locals:', res.locals.user);
+            await Package.updateLastActivity(req.user, new Date())
+            // console.log('locals:', res.locals.user);
             return next();
         }
         res.status(401).send('Unauthorized');
@@ -53,19 +54,23 @@ class qualityController {
             const lastApplication = await Package.getLastApplication(res.locals.user[0].id_user)
             
 
-            const hoursToAdd = 1 /* <- 1hour*/ * 60 * 60 * 1000;
-            const datePlusHour = new Date(lastApplication[0].date_created);
-            datePlusHour.setTime(datePlusHour.getTime() + hoursToAdd);
 
-            if(datePlusHour < new Date()){
-                console.log('you can create app')
+
+            if(lastApplication[0]) {
+                const hoursToAdd = 1 /* <- 1hour*/ * 60 * 60 * 1000;
+                const datePlusHour = new Date(lastApplication[0].date_created);
+                datePlusHour.setTime(datePlusHour.getTime() + hoursToAdd);
+                if(datePlusHour < new Date()){
+                    await Package.addApplication(isAuthorized, isMic, games, languages, dateCreated, message, buddyMicrophone, res.locals.user[0].id_user)
+                    return res.status(200).json({ message: 'Application has been added.' })
+                } else {
+                    console.log('you have to wait for an hour!');
+                    return res.status(200).json({ message: 'You can create only 1 application per hour.' })
+                }
+            } else {
                 await Package.addApplication(isAuthorized, isMic, games, languages, dateCreated, message, buddyMicrophone, res.locals.user[0].id_user)
                 return res.status(200).json({ message: 'Application has been added.' })
-            } else {
-                console.log('you have to wait for an hour!');
-                return res.status(200).json({ message: 'You can create only 1 application per hour.' })
             }
-
 
         } catch (error) {
             console.log('addApplication error: ', error);
@@ -85,6 +90,28 @@ class qualityController {
             console.log('getInputDate error: ', error);
             return res.status(500).json({ message: "Error occurred." })
      
+        }
+    }
+
+    
+    async getAnalytics(req, res) {
+        try {
+            const totalUsers = await Package.getTotalUsers()
+            const totalApplications = await Package.getTotalApplications()
+
+            const startDay = new Date(new Date().setHours(0, 0, 0, 0))
+            const endDay = new Date(new Date().setHours(23, 59, 59, 999))
+
+
+            const dailyUsers = await Package.getDailyUsers(startDay, endDay)
+            const dailyApplications = await Package.getDailyApplications(startDay, endDay)
+
+            const getDailyActiveUsers = await Package.getDailyActiveUsers(startDay, endDay)
+
+            return res.status(200).json({ totalUsers: totalUsers[0].count, totalApplications: totalApplications[0].count, dailyUsers: dailyUsers[0].count, dailyApplications: dailyApplications[0].count, dailyActiveUsers: getDailyActiveUsers[0].count })
+        } catch (error) {
+            console.log('getAnalytics error: ', error);
+            return res.status(500).json({ message: "Error occurred." })
         }
     }
 

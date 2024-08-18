@@ -77,12 +77,33 @@ exports.getLastApplication = async (id_user) => knex("user_applications").select
 exports.getGames = async () => knex("games").select().orderBy('order');
 exports.getLanguages = async () => knex("languages").select();
 
+exports.getTotalUsers = async () => knex("users").select().count('id_user');
+exports.getTotalApplications = async () => knex("user_applications").select().count('id_application');
+exports.getDailyUsers = async (startDate, endDate) => knex("users").select()
+.whereBetween('registration_date', [startDate, endDate])
+.count('id_user');
 
-exports.addUser = async (id_discord,avatar, username) =>
-    knex("users").insert({id_discord,avatar, username})
+
+exports.getDailyApplications = async (startDate, endDate) => knex("user_applications").select()
+.whereBetween('date_created', [startDate, endDate])
+.count('id_application');
+
+exports.getDailyActiveUsers = async (startDate, endDate) => knex("users").select()
+.whereBetween('last_activity', [startDate, endDate])
+.count('id_user');
+
+exports.getUsers = async () => knex("users").select().count('id_user');
+
+
+
+exports.addUser = async (id_discord,avatar, username, registration_date) =>
+    knex("users").insert({id_discord,avatar, username, registration_date})
 
 exports.getUser = async (idUser) =>
     knex("users").select().where('id_discord', idUser)
 
-exports.updateUser = async (id_discord,avatar, username) =>
-    knex("users").update({avatar, username}).where('id_discord', id_discord)
+exports.updateUser = async (id_discord,avatar, username, last_activity) =>
+    knex("users").update({avatar, username, last_activity}).where('id_discord', id_discord)
+
+exports.updateLastActivity = async (id_discord, date) =>
+    knex("users").update({last_activity: date}).where('id_discord', id_discord)

@@ -18,4 +18,6 @@ router.get("/discord/auth/redirect", passport.authenticate('discord'), controlle
 
 router.get('/isAuthenticated', controller.isAuthenticated, controller.returnUser)
 
+router.get('/getAnalytics', controller.getAnalytics)
+
 module.exports = router;

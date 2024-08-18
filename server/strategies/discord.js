@@ -47,10 +47,10 @@ try{
     const discordUser = await Package.getUser(profile.id)
 
     if(!discordUser[0]) {
-        await Package.addUser(profile.id, profile.avatar, profile.username);
+        await Package.addUser(profile.id, profile.avatar, profile.username, new Date());
         done(null, discordUser[0])
     } else {
-        await Package.updateUser(profile.id, profile.avatar,  profile.username);
+        await Package.updateUser(profile.id, profile.avatar,  profile.username, new Date());
         done(null, discordUser[0])
     }
 } catch (err) {
