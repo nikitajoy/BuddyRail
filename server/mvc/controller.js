@@ -148,7 +148,33 @@ class qualityController {
         }
     }
 
+    async getUserApplications(req, res) {
+        try {
+            console.log(res.locals.user[0]);
+            let userApplications = await Package.getUserApplications(res.locals.user[0].id_user)
 
+            const languagesFromDatabase = await Package.getLanguages()
+            const gamesFromDatabase = await Package.getGames()
+
+
+
+             userApplications = userApplications.map((application)=> {
+                let languagesSorted =  languagesFromDatabase.filter((elDb) => application.languages.includes(elDb.id_language))
+                application.languages = languagesSorted
+
+                let gamesSorted =  gamesFromDatabase.filter((elDb) => application.games.includes(elDb.id_game))
+                application.games = gamesSorted
+                
+                return application
+             })
+
+
+            return res.status(200).json({ userApplications })
+        } catch (err) {
+            console.log('getUserApplications err:', err);
+            return res.status(500).json({ message: "Error occurred." })
+        }
+    }
 
     async discordRedirect(req, res) {
         try {

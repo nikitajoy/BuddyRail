@@ -1,21 +1,25 @@
 <template>
-<div>
+  <div>
 
-<DiscordBtn v-show="!isAuthorized" />
-  <!-- {{ isAuthorized ? 'Authorized' : 'Not authorized' }}, {{ authorizedUser }} -->
-  <!-- the link will change to relative, once domain is bought -->
-  <MainTitle class="mt-5">Find your perfect teammate on BuddyRail</MainTitle>
+    <DiscordBtn v-show="!isAuthorized" />
+    <MyApplications v-model="myApplicationsDialog"/>
+    <v-fab class="ml-5" v-show="isAuthorized"
+    @click="openMyApplications"
+    icon="mdi-bookshelf" color="yellow"></v-fab>
 
-  <DiscordWarning v-model="discordDialog" @closeApplicationDialog="discordDialog"/>
-  <TooManyApplications v-model="warningDialog" @closeApplicationDialog="warningDialog"/>
+    <!-- the link will change to relative, once domain is bought -->
+    <MainTitle class="mt-5">Find your perfect teammate on BuddyRail</MainTitle>
 
-  <BuddiesList :applications="applications" :isListLoading="isListLoading"/> 
-  <BuddiesFilter :games="games" :languages="languages" @setApplications="setApplications" @callDiscord="callDiscord" @isLoading="isLoading" :isAuthorized="isAuthorized"/>
-  <HowToUse/>
-  <ApplicationForm :games="games" :languages="languages" :isAuthorized="isAuthorized" :isDiscordDialog="discordDialog" :isWarningDialog="warningDialog" @callDiscord="callDiscord" @callWarning="callWarning"/>
-  <ActivityAnalysis />
-  <AppFooter />
-</div>
+    <DiscordWarning v-model="discordDialog" @closeApplicationDialog="discordDialog"/>
+    <TooManyApplications v-model="warningDialog" @closeApplicationDialog="warningDialog"/>
+
+    <BuddiesList :applications="applications" :isListLoading="isListLoading"/> 
+    <BuddiesFilter :games="games" :languages="languages" @setApplications="setApplications" @callDiscord="callDiscord" @isLoading="isLoading" :isAuthorized="isAuthorized"/>
+    <HowToUse/>
+    <ApplicationForm :games="games" :languages="languages" :isAuthorized="isAuthorized" :isDiscordDialog="discordDialog" :isWarningDialog="warningDialog" @callDiscord="callDiscord" @callWarning="callWarning"/>
+    <ActivityAnalysis />
+    <AppFooter />
+  </div>
 </template>
 
 <script>
@@ -32,6 +36,7 @@ export default {
       discordDialog: false,
       warningDialog: false,
       isListLoading: false,
+      myApplicationsDialog: false,
     }
   },
   methods: {
@@ -53,6 +58,9 @@ export default {
     callWarning(value) {
       this.warningDialog = value
     }, 
+    openMyApplications() {
+      this.myApplicationsDialog ? this.myApplicationsDialog = false : this.myApplicationsDialog = true 
+    },
     checkAuth() {
           httpServer
             .get("/isAuthenticated")

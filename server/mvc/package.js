@@ -102,6 +102,10 @@ exports.addUser = async (id_discord,avatar, username, registration_date) =>
 exports.getUser = async (idUser) =>
     knex("users").select().where('id_discord', idUser)
 
+exports.getUserApplications = async (idUser) =>
+    knex("user_applications").select().where('user_applications.id_user', idUser).orderBy('date_created', 'desc').innerJoin('users', 'user_applications.id_user', '=', 'users.id_user')
+
+
 exports.updateUser = async (id_discord,avatar, username, last_activity) =>
     knex("users").update({avatar, username, last_activity}).where('id_discord', id_discord)
 

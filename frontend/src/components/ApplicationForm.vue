@@ -165,7 +165,7 @@ export default {
           if(
           (this.applicationData.chosenGames.length >0 && this.applicationData.chosenGames.length <= 5)  &&
           (this.applicationData.chosenLanguages.length && this.applicationData.chosenLanguages.length <= 5) > 0 &&
-          this.applicationData.message.length < 200
+          this.applicationData.message.length <= 200
           ){
           httpServer
             .post("/addApplication", {

@@ -12,6 +12,9 @@
         :title="`Application of ${buddyNickname}`">
         <v-form>
             <v-container>
+              <v-img 
+              class="rounded-xl	w-25 mx-auto"
+              :src="`https://cdn.discordapp.com/avatars/${buddyInfo.id_discord}/${buddyInfo.avatar}`"></v-img>
               <div><span class="text-h6">Message:</span> {{ buddyInfo.message ? buddyInfo.message : 'empty' }}</div>
               <div><span class="text-h6">Date of application:</span> {{ dateFormatted }}</div>
               <div>
