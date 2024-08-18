@@ -176,6 +176,19 @@ class qualityController {
         }
     }
 
+    async deleteApplication(req, res) {
+        try {
+            const {idApplication} = req.body
+            console.log('lets delete: ', idApplication, res.locals.user[0].id_user);
+            await Package.deleteApplication(idApplication, res.locals.user[0].id_user)
+            return res.status(200).json({ message: 'Application has been deleted.' })
+        }
+        catch(err) {
+            console.log('deleting application err:', err);
+            return res.status(500).json({ message: "Error occurred." })
+        } 
+    }
+
     async discordRedirect(req, res) {
         try {
             res.redirect(`${process.env.START_PAGE}`);

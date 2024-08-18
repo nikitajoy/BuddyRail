@@ -111,3 +111,12 @@ exports.updateUser = async (id_discord,avatar, username, last_activity) =>
 
 exports.updateLastActivity = async (id_discord, date) =>
     knex("users").update({last_activity: date}).where('id_discord', id_discord)
+
+
+
+
+exports.deleteApplication = async (idApplication, idUser) =>
+    knex("user_applications").delete().where('id_application', idApplication).andWhere('id_user', idUser)
+
+
+

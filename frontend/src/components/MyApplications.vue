@@ -35,6 +35,13 @@
                                 icon="mdi-magnify"
                                 variant="text"
                             ></v-btn>
+
+                            <v-btn
+                            @click="deleteApplication(application.id_application)"
+                                color="yellow"
+                                icon="mdi-delete"
+                                variant="text"
+                            ></v-btn>
                         </template>
 
 
@@ -111,6 +118,15 @@ export default {
         openApplication(application) {
             this.chosenApplication = application
             this.applicationDialog = true
+        },
+
+        deleteApplication(idApplication) {
+            httpServer
+              .post("/deleteApplication", {idApplication: idApplication})
+              .then(() => {
+                this.getUserApplications()
+            })
+              .catch(() => {});
         }
         
     },
