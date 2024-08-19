@@ -13,6 +13,7 @@ class qualityController {
         if (req.isAuthenticated()) {
             // console.log('user is', req.user);
             res.locals.user = await Package.getUser(req.user);
+            if(res.locals.user[0].is_banned) {return res.status(401).send('Banned');}
             await Package.updateLastActivity(req.user, new Date())
             // console.log('locals:', res.locals.user);
             return next();
@@ -49,12 +50,11 @@ class qualityController {
         try {
             const {isAuthorized, isMic, games, languages, message, buddyMicrophone} = req.body
             
+
+            if(res.locals.user[0].is_banned) {return res.status(401).send('Banned');}
             const dateCreated = new Date()
-            
             const lastApplication = await Package.getLastApplication(res.locals.user[0].id_user)
             
-
-
 
             if(lastApplication[0]) {
                 const hoursToAdd = 1 /* <- 1hour*/ * 60 * 60 * 1000;

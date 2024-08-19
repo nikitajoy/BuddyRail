@@ -38,6 +38,7 @@ exports.getApplications = async (isAuthorized, languages, games, isMic, buddyMic
         if(buddyMicrophone === 'No microphone') {
             filter.where('is_mic', false);
         }
+        filter.where('is_banned', false)
       })
       .innerJoin('users', 'user_applications.id_user', '=', 'users.id_user')
       .orderBy('id_application', 'desc').offset((currentPage - 1) * maxApplications).limit(Number(maxApplications))
@@ -68,7 +69,9 @@ exports.countApplications = async (isAuthorized, languages, games, isMic, buddyM
         if(buddyMicrophone === 'No microphone') {
             filter.where('is_mic', false);
         }
+        filter.where('is_banned', false)
         })
+    .innerJoin('users', 'user_applications.id_user', '=', 'users.id_user')
     .count('id_application', 'totalPages')
     .groupBy('id_application')
 
@@ -97,7 +100,7 @@ exports.getUsers = async () => knex("users").select().count('id_user');
 
 
 exports.addUser = async (id_discord,avatar, username, registration_date) =>
-    knex("users").insert({id_discord,avatar, username, registration_date})
+    knex("users").insert({id_discord,avatar, username, registration_date, is_banned: false})
 
 exports.getUser = async (idUser) =>
     knex("users").select().where('id_discord', idUser)

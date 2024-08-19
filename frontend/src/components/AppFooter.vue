@@ -22,7 +22,7 @@
 export default {
   data() {
     return {
-      links: [{title: 'Home', path: '/'}, {title: 'About us', path: 'about'}, {title: 'Rules', path:'rules'}]
+      links: [{title: 'Home', path: '/'}, {title: 'Rules', path:'rules'}]
     }
   }
 }
@@ -30,6 +30,6 @@ export default {
 
 <style scoped >
 .router-link-active {
-  color: #E53935 !important;
+  color: #FC654D !important;
 }
 </style>
