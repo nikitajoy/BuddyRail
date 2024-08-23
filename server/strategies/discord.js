@@ -21,6 +21,8 @@ passport.deserializeUser(async (id, done) => {
     try{
         const discordUser = await Package.getUser(id)
         if(!discordUser[0]) {
+            // user is deleted from a database (will not happen, but in case)
+            req.session.destroy();
             throw new Error('user does not exist')
         }
         done(null, id)
@@ -41,18 +43,17 @@ passport.use(new Strategy({
     scope: ['identify'],
 }, async(accessToken, refreshToken, profile, done)=> {
 //console.log(profile);
-console.log('auth is succefful, i guess', accessToken, refreshToken, profile)
-
+ // auth is succefful
 try{
     const discordUser = await Package.getUser(profile.id)
 
     if(!discordUser[0]) {
         const newUser = await Package.addUser(profile.id, profile.avatar, profile.username, new Date());
         console.log('new user is created', newUser)
-        done(null, newUser[0])
+        done(null, newUser[0]) // creating a new session from a new user data
     } else {
         await Package.updateUser(profile.id, profile.avatar,  profile.username, new Date());
-        done(null, discordUser[0])
+        done(null, discordUser[0]) // creating  a session from existing user
     }
 } catch (err) {
     console.log('autentication error: ', err);
