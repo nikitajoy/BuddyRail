@@ -48,6 +48,7 @@ try{
 
     if(!discordUser[0]) {
         await Package.addUser(profile.id, profile.avatar, profile.username, new Date());
+        console.log('user does not exists')
         done(null, discordUser[0])
     } else {
         await Package.updateUser(profile.id, profile.avatar,  profile.username, new Date());

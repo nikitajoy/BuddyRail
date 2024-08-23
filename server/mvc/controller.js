@@ -18,6 +18,7 @@ class qualityController {
             // console.log('locals:', res.locals.user);
             return next();
         }
+        
         res.status(401).send('Unauthorized');
     };
     returnUser = async(req,res) => {
