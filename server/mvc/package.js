@@ -100,7 +100,7 @@ exports.getUsers = async () => knex("users").select().count('id_user');
 
 
 exports.addUser = async (id_discord,avatar, username, registration_date) =>
-    knex("users").insert({id_discord,avatar, username, registration_date, is_banned: false})
+    knex("users").insert({id_discord,avatar, username, registration_date, is_banned: false}).returning(['id_discord', 'id_user', 'is_banned'])
 
 exports.getUser = async (idUser) =>
     knex("users").select().where('id_discord', idUser)

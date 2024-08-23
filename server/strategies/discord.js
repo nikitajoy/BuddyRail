@@ -47,8 +47,9 @@ try{
     const discordUser = await Package.getUser(profile.id)
 
     if(!discordUser[0]) {
-        await Package.addUser(profile.id, profile.avatar, profile.username, new Date());
-        done(null, discordUser[0])
+        const newUser = await Package.addUser(profile.id, profile.avatar, profile.username, new Date());
+        console.log('new user is created', newUser)
+        done(null, newUser)
     } else {
         await Package.updateUser(profile.id, profile.avatar,  profile.username, new Date());
         done(null, discordUser[0])
