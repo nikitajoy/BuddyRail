@@ -8,9 +8,9 @@ require('./strategies/discord')
 // cors
 const cors = require("cors");
 const passport = require("passport");
-// production:  147.45.168.58 / localhost 
+// production:  https://buddyrail.com / localhost 
 let corsOptions = {
-    origin: "http://147.45.168.58:3000",
+    origin: "https://buddyrail.com",
     credentials: true,            //access-control-allow-credentials:true
     optionSuccessStatus: 200
 };
