@@ -22,7 +22,6 @@ passport.deserializeUser(async (id, done) => {
         const discordUser = await Package.getUser(id)
         if(!discordUser[0]) {
             // user is deleted from a database (will not happen, but in case)
-            req.session.destroy();
             throw new Error('user does not exist')
         }
         done(null, id)
