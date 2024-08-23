@@ -18,7 +18,8 @@
             </v-btn>
 
             <v-btn>
-              <a href="http://localhost:5000/api/discord/auth/redirect">Authorize</a>
+              <!--localhost -->
+              <a href="http://147.45.168.58/:5000/api/discord/auth/redirect">Authorize</a>
             </v-btn>
           </template>
         </v-card>

@@ -1,7 +1,7 @@
 <template>
     <div class="mt-5 ml-5">
         <a 
-        href="http://localhost:5000/api/discord/auth/redirect">
+        href="http://147.45.168.58:5000/api/discord/auth/redirect">
             <v-tooltip text="Authorize with discord">
                 <template v-slot:activator="{ props }">
                     <svg id="Layer_1"  v-bind="props"
