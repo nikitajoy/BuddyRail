@@ -9,7 +9,11 @@
         rounded="xl"
         variant="text"
       >
-        <router-link :to="link.path" class="text-decoration-none text-white">{{ link.title }}</router-link>
+        <router-link v-if="link.router" :to="link.path" class="text-decoration-none text-white">{{ link.title }}</router-link>
+        <a v-else
+        class="text-decoration-none	text-white"
+         :href="link.path" 
+         target="_blank">{{ link.title }}</a>
       </v-btn>
       <v-col class="text-center mt-4" cols="12">
         {{ new Date().getFullYear() }} — <strong>BuddyRail</strong>
@@ -22,7 +26,7 @@
 export default {
   data() {
     return {
-      links: [{title: 'Home', path: '/'}, {title: 'Rules', path:'rules'}]
+      links: [{title: 'Home', path: '/', router: true}, {title: 'Rules', path:'rules', router: true}, {title: 'Youtube', path: 'https://www.youtube.com/@JustNik_guides'}, {title: 'Discord', path: 'https://discord.gg/vRS3HTZR4U'}]
     }
   }
 }

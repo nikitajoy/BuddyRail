@@ -25,7 +25,7 @@
                         <template v-slot:text>
                             This app was created by one person. My name's Nikita, and I'm a passionate web developer from Russia. This is my second free web service for public use. The first one is <a href="https://unturned.how" target="_blank">unturned.how</a>, a wiki website for Unturned. If you have any questions, suggestions, or advertisement queries, feel free to contact me on my <a href="https://discordapp.com/users/417710684781150211" target="_blank">Discord</a>. Join our 
                             <a href="https://discord.com/invite/7NRmb8X3sJ" target="_blank">discord community.</a>
-                            Subscribe to my <a href="https://www.youtube.com/watch?v=GlxKLspZXFE&t=152s" target="_blank">youtube channel</a>.        
+                            Subscribe to my <a href="https://www.youtube.com/@JustNik_guides" target="_blank">youtube channel</a>.        
                         </template>
                     </v-expansion-panel>
                     <v-expansion-panel
