@@ -10,7 +10,6 @@
           prepend-icon="mdi-bookshelf"
           title="Your applications"
         >
-
             <template v-slot:text>
                 <v-list lines="one" v-if="formattedApplications.length > 0">
                     <v-list-item class="mt-5"
@@ -56,7 +55,6 @@
 
           <template v-slot:actions>
             <v-spacer></v-spacer>
-
             <v-btn @click="closeDialog">
               Close
             </v-btn>

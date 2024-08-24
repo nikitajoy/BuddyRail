@@ -1,15 +1,10 @@
 <template>
-<v-btn color="green-darken-3" @click="invokeDialog">{{ message }}</v-btn>
+    <v-btn color="green-darken-3" @click="invokeDialog">{{ message }}</v-btn>
 </template>
 
 
 <script>
 export default {
-    data() {
-        return {
-
-        }
-    },
     methods: {
         invokeDialog() {
             this.$emit('invokeDialog', true)
