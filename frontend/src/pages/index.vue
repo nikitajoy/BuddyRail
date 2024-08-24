@@ -1,6 +1,6 @@
 <template>
   <div>
-
+    <SnackbarMessage v-model="snackbar">{{ snackbarMessage }}</SnackbarMessage>
     <DiscordBtn v-show="!isAuthorized" />
     <MyApplications v-model="myApplicationsDialog"/>
     <v-tooltip text="Your applications" 
@@ -22,7 +22,7 @@
     <BuddiesList :applications="applications" :isListLoading="isListLoading"/> 
     <BuddiesFilter :games="games" :languages="languages" @setApplications="setApplications" @callDiscord="callDiscord" @isLoading="isLoading" :isAuthorized="isAuthorized"/>
     <HowToUse/>
-    <ApplicationForm :games="games" :languages="languages" :isAuthorized="isAuthorized" :isDiscordDialog="discordDialog" :isWarningDialog="warningDialog" @callDiscord="callDiscord" @callWarning="callWarning"/>
+    <ApplicationForm :games="games" :languages="languages" :isAuthorized="isAuthorized" :isDiscordDialog="discordDialog" :isWarningDialog="warningDialog" @callDiscord="callDiscord" @callWarning="callWarning" @callSnackbar="callSnackbar"/>
     <ActivityAnalysis />
     <AppFooter />
   </div>
@@ -43,6 +43,8 @@ export default {
       warningDialog: false,
       isListLoading: false,
       myApplicationsDialog: false,
+      snackbarMessage: 'test',
+      snackbar: false,
     }
   },
   methods: {
@@ -66,6 +68,10 @@ export default {
     }, 
     openMyApplications() {
       this.myApplicationsDialog ? this.myApplicationsDialog = false : this.myApplicationsDialog = true 
+    },
+    callSnackbar(message) {
+      this.snackbarMessage = message;
+      this.snackbar = true;
     },
     checkAuth() {
           httpServer

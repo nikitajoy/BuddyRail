@@ -16,10 +16,11 @@
             <v-btn @click="closeDiscord">
               Close
             </v-btn>
-
-            <v-btn>
-              <a href="/api/discord/auth/redirect">Authorize</a>
-            </v-btn>
+            <a href="/api/discord/auth/redirect">
+              <v-btn>
+                Authorize
+              </v-btn>
+            </a>
           </template>
         </v-card>
       </v-dialog>

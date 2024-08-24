@@ -177,6 +177,8 @@ export default {
               message: this.applicationData.message,})
             .then(() => {
               this.dialog = false
+              // snackbar
+              this.$emit('callSnackbar', 'Your application has been created!')
             })
             .catch(() => {});
           }

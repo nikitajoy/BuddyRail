@@ -48,15 +48,16 @@
                   text="Close"
                   @click="isDialog = false"
                 ></v-btn>
+                <a
+                target="blank" 
+                class="text-decoration-none	text-white"
+                :href="`https://discordapp.com/users/${buddyInfo.id_discord}`">
                 <v-btn
                   color="#7289da"
                   class="ms-auto mr-5 mt-5"
                 >
-                <a 
-                target="blank" 
-                class="text-decoration-none	text-white"
-                :href="`https://discordapp.com/users/${buddyInfo.id_discord}`">Contact</a>
-              </v-btn>
+                Contact
+              </v-btn></a>
                 </div>
             </v-container>
           </v-form>
