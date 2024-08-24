@@ -17,7 +17,7 @@
     <MainTitle class="mt-5">Find your perfect teammate on BuddyRail</MainTitle>
 
     <DiscordWarning v-model="discordDialog" @closeApplicationDialog="discordDialog"/>
-    <TooManyApplications v-model="warningDialog" @closeApplicationDialog="warningDialog"/>
+    <TooManyApplications v-model="warningDialog" @closeApplicationDialog="warningDialog" @openApplications="openMyApplications"/>
 
     <BuddiesList :applications="applications" :isListLoading="isListLoading"/> 
     <BuddiesFilter :games="games" :languages="languages" @setApplications="setApplications" @callDiscord="callDiscord" @isLoading="isLoading" :isAuthorized="isAuthorized"/>

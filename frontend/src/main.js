@@ -9,9 +9,12 @@ import App from './App.vue'
 import { createApp } from 'vue'
 
 const app = createApp(App)
-// prod https://buddyrail.com local localhost
+
 
 const API = 'https://buddyrail.com/api/'
+// const API = 'http://localhost:5000/api/'
+
+
 export const httpServer = axios.create({
     withCredentials: true,
     baseURL: API,

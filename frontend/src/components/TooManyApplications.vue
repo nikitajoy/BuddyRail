@@ -15,7 +15,7 @@
             <v-btn @click="closeWarning">
               Close
             </v-btn>
-            <v-btn @click="closeWarning">
+            <v-btn @click="openApplications">
               View my applications
             </v-btn>
           </template>
@@ -47,6 +47,11 @@ export default {
       closeWarning () { 
         this.$emit('update:modelValue', false)
         this.$emit('closeApplicationDialog', true)
+      },
+      openApplications() {
+        this.$emit('update:modelValue', false)
+        this.$emit('closeApplicationDialog', true)
+        this.$emit('openApplications', true)
       }
     }
 }
