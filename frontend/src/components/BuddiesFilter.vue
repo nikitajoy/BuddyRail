@@ -1,18 +1,22 @@
 <template>
-
     <div>
         <v-row class="justify-center ga-5 my-5">
-            <v-btn 
-            class="bg-cyan-darken-1" 
-            :class="prevBtnStyles"
-            :disabled="applicationFilter.currentPage == 1 || applicationFilter.currentPage == 0"
-            @click="decreaseCounter">Prev</v-btn>
-            <v-btn 
-            class="bg-pink-accent-2" 
-            @click="increaseCounter"
-            :class="nextBtnStyles"
-            :disabled="applicationFilter.currentPage == applicationFilter.totalPages"
-            >Next</v-btn>
+            <v-btn
+              class="bg-cyan-darken-1"
+              :class="prevBtnStyles"
+              :disabled="applicationFilter.currentPage == 1 || applicationFilter.currentPage == 0"
+              @click="decreaseCounter"
+            >
+              Prev
+            </v-btn>
+            <v-btn
+              class="bg-pink-accent-2"
+              @click="increaseCounter"
+              :class="nextBtnStyles"
+              :disabled="applicationFilter.currentPage == applicationFilter.totalPages"
+            >
+              Next
+            </v-btn>
         </v-row>
 
         <!-- <v-pagination
@@ -26,20 +30,20 @@
     <v-sheet :min-height="100" :max-width="600" border rounded class="mx-auto ma-5">
         <v-row>
             <v-col cols="10" class="mx-auto ma-0 pa-0 mt-5">
-                <v-switch 
+                <v-switch
                 v-model="applicationFilter.isMic"
-                label="Do you have a microphone?" 
-                color="yellow" 
-                hide-details 
-                class="ma-0 pa-0"></v-switch>
+                label="Do you have a microphone?"
+                color="yellow"
+                hide-details
+                class="ma-0 pa-0" />
             </v-col>
             <v-col cols="10" class="mx-auto ma-0 pa-0">
-                <v-switch 
+                <v-switch
                 v-model="applicationFilter.isAuthorized"
-                label="Discord protection" 
-                color="yellow" 
-                hide-details 
-                class="ma-0 pa-0"></v-switch>
+                label="Discord protection"
+                color="yellow"
+                hide-details
+                class="ma-0 pa-0" />
             </v-col>
 
             <v-col cols="10" class="mx-auto">
@@ -48,7 +52,7 @@
                     label="Does your buddy have a microphone?"
                     :items="['Both', 'No microphone', 'Has microphone']"
                     v-model="applicationFilter.buddyMicrophone"
-                ></v-select>
+                />
             </v-col>
 
             <v-col cols="10" class="mx-auto">
@@ -63,7 +67,7 @@
                 item-value="id_language"
                 multiple
                 variant="outlined"
-                ></v-autocomplete>
+                />
             </v-col>
             <v-col cols="10" class="mx-auto">
                 <v-autocomplete v-show="games.length > 0"
@@ -76,7 +80,7 @@
                 item-value="id_game"
                 multiple
                 variant="outlined"
-                ></v-autocomplete>
+                />
             </v-col>
 
 
@@ -116,10 +120,10 @@ export default {
         applyFilter() {
             this.isListLoading = true
             httpServer
-            .get("/getApplications", 
+            .get("/getApplications",
             {
-            params: 
-                {   
+            params:
+                {
                     isAuthorized: this.applicationFilter.isAuthorized,
                     languages: this.applicationFilter.chosenLanguages,
                     games: this.applicationFilter.chosenGames,
@@ -129,16 +133,18 @@ export default {
                 }
             })
             .then((response) => {
-                if(this.applicationFilter.totalPages != response.data.totalPages) {
-                    this.applicationFilter.currentPage = 1
-                    this.applicationFilter.totalPages = response.data.totalPages
-                    this.applicationFilter.totalPages == 0 ? this.applicationFilter.currentPage = 0 : ''
+                if (this.applicationFilter.totalPages != response.data.totalPages) {
+                  this.applicationFilter.currentPage = 1
+                  this.applicationFilter.totalPages = response.data.totalPages
+
+                  if (this.applicationFilter.totalPages < 1) {
+                    this.applicationFilter.currentPage = 0
+                  }
                 }
                 this.applications = response.data.filteredApplications;
                 this.isListLoading = false;
             })
-            .catch(() => {this.isListLoading=false;});
-
+            .catch(() => this.isListLoading = false);
         },
         decreaseCounter() {
             this.applicationFilter.currentPage--
@@ -153,19 +159,22 @@ export default {
         isAuthorized: Boolean,
     },
     watch: {
+        // тут у тебя 9 пробелов слева
         applications: {
             handler(newApplication) {
                 this.$emit('setApplications', newApplication)
             },
+         // тут уже 10. За этим надо следить. По хорошему, надо делать отступы в 2 пробела
          },
          applicationFilter: {
             handler() {
-                if(this.applicationFilter.isAuthorized && !this.isAuthorized) { // if you're looking for discord applications, you have to be authorized 
-                    this.applicationFilter.isAuthorized = false 
-                    this.$emit('callDiscord', true)
-                } else {
-                    this.applyFilter();
-                }
+              // if you're looking for discord applications, you have to be authorized
+              if (this.applicationFilter.isAuthorized && !this.isAuthorized) {
+                  this.applicationFilter.isAuthorized = false
+                  this.$emit('callDiscord', true)
+              } else {
+                  this.applyFilter();
+              }
             },
             deep: true
         },
@@ -177,12 +186,16 @@ export default {
     },
     computed: {
         prevBtnStyles() {
-            let btnClasses = ''
-            this.applicationFilter.currentPage == 1 ? btnClasses = 'bg-grey-darken-4 opacity-10' : ''
-            this.applicationFilter.currentPage == 0 ? btnClasses = 'd-none' : ''
-            return btnClasses
+          let btnClasses = ''
+
+          btnClasses = this.applicationFilter.currentPage === 1 ? 'bg-grey-darken-4 opacity-10' : ''
+          btnClasses = this.applicationFilter.currentPage === 0 ? 'd-none' : ''
+
+          return btnClasses
         },
         nextBtnStyles() {
+          // тут такие же изменения, как и выше,
+          // а вообще, тут логика такая же, можно в отдельную функцию вынести
             let btnClasses = ''
             this.applicationFilter.currentPage == this.applicationFilter.totalPages ? btnClasses = 'bg-grey-darken-4 opacity-10' : ''
             this.applicationFilter.totalPages == 0 ? btnClasses = 'd-none' : ''

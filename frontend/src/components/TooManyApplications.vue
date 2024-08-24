@@ -1,6 +1,8 @@
 <template>
+  <!-- О! Наконец-то сверстано красиво! -->
     <div class="text-center pa-4">
-      <v-dialog style="z-index: 2000;"
+      <v-dialog
+        class="z-2000"
         v-model="warningDialog"
         max-width="400"
         persistent
@@ -24,10 +26,7 @@
     </div>
 </template>
 
-
-
 <script>
-
 export default {
     props: {
       modelValue: Boolean,
@@ -44,7 +43,7 @@ export default {
       }
     },
     methods: {
-      closeWarning () { 
+      closeWarning () {
         this.$emit('update:modelValue', false)
         this.$emit('closeApplicationDialog', true)
       },
@@ -56,3 +55,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.z-2000 {
+  z-index: 2000;
+}
+</style>

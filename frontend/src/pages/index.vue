@@ -3,11 +3,11 @@
     <SnackbarMessage v-model="snackbar">{{ snackbarMessage }}</SnackbarMessage>
     <DiscordBtn v-show="!isAuthorized" />
     <MyApplications v-model="myApplicationsDialog"/>
-    <v-tooltip text="Your applications" 
+    <v-tooltip text="Your applications"
     location="bottom"
     >
       <template v-slot:activator="{ props }">
-        <v-fab class="ml-5" v-show="isAuthorized" 
+        <v-fab class="ml-5" v-show="isAuthorized"
         v-bind="props"
         @click="openMyApplications"
         icon="mdi-bookshelf" color="yellow"></v-fab>
@@ -19,9 +19,10 @@
     <DiscordWarning v-model="discordDialog" @closeApplicationDialog="discordDialog"/>
     <TooManyApplications v-model="warningDialog" @closeApplicationDialog="warningDialog" @openApplications="openMyApplications"/>
 
-    <BuddiesList :applications="applications" :isListLoading="isListLoading"/> 
+    <BuddiesList :applications="applications" :isListLoading="isListLoading"/>
     <BuddiesFilter :games="games" :languages="languages" @setApplications="setApplications" @callDiscord="callDiscord" @isLoading="isLoading" :isAuthorized="isAuthorized"/>
     <HowToUse/>
+    <!-- В этой строке 239 символов, и ты пишешь ее в ряд. Я же показывал, как надо в этом случае делать) -->
     <ApplicationForm :games="games" :languages="languages" :isAuthorized="isAuthorized" :isDiscordDialog="discordDialog" :isWarningDialog="warningDialog" @callDiscord="callDiscord" @callWarning="callWarning" @callSnackbar="callSnackbar"/>
     <ActivityAnalysis />
     <AppFooter />
@@ -62,35 +63,32 @@ export default {
     },
     callDiscord(value) {
       this.discordDialog = value
-    },  
+    },
     callWarning(value) {
       this.warningDialog = value
-    }, 
+    },
     openMyApplications() {
-      this.myApplicationsDialog ? this.myApplicationsDialog = false : this.myApplicationsDialog = true 
+      this.myApplicationsDialog = !this.myApplicationsDialog
     },
     callSnackbar(message) {
       this.snackbarMessage = message;
       this.snackbar = true;
     },
     checkAuth() {
-          httpServer
-            .get("/isAuthenticated")
-            .then((response) => {
-              if(response.status === 200) { 
-                this.isAuthorized = true;
-                this.authorizedUser =  response.data;
-              } else {
-                this.isAuthorized = false;
-                this.authorizedUser =  {};
-              }
-            })
-            .catch((err) => {
-              console.log(err);
-              if(err.response.status === 401) {
-                this.isAuthorized = false
-              };
-          });
+      httpServer
+        .get("/isAuthenticated")
+        .then((response) => {
+          if(response.status === 200) {
+            this.isAuthorized = true;
+            this.authorizedUser = response.data;
+          } else {
+            this.isAuthorized = false;
+            this.authorizedUser = {};
+          }
+        })
+        .catch(() => {
+          this.isAuthorized = false
+      });
     },
     isLoading(val) { // emit from buddies filter
       this.isListLoading = val

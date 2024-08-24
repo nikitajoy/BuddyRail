@@ -66,13 +66,13 @@
                   <v-col cols="12" >
                     <v-switch class="ma-0 pa-0"
                     hide-details
-                    label="Do you have a microphone?" 
-                    v-model="applicationData.isMic" 
+                    label="Do you have a microphone?"
+                    v-model="applicationData.isMic"
                     color="yellow"></v-switch>
-                    <v-switch 
+                    <v-switch
                     hide-details class="ma-0 pa-0"
-                    label="Does your buddy have to be authorize through discord to connect you?" 
-                    v-model="applicationData.isAuthorized" 
+                    label="Does your buddy have to be authorize through discord to connect you?"
+                    v-model="applicationData.isAuthorized"
                     color="yellow"></v-switch>
                   </v-col>
               </v-row>
@@ -147,7 +147,7 @@ export default {
         },
         invokeDialog() {
             this.dialog = true;
-            
+
             if(!this.isAuthorized) {
               this.$emit('callDiscord', true)
             }
@@ -162,12 +162,29 @@ export default {
             };
         },
         saveApplication() {
-          if(
-          (this.applicationData.chosenGames.length >0 && this.applicationData.chosenGames.length <= 5)  &&
-          (this.applicationData.chosenLanguages.length && this.applicationData.chosenLanguages.length <= 5) > 0 &&
-          this.applicationData.message.length <= 200
-          ){
+          if (this.applicationData.chosenGames.length < 1) {
+            // Кинь юзеру ошибку, что он нихрена не выбрал
+            return
+          }
+
+          if (this.applicationData.chosenGames.length > 5) {
+            // Кинь юзеру ошибку, что он дохрена выбрал
+            return
+          }
+
+          if (this.applicationData.chosenLanguages.length && this.applicationData.chosenLanguages.length > 5) {
+            // Тоже языков многовато, полиглот шоли?
+            return
+          }
+
+          if (this.applicationData.message.length > 200) {
+            // Слишком общительный, пиши меньше!
+            // Ну и return останавливает выполнение функции, так что запрос послан не будет
+            return
+          }
+
           httpServer
+            // URL должен быть в кебаб кейсе, то есть /add-application
             .post("/addApplication", {
               isAuthorized: this.applicationData.isAuthorized,
               isMic: this.applicationData.isMic,
@@ -181,9 +198,6 @@ export default {
               this.$emit('callSnackbar', 'Your application has been created!')
             })
             .catch(() => {});
-          }
-
-
         }
     },
     computed: {
@@ -193,27 +207,26 @@ export default {
     },
     watch: {
       isDiscordDialog: {
-            handler(discordWindowClosed) {
-               if(this.dialog) {
-                this.dialog = discordWindowClosed
-               }
-            },
-         },
-         isWarningDialog: {
-            handler(warningWindowClosed) {
-               if(this.dialog) {
-                this.dialog = warningWindowClosed
-               }
-            },
-         },
-         dialog: {
-            handler() {
-               if(this.dialog && this.isAuthorized) {
-                this.checkLastApplication()
-               }
-            },
-         },
+        handler(discordWindowClosed) {
+           if(this.dialog) {
+            this.dialog = discordWindowClosed
+           }
+        },
+      },
+      isWarningDialog: {
+        handler(warningWindowClosed) {
+           if(this.dialog) {
+            this.dialog = warningWindowClosed
+           }
+        },
+      },
+      dialog: {
+        handler() {
+           if(this.dialog && this.isAuthorized) {
+            this.checkLastApplication()
+           }
+        },
+      },
     },
- 
 }
 </script>
