@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="mt-5 ml-5"> 
         oops, not found
         <router-link :to="`/`">Go to main page</router-link>
     </div>
