@@ -1,21 +1,21 @@
 <template>
-    <v-snackbar
+  <v-snackbar
     class="pa-5"
     v-model="computedSnackbarDialog"
     :timeout="2000"
     :color="snackbarColor"
     elevation="24"
-    >
-      <slot/>
-    </v-snackbar>
+  >
+    <slot/>
+  </v-snackbar>
 </template>
 
 <script>
-export default {
+  export default {
     data() {
-        return {
-            snackbarDialog: false,
-        }
+      return {
+        snackbarDialog: false,
+      }
     },
     props: {
       modelValue: Boolean,
@@ -23,7 +23,7 @@ export default {
     },
     emits: ['update:modelValue'],
     computed: {
-        computedSnackbarDialog: {
+      computedSnackbarDialog: {
         get() {
           return this.modelValue
         },
@@ -38,11 +38,9 @@ export default {
           case 'warning':
             return 'amber-darken-3';
           default:
-            return 'grey'; 
+            return 'grey';
         }
       }
     },
-}
-
-
+  }
 </script>

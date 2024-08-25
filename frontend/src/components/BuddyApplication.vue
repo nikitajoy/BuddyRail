@@ -5,64 +5,71 @@
       v-model="isDialog"
       transition="scroll-x-transition"
       width="auto"
-      >
-        <v-card
-          max-width="600"
-          prepend-icon="mdi-information-variant-box"
-          :title="`Application of ${buddyNickname}`">
-          <v-form>
-              <v-container>
-                <v-img 
-                class="rounded-xl	w-25 mx-auto"
-                :src="`https://cdn.discordapp.com/avatars/${buddyInfo.id_discord}/${buddyInfo.avatar}`"></v-img>
-                <div><span class="text-h6">Message:</span> {{ buddyInfo.message ? buddyInfo.message : 'empty' }}</div>
-                <div><span class="text-h6">Date of application:</span> {{ dateFormatted }}</div>
-                <div>
-                  <span class="text-h6 mr-3 d-inline">Preferred languages:</span>
-                  <v-chip-group>
-                    <v-chip v-for="(language, index) in buddyInfo.languages" :key="index">{{language.language_name}}</v-chip>
-                  </v-chip-group>
-                </div>
-                <div>
-                  <span class="text-h6 mr-3 d-inline">Preferred videogames:</span>
-                  <v-chip-group>
-                    <v-chip v-for="(game, index) in buddyInfo.games" :key="index">{{game.name_game}}</v-chip>
-                  </v-chip-group>
-                </div>
-                <div>
-                  <span class="text-h6 mr-3 d-inline">Microphone:</span>
-                  {{ buddyInfo.is_mic ? 'Has microphone' : 'No microphone' }}
-                </div>
-                <div>
-                  <span class="text-h6 mr-3 d-inline">Microphone preference:</span>
-                  {{ preferredMicrophone }}
-                </div>
-                <!-- <pre>
-                  {{buddyInfo}}
-                </pre> -->
-                <div>
+    >
+      <v-card
+        max-width="600"
+        prepend-icon="mdi-information-variant-box"
+        :title="`Application of ${buddyNickname}`">
+        <v-form>
+          <v-container>
+
+            <v-img
+            class="rounded-xl	w-25 mx-auto"
+            :src="`https://cdn.discordapp.com/avatars/${buddyInfo.id_discord}/${buddyInfo.avatar}`"></v-img>
+
+            <div>
+              <span class="text-h6">Message:</span> {{ buddyInfo.message ? buddyInfo.message : 'empty' }}
+            </div>
+
+            <div>
+              <span class="text-h6">Date of application:</span> {{ dateFormatted }}
+            </div>
+
+            <div>
+                <span class="text-h6 mr-3 d-inline">Preferred languages:</span>
+                <v-chip-group>
+                  <v-chip v-for="(language, index) in buddyInfo.languages" :key="index">{{language.language_name}}</v-chip>
+                </v-chip-group>
+            </div>
+
+            <div>
+              <span class="text-h6 mr-3 d-inline">Preferred videogames:</span>
+              <v-chip-group>
+                <v-chip v-for="(game, index) in buddyInfo.games" :key="index">{{game.name_game}}</v-chip>
+              </v-chip-group>
+            </div>
+
+            <div>
+              <span class="text-h6 mr-3 d-inline">Microphone:</span>
+              {{ buddyInfo.is_mic ? 'Has microphone' : 'No microphone' }}
+            </div>
+
+              <div>
+                <span class="text-h6 mr-3 d-inline">Microphone preference:</span>
+                {{ preferredMicrophone }}
+              </div>
+
+              <div>
                 <v-btn
                   color="red"
                   variant="tonal"
                   class="ms-auto mr-5 mt-5"
                   text="Close"
                   @click="isDialog = false"
-                ></v-btn>
+                />
+
                 <a
                 target="blank" 
                 class="text-decoration-none	text-white"
                 :href="`https://discordapp.com/users/${buddyInfo.id_discord}`">
-                <v-btn
-                  color="#7289da"
-                  class="ms-auto mr-5 mt-5"
-                >
-                Contact
-              </v-btn></a>
-                </div>
-            </v-container>
-          </v-form>
-        </v-card>
-      </v-dialog>
+                  <v-btn color="#7289da" class="ms-auto mr-5 mt-5">Contact</v-btn>
+                </a>
+                
+              </div>
+          </v-container>
+        </v-form>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 

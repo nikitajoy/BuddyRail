@@ -26,20 +26,20 @@
 </template>
 
 <script>
-export default {
+  export default {
     props: {
       modelValue: Boolean,
     },
     emits: ['update:modelValue'],
     computed: {
-        warningDialog: {
+      warningDialog: {
         get() {
           return this.modelValue
         },
         set(warningDialog) {
           this.$emit('update:modelValue', warningDialog)
         }
-      }
+    }
     },
     methods: {
       closeWarning () {
@@ -52,11 +52,11 @@ export default {
         this.$emit('openApplications', true)
       }
     }
-}
+  }
 </script>
 
 <style scoped>
-.z-2000 {
-  z-index: 2000;
-}
+  .z-2000 {
+    z-index: 2000;
+  }
 </style>

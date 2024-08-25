@@ -1,10 +1,10 @@
 <script>
-export default {
-  name: "TrainVue",
-  props: {
-    applications: Array
+  export default {
+    name: "TrainVue",
+    props: {
+      applications: Array
+    }
   }
-}
 </script>
 
 <template>

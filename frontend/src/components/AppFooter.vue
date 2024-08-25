@@ -9,11 +9,15 @@
         rounded="xl"
         variant="text"
       >
-        <router-link v-if="link.router" :to="link.path" class="text-decoration-none text-white">{{ link.title }}</router-link>
-        <a v-else
-        class="text-decoration-none	text-white"
-         :href="link.path" 
-         target="_blank">{{ link.title }}</a>
+        <router-link
+        v-if="link.router"
+        :to="link.path"
+        class="text-decoration-none text-white">{{ link.title }}</router-link>
+        <a
+          v-else
+          class="text-decoration-none	text-white"
+          :href="link.path" 
+          target="_blank">{{ link.title }}</a>
       </v-btn>
       <v-col class="text-center mt-4" cols="12">
         {{ new Date().getFullYear() }} — <strong>BuddyRail</strong>

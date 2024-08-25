@@ -1,17 +1,17 @@
 <template>
-    <v-btn color="green-darken-3" @click="invokeDialog">{{ message }}</v-btn>
+  <v-btn color="green-darken-3" @click="invokeDialog">{{ message }}</v-btn>
 </template>
 
 
 <script>
-export default {
+  export default {
     methods: {
-        invokeDialog() {
-            this.$emit('invokeDialog', true)
-        }
+      invokeDialog() {
+        this.$emit('invokeDialog', true)
+      }
     },
     props :{
-        message: String
+      message: String
     }
-}
+  }
 </script>

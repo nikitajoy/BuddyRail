@@ -99,22 +99,22 @@
 
 
 <script>
-import {httpServer} from '@/main'
-export default {
+  import {httpServer} from '@/main'
+  export default {
     data() {
-        return {
-          authorizeDialog: false,
-            dialog: false,
-            applicationData: {
-              message: '',
-              isMic: true,
-              isAuthorized: false,
-              chosenGames :[],
-              chosenLanguages: [],
-              buddyMicrophone: 'Has microphone'
-            },
-            lastLessThanHour: false,
-        }
+      return {
+        authorizeDialog: false,
+        dialog: false,
+        applicationData: {
+          message: '',
+          isMic: true,
+          isAuthorized: false,
+          chosenGames :[],
+          chosenLanguages: [],
+          buddyMicrophone: 'Has microphone'
+        },
+        lastLessThanHour: false,
+      }
     },
     props: {
       games: Array,
@@ -124,69 +124,76 @@ export default {
       isWarningDialog: Boolean,
     },
     methods: {
-        checkLastApplication(){
-          httpServer
-              .get("/checkLastApplication")
-              .then((response) => {
-                this.lastLessThanHour = response.data;
-                if(this.lastLessThanHour) {this.$emit('callWarning', true)}
-              })
-              .catch(() => {});
-        },
-        invokeDialog() {
-            this.dialog = true;
+      checkLastApplication(){
+        httpServer
+          .get("/checkLastApplication")
+          .then((response) => {
+            this.lastLessThanHour = response.data;
 
-            if(!this.isAuthorized) {
-              this.$emit('callDiscord', true)
-            }
+            if(this.lastLessThanHour) {this.$emit('callWarning', true)}
 
-            this.applicationData = {
-              message: '',
-              isMic: true,
-              isAuthorized: false,
-              chosenGames :[],
-              chosenLanguages: [],
-              buddyMicrophone: 'Has microphone',
-            };
-        },
-        saveApplication() {
-          if (this.applicationData.chosenLanguages.length == 0) {
-            this.$emit('callSnackbar', {message: `You have to choose at least 1 language.`, type: 'warning'});
-            return
-          }
-          if (this.applicationData.chosenLanguages.length > 3) {
-            this.$emit('callSnackbar', {message: `You can't choose more than 3 languages.`, type: 'warning'});
-            return
-          }
-          if (this.applicationData.chosenGames.length < 1) {
-            this.$emit('callSnackbar', {message: 'You have to choose at least 1 game', type: 'warning'});
-            return
-          }
-          if (this.applicationData.chosenGames.length > 5) {
-            this.$emit('callSnackbar', {message: `You can't choose more than 5 games`, type: 'warning'});
-            return
-          }
-          if (this.applicationData.message.length > 200) {
-            this.$emit('callSnackbar', {message: `The message cannot be more than 200 letters.`, type: 'warning'});
-            return
-          }
+          })
+          .catch(() => {});
+      },
+      invokeDialog() {
+        this.dialog = true;
 
-          httpServer
-            // URL должен быть в кебаб кейсе, то есть /add-application
-            .post("/addApplication", {
-              isAuthorized: this.applicationData.isAuthorized,
-              isMic: this.applicationData.isMic,
-              games: this.applicationData.chosenGames,
-              languages: this.applicationData.chosenLanguages,
-              buddyMicrophone: this.applicationData.buddyMicrophone,
-              message: this.applicationData.message,})
-            .then(() => {
-              this.dialog = false
-              // snackbar
-              this.$emit('callSnackbar', {message: 'Your application has been created!', type: 'success'})
-            })
-            .catch(() => {});
+        if(!this.isAuthorized) {
+          this.$emit('callDiscord', true)
         }
+
+        this.applicationData = {
+          message: '',
+          isMic: true,
+          isAuthorized: false,
+          chosenGames :[],
+          chosenLanguages: [],
+          buddyMicrophone: 'Has microphone',
+        };
+      },
+      saveApplication() {
+
+        if (this.applicationData.chosenLanguages.length == 0) {
+          this.$emit('callSnackbar', {message: `You have to choose at least 1 language.`, type: 'warning'});
+          return
+        }
+
+        if (this.applicationData.chosenLanguages.length > 3) {
+          this.$emit('callSnackbar', {message: `You can't choose more than 3 languages.`, type: 'warning'});
+          return
+        }
+
+        if (this.applicationData.chosenGames.length < 1) {
+          this.$emit('callSnackbar', {message: 'You have to choose at least 1 game', type: 'warning'});
+          return
+        }
+
+        if (this.applicationData.chosenGames.length > 5) {
+          this.$emit('callSnackbar', {message: `You can't choose more than 5 games`, type: 'warning'});
+          return
+        }
+
+        if (this.applicationData.message.length > 200) {
+          this.$emit('callSnackbar', {message: `The message cannot be more than 200 letters.`, type: 'warning'});
+          return
+        }
+
+        httpServer
+          // URL должен быть в кебаб кейсе, то есть /add-application
+          .post("/addApplication", {
+            isAuthorized: this.applicationData.isAuthorized,
+            isMic: this.applicationData.isMic,
+            games: this.applicationData.chosenGames,
+            languages: this.applicationData.chosenLanguages,
+            buddyMicrophone: this.applicationData.buddyMicrophone,
+            message: this.applicationData.message,})
+          .then(() => {
+            this.dialog = false
+            // snackbar
+            this.$emit('callSnackbar', {message: 'Your application has been created!', type: 'success'})
+          })
+          .catch(() => {});
+      }
     },
     computed: {
       messageLimit() {
@@ -196,30 +203,25 @@ export default {
     watch: {
       isDiscordDialog: {
         handler(discordWindowClosed) {
-           if(this.dialog) {
+          if(this.dialog) {
             this.dialog = discordWindowClosed
-           }
+          }
         },
       },
       isWarningDialog: {
         handler(warningWindowClosed) {
-           if(this.dialog) {
+          if(this.dialog) {
             this.dialog = warningWindowClosed
-           }
+          }
         },
       },
       dialog: {
         handler() {
-           if(this.dialog && this.isAuthorized) {
+          if(this.dialog && this.isAuthorized) {
             this.checkLastApplication()
-           }
+          }
         },
       },
     },
-}
+  }
 </script>
-
-
-<style scoped>
-
-</style>

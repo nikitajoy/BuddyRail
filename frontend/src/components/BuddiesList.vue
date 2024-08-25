@@ -1,68 +1,65 @@
 <template>
   <v-container>
     <BuddyApplication
-        :buddyInfo="selectedBuddy"
-        v-model="isDialog"
+      :buddyInfo="selectedBuddy"
+      v-model="isDialog"
     />
     <div class="train">
-        <div class="d-flex justify-center flex-wrap">
-          <TrainVue
-            :applications="this.applications"
-            @open-buddy-application="openBuddyApplication"
-          />
-        </div>
+      <div class="d-flex justify-center flex-wrap">
+      <TrainVue
+        :applications="this.applications"
+        @open-buddy-application="openBuddyApplication"
+      />
+      </div>
     </div>
 
     <div class="text-center text-h5"
     v-if="applications.length <= 0">No buddies found. Try to change your filter.</div>
     <div v-if="isListLoading">
-        <v-row class="justify-center">
-            <v-col cols="10">
-                <v-progress-linear color="rgb(252, 101, 77)" indeterminate :height="10" reverse></v-progress-linear>
-            <div class="text-center text-h4">Loading...</div>
-            </v-col>
-        </v-row>
+      <v-row class="justify-center">
+        <v-col cols="10">
+          <v-progress-linear color="rgb(252, 101, 77)" indeterminate :height="10" reverse></v-progress-linear>
+          <div class="text-center text-h4">Loading...</div>
+        </v-col>
+      </v-row>
     </div>
 
-</v-container>
+  </v-container>
 </template>
 
 
 <script>
-import TrainVue from "@/components/Svg/TrainVue.vue";
+  import TrainVue from "@/components/Svg/TrainVue.vue";
 
-export default {
-  components: {TrainVue},
-    data ()  {
+  export default {
+    components: {TrainVue},
+      data ()  {
         return {
-            isDialog: false,
-            selectedBuddy: {},
+          isDialog: false,
+          selectedBuddy: {},
         }
-    },
-    props: {
+      },
+      props: {
         applications: Array,
         isListLoading: Boolean,
-    },
-    methods: {
+      },
+      methods: {
         openBuddyApplication(buddy) {
-            this.selectedBuddy = buddy
-            this.isDialog = true
+          this.selectedBuddy = buddy
+          this.isDialog = true
         }
-    },
-}
+      },
+  }
 </script>
 
 
 <style scoped>
-.main-train {
+  .main-train {
     width: 80%;
-}
-
-
-@media only screen and (max-width: 1024px) {
+  }
+  @media only screen and (max-width: 1024px) {
     .main-train {
-        width: 100%;
+      width: 100%;
     }
-
-}
+  }
 </style>
