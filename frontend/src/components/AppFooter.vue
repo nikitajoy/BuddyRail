@@ -1,20 +1,28 @@
 <template>
   <v-footer class="bg-grey-darken-1">
     <v-row justify="center" no-gutters>
-      <v-btn
-        v-for="link in links"
-        :key="link"
-        class="mx-2"
-        color="white"
-        rounded="xl"
-        variant="text"
-      >
-        <router-link v-if="link.router" :to="link.path" class="text-decoration-none text-white">{{ link.title }}</router-link>
-        <a v-else
-        class="text-decoration-none	text-white"
-         :href="link.path" 
-         target="_blank">{{ link.title }}</a>
-      </v-btn>
+
+      <div v-for="link in links" :key="link">
+        <router-link
+          v-if="link.router"
+          :to="link.path"
+          class="text-decoration-none text-white"
+        >
+          <v-btn class="mx-2" rounded="xl" variant="text" >
+            {{ link.title }}
+          </v-btn>
+        </router-link>
+        <a
+          v-else
+          class="text-decoration-none	text-white"
+          :href="link.path"
+          target="_blank"
+        >
+          <v-btn class="mx-2" color="white" rounded="xl" variant="text">
+            {{ link.title }}
+          </v-btn>
+        </a>
+      </div>
       <v-col class="text-center mt-4" cols="12">
         {{ new Date().getFullYear() }} — <strong>BuddyRail</strong>
       </v-col>
@@ -35,5 +43,6 @@ export default {
 <style scoped >
 .router-link-active {
   color: #FC654D !important;
+
 }
 </style>

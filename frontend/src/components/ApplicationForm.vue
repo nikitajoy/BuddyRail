@@ -1,7 +1,7 @@
 <template>
   <div class="text-center mb-4">
-    <ApplicationButton :message="'create application'" @invokeDialog="invokeDialog"/>
-    <v-dialog transition="scroll-x-transition" style="z-index: 1;"
+    <ApplicationButton :message="'Apply'" @invokeDialog="invokeDialog"/>
+    <v-dialog transition="scroll-x-transition"  style="z-index: 1;"
       v-model="dialog"
       width="auto"
     >
@@ -15,7 +15,6 @@
               <v-row>
                   <v-col cols="12">
                       <v-autocomplete
-                      :rules="rules.languages"
                       autocomplete="off"
                       v-show="languages.length > 0"
                       chips
@@ -31,7 +30,6 @@
                   <v-col cols="12">
                       <v-autocomplete v-show="games.length > 0"
                       autocomplete="off"
-                      :rules="rules.games"
                       chips
                       v-model="applicationData.chosenGames"
                       label="Choose games you want to play"
@@ -46,7 +44,9 @@
                     <v-select
                       variant="outlined"
                       label="Does your buddy have a microphone?"
-                      :items="['Both', 'No microphone', 'Has microphone']"
+                      item-name="title"
+                      item-value="value"
+                      :items="microphoneAvailability"
                       v-model="applicationData.buddyMicrophone"
                     ></v-select>
                   </v-col>
@@ -66,13 +66,13 @@
                   <v-col cols="12" >
                     <v-switch class="ma-0 pa-0"
                     hide-details
-                    label="Do you have a microphone?" 
-                    v-model="applicationData.isMic" 
+                    label="Do you have a microphone?"
+                    v-model="applicationData.isMic"
                     color="yellow"></v-switch>
-                    <v-switch 
+                    <v-switch
                     hide-details class="ma-0 pa-0"
-                    label="Does your buddy have to be authorize through discord to connect you?" 
-                    v-model="applicationData.isAuthorized" 
+                    label="Does your buddy have to be authorize through discord to connect you?"
+                    v-model="applicationData.isAuthorized"
                     color="yellow"></v-switch>
                   </v-col>
               </v-row>
@@ -101,32 +101,27 @@
 
 
 <script>
-import {httpServer} from '@/main'
-export default {
+  import {httpServer} from '@/main'
+  export default {
     data() {
-        return {
-          authorizeDialog: false,
-            rules: {
-              games: [
-                (v) =>  v.length>0 || "You have to choose at least 1 game",
-                (v) =>  v.length <= 5 || "You can`t choose more than 5 games.",
-              ],
-              languages: [
-                (v) =>  v.length>0 || "You have to choose at least 1 language",
-                (v) =>  v.length <= 5 || "You can`t choose more than 5 languages."
-              ],
-            },
-            dialog: false,
-            applicationData: {
-              message: '',
-              isMic: true,
-              isAuthorized: false,
-              chosenGames :[],
-              chosenLanguages: [],
-              buddyMicrophone: 'Has microphone'
-            },
-            lastLessThanHour: false,
-        }
+      return {
+        authorizeDialog: false,
+        dialog: false,
+        applicationData: {
+          message: '',
+          isMic: true,
+          isAuthorized: false,
+          chosenGames :[],
+          chosenLanguages: [],
+          buddyMicrophone: 'Has microphone'
+        },
+        lastLessThanHour: false,
+        microphoneAvailability: [
+          {title: `Doesn't matter`, value: 'Both'},
+          {title: `No microphone`, value: 'No microphone'},
+          {title: `Has microphone`, value: 'Has microphone'}
+        ]
+      }
     },
     props: {
       games: Array,
@@ -136,55 +131,77 @@ export default {
       isWarningDialog: Boolean,
     },
     methods: {
-        checkLastApplication(){
-          httpServer
-              .get("/checkLastApplication")
-              .then((response) => {
-                this.lastLessThanHour = response.data;
-                if(this.lastLessThanHour) {this.$emit('callWarning', true)}
-              })
-              .catch(() => {});
-        },
-        invokeDialog() {
-            this.dialog = true;
-            
-            if(!this.isAuthorized) {
-              this.$emit('callDiscord', true)
-            }
+      checkLastApplication(){
+        httpServer
+          .get("/check-last-application")
+          .then((response) => {
+            this.lastLessThanHour = response.data;
 
-            this.applicationData = {
-              message: '',
-              isMic: true,
-              isAuthorized: false,
-              chosenGames :[],
-              chosenLanguages: [],
-              buddyMicrophone: 'Has microphone',
-            };
-        },
-        saveApplication() {
-          if(
-          (this.applicationData.chosenGames.length >0 && this.applicationData.chosenGames.length <= 5)  &&
-          (this.applicationData.chosenLanguages.length && this.applicationData.chosenLanguages.length <= 5) > 0 &&
-          this.applicationData.message.length <= 200
-          ){
-          httpServer
-            .post("/addApplication", {
-              isAuthorized: this.applicationData.isAuthorized,
-              isMic: this.applicationData.isMic,
-              games: this.applicationData.chosenGames,
-              languages: this.applicationData.chosenLanguages,
-              buddyMicrophone: this.applicationData.buddyMicrophone,
-              message: this.applicationData.message,})
-            .then(() => {
-              this.dialog = false
-              // snackbar
-              this.$emit('callSnackbar', 'Your application has been created!')
-            })
-            .catch(() => {});
-          }
+            if(this.lastLessThanHour) {this.$emit('callWarning', true)}
 
+          })
+          .catch(() => {});
+      },
+      invokeDialog() {
+        this.dialog = true;
 
+        if(!this.isAuthorized) {
+          this.$emit('callDiscord', true)
         }
+
+        this.applicationData = {
+          message: '',
+          isMic: true,
+          isAuthorized: false,
+          chosenGames :[],
+          chosenLanguages: [],
+          buddyMicrophone: 'Has microphone',
+        };
+      },
+      callSnackbar(message, type){
+        this.$emit('callSnackbar', {message: message, type: type});
+      },
+      saveApplication() {
+        if (this.applicationData.chosenLanguages.length == 0) {
+          this.callSnackbar(`You have to choose at least 1 language.`, 'warning')
+          return
+        }
+
+        if (this.applicationData.chosenLanguages.length > 3) {
+          this.callSnackbar(`You can't choose more than 3 languages.`, 'warning')
+          return
+        }
+
+        if (this.applicationData.chosenGames.length < 1) {
+          this.callSnackbar(`You have to choose at least 1 game`, 'warning')
+          return
+        }
+
+        if (this.applicationData.chosenGames.length > 5) {
+          this.callSnackbar(`You can't choose more than 5 games`, 'warning')
+          return
+        }
+
+        if (this.applicationData.message.length > 200) {
+          this.callSnackbar(`The message cannot be more than 200 letters.`, 'warning')
+          return
+        }
+
+        httpServer
+          // URL должен быть в кебаб кейсе, то есть /add-application
+          .post("/add-application", {
+            isAuthorized: this.applicationData.isAuthorized,
+            isMic: this.applicationData.isMic,
+            games: this.applicationData.chosenGames,
+            languages: this.applicationData.chosenLanguages,
+            buddyMicrophone: this.applicationData.buddyMicrophone,
+            message: this.applicationData.message,})
+          .then(() => {
+            this.dialog = false
+            this.callSnackbar(`Your application has been created!`, 'success')
+          })
+          .catch(() => {});
+      }
     },
     computed: {
       messageLimit() {
@@ -193,27 +210,26 @@ export default {
     },
     watch: {
       isDiscordDialog: {
-            handler(discordWindowClosed) {
-               if(this.dialog) {
-                this.dialog = discordWindowClosed
-               }
-            },
-         },
-         isWarningDialog: {
-            handler(warningWindowClosed) {
-               if(this.dialog) {
-                this.dialog = warningWindowClosed
-               }
-            },
-         },
-         dialog: {
-            handler() {
-               if(this.dialog && this.isAuthorized) {
-                this.checkLastApplication()
-               }
-            },
-         },
+        handler(discordWindowClosed) {
+          if(this.dialog) {
+            this.dialog = discordWindowClosed
+          }
+        },
+      },
+      isWarningDialog: {
+        handler(warningWindowClosed) {
+          if(this.dialog) {
+            this.dialog = warningWindowClosed
+          }
+        },
+      },
+      dialog: {
+        handler() {
+          if(this.dialog && this.isAuthorized) {
+            this.checkLastApplication()
+          }
+        },
+      },
     },
- 
-}
+  }
 </script>

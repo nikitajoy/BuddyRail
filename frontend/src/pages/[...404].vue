@@ -1,16 +1,14 @@
 <template>
-    <div class="mt-5 ml-5"> 
-        oops, not found
-        <router-link :to="`/`">Go to main page</router-link>
-    </div>
+  <div class="mt-5 ml-5"> 
+    oops, not found
+    <router-link :to="`/`">Go to main page</router-link>
+  </div>
 </template>
 
-
 <script>
-
-export default {
+  export default {
     created() {
-        this.$router.push('/')
+      this.$router.push('/')
     }
-}
+  }
 </script>

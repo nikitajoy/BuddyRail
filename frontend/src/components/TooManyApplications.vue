@@ -1,6 +1,7 @@
 <template>
     <div class="text-center pa-4">
-      <v-dialog style="z-index: 2000;"
+      <v-dialog
+        class="z-2000"
         v-model="warningDialog"
         max-width="400"
         persistent
@@ -24,27 +25,24 @@
     </div>
 </template>
 
-
-
 <script>
-
-export default {
+  export default {
     props: {
       modelValue: Boolean,
     },
     emits: ['update:modelValue'],
     computed: {
-        warningDialog: {
+      warningDialog: {
         get() {
           return this.modelValue
         },
         set(warningDialog) {
           this.$emit('update:modelValue', warningDialog)
         }
-      }
+    }
     },
     methods: {
-      closeWarning () { 
+      closeWarning () {
         this.$emit('update:modelValue', false)
         this.$emit('closeApplicationDialog', true)
       },
@@ -54,5 +52,11 @@ export default {
         this.$emit('openApplications', true)
       }
     }
-}
+  }
 </script>
+
+<style scoped>
+  .z-2000 {
+    z-index: 2000;
+  }
+</style>

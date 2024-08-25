@@ -11,18 +11,14 @@ import { createApp } from 'vue'
 const app = createApp(App)
 
 
-const API = 'https://buddyrail.com/api/'
-//const API = 'http://localhost:5000/api/'
+//const api = 'https://buddyrail.com/api/'
+const api = 'http://localhost:5000/api/'
 
 
 export const httpServer = axios.create({
-    withCredentials: true,
-    baseURL: API,
-  });
-
-
-
-
+  withCredentials: true,
+  baseURL: api,
+});
 
 registerPlugins(app)
 
