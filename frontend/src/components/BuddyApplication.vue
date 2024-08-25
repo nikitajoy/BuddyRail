@@ -106,7 +106,7 @@ export default {
           case 'No microphone':
             return 'Prefers to play with buddy who does not have a mic'
           case 'Both':
-            return 'Does not care whether the buddy has a mic or not'
+            return `The buddy's mic status does not matter`
           default:
             return 'Not chosen'
         }

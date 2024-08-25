@@ -102,7 +102,7 @@ export default {
 
         getUserApplications() {
             httpServer
-              .post("/getUserApplications")
+              .post("/get-user-applications")
               .then((response) => {
                 this.userApplications = response.data.userApplications
               })
@@ -116,7 +116,7 @@ export default {
 
         deleteApplication(idApplication) {
             httpServer
-              .post("/deleteApplication", {idApplication: idApplication})
+              .post("/delete-application", {idApplication: idApplication})
               .then(() => {
                 this.getUserApplications()
             })

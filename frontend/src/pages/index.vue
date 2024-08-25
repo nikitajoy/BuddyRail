@@ -88,7 +88,7 @@ export default {
   methods: {
     getData() {
       httpServer
-        .get("/getInputData")
+        .get("/get-input-data")
         .then((response) => {
             this.games = response.data.games
             this.languages = response.data.languages
@@ -114,7 +114,7 @@ export default {
     },
     checkAuth() {
       httpServer
-        .get("/isAuthenticated")
+        .get("/is-authenticated")
         .then((response) => {
           if(response.status === 200) {
             this.isAuthorized = true;

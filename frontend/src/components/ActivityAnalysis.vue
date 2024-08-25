@@ -46,7 +46,7 @@
     methods: {
       getAnalytics(){
         httpServer
-          .get("/getAnalytics")
+          .get("/get-analytics")
           .then((response) => {
             this.siteActivity = {...response.data}
           })

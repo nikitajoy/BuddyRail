@@ -133,7 +133,7 @@
     methods: {
       checkLastApplication(){
         httpServer
-          .get("/checkLastApplication")
+          .get("/check-last-application")
           .then((response) => {
             this.lastLessThanHour = response.data;
 
@@ -189,7 +189,7 @@
 
         httpServer
           // URL должен быть в кебаб кейсе, то есть /add-application
-          .post("/addApplication", {
+          .post("/add-application", {
             isAuthorized: this.applicationData.isAuthorized,
             isMic: this.applicationData.isMic,
             games: this.applicationData.chosenGames,

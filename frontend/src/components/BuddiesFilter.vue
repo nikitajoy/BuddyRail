@@ -113,7 +113,7 @@
       applyFilter() {
         this.isListLoading = true
         httpServer
-          .get("/getApplications",
+          .get("/get-applications",
           {
             params:
                 {
