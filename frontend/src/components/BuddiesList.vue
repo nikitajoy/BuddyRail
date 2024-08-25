@@ -15,11 +15,14 @@
 
     <div class="text-center text-h5"
     v-if="applications.length <= 0">No buddies found. Try to change your filter.</div>
-    <div v-if="isListLoading">
+    <div >
       <v-row class="justify-center">
         <v-col cols="10">
-          <v-progress-linear color="rgb(252, 101, 77)" indeterminate :height="10" reverse></v-progress-linear>
-          <div class="text-center text-h4">Loading...</div>
+          <v-progress-linear color="rgb(252, 101, 77)" :indeterminate="isListLoading" :height="30" reverse>
+            <div v-if="isListLoading" class="text-center text-h6">
+              Loading...
+            </div>
+          </v-progress-linear>
         </v-col>
       </v-row>
     </div>

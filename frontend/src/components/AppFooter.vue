@@ -8,7 +8,7 @@
           :to="link.path"
           class="text-decoration-none text-white"
         >
-          <v-btn class="mx-2" color="white" rounded="xl" variant="text">
+          <v-btn class="mx-2" rounded="xl" variant="text" >
             {{ link.title }}
           </v-btn>
         </router-link>
@@ -43,5 +43,6 @@ export default {
 <style scoped >
 .router-link-active {
   color: #FC654D !important;
+
 }
 </style>

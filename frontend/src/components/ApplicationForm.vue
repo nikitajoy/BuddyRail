@@ -41,7 +41,6 @@
                       ></v-autocomplete>
                   </v-col>
                   <v-col cols="12">
-                    {{ applicationData.buddyMicrophone }}
                     <v-select
                       variant="outlined"
                       label="Does your buddy have a microphone?"
@@ -160,31 +159,31 @@
         };
       },
       callSnackbar(message, type){
-          this.$emit('callSnackbar', {message: message, type: type});
+        this.$emit('callSnackbar', {message: message, type: type});
       },
       saveApplication() {
         if (this.applicationData.chosenLanguages.length == 0) {
-          callSnackbar(`You have to choose at least 1 language.`, 'warning')
+          this.callSnackbar(`You have to choose at least 1 language.`, 'warning')
           return
         }
 
         if (this.applicationData.chosenLanguages.length > 3) {
-          callSnackbar(`You can't choose more than 3 languages.`, 'warning')
+          this.callSnackbar(`You can't choose more than 3 languages.`, 'warning')
           return
         }
 
         if (this.applicationData.chosenGames.length < 1) {
-          callSnackbar(`You have to choose at least 1 game`, 'warning')
+          this.callSnackbar(`You have to choose at least 1 game`, 'warning')
           return
         }
 
         if (this.applicationData.chosenGames.length > 5) {
-          callSnackbar(`You can't choose more than 5 games`, 'warning')
+          this.callSnackbar(`You can't choose more than 5 games`, 'warning')
           return
         }
 
         if (this.applicationData.message.length > 200) {
-          callSnackbar(`The message cannot be more than 200 letters.`, 'warning')
+          this.callSnackbar(`The message cannot be more than 200 letters.`, 'warning')
           return
         }
 
@@ -199,7 +198,7 @@
             message: this.applicationData.message,})
           .then(() => {
             this.dialog = false
-            callSnackbar(`Your application has been created!`, 'success')
+            this.callSnackbar(`Your application has been created!`, 'success')
           })
           .catch(() => {});
       }
