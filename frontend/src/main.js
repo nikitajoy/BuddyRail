@@ -1,6 +1,7 @@
 // Plugins
 import { registerPlugins } from '@/plugins'
 import axios from "axios";
+import VueGtag from "vue-gtag";
 
 // Components
 import App from './App.vue'
@@ -23,3 +24,8 @@ export const httpServer = axios.create({
 registerPlugins(app)
 
 app.mount('#app')
+app.use(VueGtag, {
+  config: {
+    id: process.env.VUE_APP_GOOGLE_ANALYTICS_PROPERTY_ID || 'G-3BFXBNXGVE',
+  }
+});
