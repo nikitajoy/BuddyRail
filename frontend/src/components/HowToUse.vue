@@ -1,13 +1,13 @@
 <template>
     <v-sheet :min-height="100" :max-width="1200" border rounded class="mx-auto ma-5 pa-5">
         <h2 class="text-center">How to use BuddyRail</h2>
-        <div class="mt-2">           
+        <div class="mt-2">
         <v-row class="mt-5">
             <v-card
                         class="mx-auto"
                         max-width="600"
                     >
-                    <v-card-title class="text-wrap text-center">Making your own application</v-card-title>
+                    <v-card-title class="text-wrap text-center">Become a buddy</v-card-title>
                         <v-list :items="stepsOwnApplication" class="full-width-text">
                             <v-list-item v-for="(item, index) in stepsOwnApplication" :key="index">
                                 <v-list-item-content>
@@ -21,7 +21,7 @@
                         class="mx-auto"
                         max-width="600"
                     >
-                    <v-card-title class="text-wrap text-center">Checking existing applications</v-card-title>
+                    <v-card-title class="text-wrap text-center">Finding available buddies</v-card-title>
                         <v-list :items="stepsCheckingApplications" class="full-width-text">
                         <v-list-item v-for="(item, index) in stepsCheckingApplications" :key="index">
                             <v-list-item-content>
@@ -49,7 +49,7 @@ export default {
                 value: 1,
                 },    
                 {
-                title: '2. Click "create application" below this form',
+                title: '2. Click "apply" below this form',
                 value: 2,
                 },
                 {

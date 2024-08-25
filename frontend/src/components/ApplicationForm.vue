@@ -1,7 +1,7 @@
 <template>
   <div class="text-center mb-4">
-    <ApplicationButton :message="'create application'" @invokeDialog="invokeDialog"/>
-    <v-dialog transition="scroll-x-transition" style="z-index: 1;"
+    <ApplicationButton :message="'Apply'" @invokeDialog="invokeDialog"/>
+    <v-dialog transition="scroll-x-transition"  style="z-index: 1;"
       v-model="dialog"
       width="auto"
     >
@@ -15,7 +15,6 @@
               <v-row>
                   <v-col cols="12">
                       <v-autocomplete
-                      :rules="rules.languages"
                       autocomplete="off"
                       v-show="languages.length > 0"
                       chips
@@ -31,7 +30,6 @@
                   <v-col cols="12">
                       <v-autocomplete v-show="games.length > 0"
                       autocomplete="off"
-                      :rules="rules.games"
                       chips
                       v-model="applicationData.chosenGames"
                       label="Choose games you want to play"
@@ -106,16 +104,6 @@ export default {
     data() {
         return {
           authorizeDialog: false,
-            rules: {
-              games: [
-                (v) =>  v.length>0 || "You have to choose at least 1 game",
-                (v) =>  v.length <= 5 || "You can`t choose more than 5 games.",
-              ],
-              languages: [
-                (v) =>  v.length>0 || "You have to choose at least 1 language",
-                (v) =>  v.length <= 3 || "You can`t choose more than 3 languages."
-              ],
-            },
             dialog: false,
             applicationData: {
               message: '',
@@ -162,10 +150,26 @@ export default {
             };
         },
         saveApplication() {
-          if (this.applicationData.chosenGames.length < 1) {return}
-          if (this.applicationData.chosenGames.length > 5) {return}
-          if (this.applicationData.chosenLanguages.length && this.applicationData.chosenLanguages.length > 3) {return}
-          if (this.applicationData.message.length > 200) {return}
+          if (this.applicationData.chosenLanguages.length == 0) {
+            this.$emit('callSnackbar', {message: `You have to choose at least 1 language.`, type: 'warning'});
+            return
+          }
+          if (this.applicationData.chosenLanguages.length > 3) {
+            this.$emit('callSnackbar', {message: `You can't choose more than 3 languages.`, type: 'warning'});
+            return
+          }
+          if (this.applicationData.chosenGames.length < 1) {
+            this.$emit('callSnackbar', {message: 'You have to choose at least 1 game', type: 'warning'});
+            return
+          }
+          if (this.applicationData.chosenGames.length > 5) {
+            this.$emit('callSnackbar', {message: `You can't choose more than 5 games`, type: 'warning'});
+            return
+          }
+          if (this.applicationData.message.length > 200) {
+            this.$emit('callSnackbar', {message: `The message cannot be more than 200 letters.`, type: 'warning'});
+            return
+          }
 
           httpServer
             // URL должен быть в кебаб кейсе, то есть /add-application
@@ -179,7 +183,7 @@ export default {
             .then(() => {
               this.dialog = false
               // snackbar
-              this.$emit('callSnackbar', 'Your application has been created!')
+              this.$emit('callSnackbar', {message: 'Your application has been created!', type: 'success'})
             })
             .catch(() => {});
         }
@@ -214,3 +218,8 @@ export default {
     },
 }
 </script>
+
+
+<style scoped>
+
+</style>

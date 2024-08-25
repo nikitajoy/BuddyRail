@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SnackbarMessage v-model="snackbar">{{ snackbarMessage }}</SnackbarMessage>
+    <SnackbarMessage v-model="snackbar" :type="snackbarType">{{ snackbarMessage }}</SnackbarMessage>
     <DiscordBtn v-show="!isAuthorized" />
     <MyApplications v-model="myApplicationsDialog"/>
     <v-tooltip text="Your applications"
@@ -59,6 +59,7 @@ export default {
       myApplicationsDialog: false,
       snackbarMessage: 'test',
       snackbar: false,
+      snackbarType: '',
     }
   },
   methods: {
@@ -83,8 +84,9 @@ export default {
     openMyApplications() {
       this.myApplicationsDialog = !this.myApplicationsDialog
     },
-    callSnackbar(message) {
-      this.snackbarMessage = message;
+    callSnackbar(snackbarContent) {
+      this.snackbarMessage = snackbarContent.message;
+      this.snackbarType = snackbarContent.type;
       this.snackbar = true;
     },
     checkAuth() {

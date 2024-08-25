@@ -1,6 +1,6 @@
 <template>
     <div class="text-center pa-4">
-      <v-dialog style="z-index: 2000;"
+      <v-dialog class="z-2000"
         v-model="discordDialog"
         max-width="400"
         persistent
@@ -54,3 +54,9 @@ export default {
     }
 }
 </script>
+
+<style>
+.z-2000{
+  z-index: 2000;
+}
+</style>
