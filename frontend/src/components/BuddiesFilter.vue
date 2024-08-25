@@ -15,7 +15,7 @@
         :class="nextBtnStyles"
         :disabled="applicationFilter.currentPage == applicationFilter.totalPages"
       >
-      Next
+        Next
       </v-btn>
     </v-row>
 
@@ -41,7 +41,9 @@
           <v-select
             variant="outlined"
             label="Does your buddy have a microphone?"
-            :items="['Both', 'No microphone', 'Has microphone']"
+            item-name="title"
+            item-value="value"
+            :items="microphoneAvailability"
             v-model="applicationFilter.buddyMicrophone"
           />
         </v-col>
@@ -97,6 +99,11 @@
         },
         applications: [],
         isListLoading: false,
+        microphoneAvailability: [
+          {title: `Doesn't matter`, value: 'Both'},
+          {title: `No microphone`, value: 'No microphone'},
+          {title: `Has microphone`, value: 'Has microphone'}
+        ]
       }
     },
     mounted() {

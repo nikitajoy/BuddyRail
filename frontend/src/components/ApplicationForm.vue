@@ -41,10 +41,13 @@
                       ></v-autocomplete>
                   </v-col>
                   <v-col cols="12">
+                    {{ applicationData.buddyMicrophone }}
                     <v-select
                       variant="outlined"
                       label="Does your buddy have a microphone?"
-                      :items="['Both', 'No microphone', 'Has microphone']"
+                      item-name="title"
+                      item-value="value"
+                      :items="microphoneAvailability"
                       v-model="applicationData.buddyMicrophone"
                     ></v-select>
                   </v-col>
@@ -114,6 +117,11 @@
           buddyMicrophone: 'Has microphone'
         },
         lastLessThanHour: false,
+        microphoneAvailability: [
+          {title: `Doesn't matter`, value: 'Both'},
+          {title: `No microphone`, value: 'No microphone'},
+          {title: `Has microphone`, value: 'Has microphone'}
+        ]
       }
     },
     props: {
