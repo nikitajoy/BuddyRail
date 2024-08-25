@@ -113,7 +113,7 @@ export default {
               ],
               languages: [
                 (v) =>  v.length>0 || "You have to choose at least 1 language",
-                (v) =>  v.length <= 5 || "You can`t choose more than 5 languages."
+                (v) =>  v.length <= 3 || "You can`t choose more than 3 languages."
               ],
             },
             dialog: false,
@@ -162,26 +162,10 @@ export default {
             };
         },
         saveApplication() {
-          if (this.applicationData.chosenGames.length < 1) {
-            // Кинь юзеру ошибку, что он нихрена не выбрал
-            return
-          }
-
-          if (this.applicationData.chosenGames.length > 5) {
-            // Кинь юзеру ошибку, что он дохрена выбрал
-            return
-          }
-
-          if (this.applicationData.chosenLanguages.length && this.applicationData.chosenLanguages.length > 5) {
-            // Тоже языков многовато, полиглот шоли?
-            return
-          }
-
-          if (this.applicationData.message.length > 200) {
-            // Слишком общительный, пиши меньше!
-            // Ну и return останавливает выполнение функции, так что запрос послан не будет
-            return
-          }
+          if (this.applicationData.chosenGames.length < 1) {return}
+          if (this.applicationData.chosenGames.length > 5) {return}
+          if (this.applicationData.chosenLanguages.length && this.applicationData.chosenLanguages.length > 3) {return}
+          if (this.applicationData.message.length > 200) {return}
 
           httpServer
             // URL должен быть в кебаб кейсе, то есть /add-application

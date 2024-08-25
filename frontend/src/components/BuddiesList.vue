@@ -6,10 +6,6 @@
     />
     <div class="train">
         <div class="d-flex justify-center flex-wrap">
-          <!-- Здесь было намешано все: и куча кусков svg, и смешанная с ней логика загрузки
-           Теперь поезд уехал в отдельный файл и получил только те данные, которые ему нужны
-           Возможно, загрузку (следующий див) имеет смысл тоже вынести в отдельный компонент,
-           но это не точно :) -->
           <TrainVue
             :applications="this.applications"
             @open-buddy-application="openBuddyApplication"

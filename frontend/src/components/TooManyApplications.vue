@@ -1,5 +1,4 @@
 <template>
-  <!-- О! Наконец-то сверстано красиво! -->
     <div class="text-center pa-4">
       <v-dialog
         class="z-2000"

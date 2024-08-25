@@ -194,11 +194,11 @@ export default {
           return btnClasses
         },
         nextBtnStyles() {
-          // тут такие же изменения, как и выше,
-          // а вообще, тут логика такая же, можно в отдельную функцию вынести
             let btnClasses = ''
+
             this.applicationFilter.currentPage == this.applicationFilter.totalPages ? btnClasses = 'bg-grey-darken-4 opacity-10' : ''
             this.applicationFilter.totalPages == 0 ? btnClasses = 'd-none' : ''
+
             return btnClasses
         }
     }

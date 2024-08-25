@@ -20,10 +20,23 @@
     <TooManyApplications v-model="warningDialog" @closeApplicationDialog="warningDialog" @openApplications="openMyApplications"/>
 
     <BuddiesList :applications="applications" :isListLoading="isListLoading"/>
-    <BuddiesFilter :games="games" :languages="languages" @setApplications="setApplications" @callDiscord="callDiscord" @isLoading="isLoading" :isAuthorized="isAuthorized"/>
+    <BuddiesFilter
+    :games="games"
+    :languages="languages"
+    @setApplications="setApplications"
+    @callDiscord="callDiscord"
+    @isLoading="isLoading"
+    :isAuthorized="isAuthorized"/>
     <HowToUse/>
-    <!-- В этой строке 239 символов, и ты пишешь ее в ряд. Я же показывал, как надо в этом случае делать) -->
-    <ApplicationForm :games="games" :languages="languages" :isAuthorized="isAuthorized" :isDiscordDialog="discordDialog" :isWarningDialog="warningDialog" @callDiscord="callDiscord" @callWarning="callWarning" @callSnackbar="callSnackbar"/>
+    <ApplicationForm
+    :games="games"
+    :languages="languages"
+    :isAuthorized="isAuthorized"
+    :isDiscordDialog="discordDialog"
+    :isWarningDialog="warningDialog"
+    @callDiscord="callDiscord"
+    @callWarning="callWarning"
+    @callSnackbar="callSnackbar"/>
     <ActivityAnalysis />
     <AppFooter />
   </div>
