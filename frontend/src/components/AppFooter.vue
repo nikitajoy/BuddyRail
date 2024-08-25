@@ -2,9 +2,7 @@
   <v-footer class="bg-grey-darken-1">
     <v-row justify="center" no-gutters>
 
-      <div
-      v-for="link in links"
-      :key="link">
+      <div v-for="link in links" :key="link">
         <router-link
           v-if="link.router"
           :to="link.path"
@@ -25,14 +23,6 @@
           </v-btn>
         </a>
       </div>
-
-
-
-
-
-
-
-
       <v-col class="text-center mt-4" cols="12">
         {{ new Date().getFullYear() }} — <strong>BuddyRail</strong>
       </v-col>

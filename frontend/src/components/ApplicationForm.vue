@@ -159,30 +159,32 @@
           buddyMicrophone: 'Has microphone',
         };
       },
+      callSnackbar(message, type){
+          this.$emit('callSnackbar', {message: message, type: type});
+      },
       saveApplication() {
-
         if (this.applicationData.chosenLanguages.length == 0) {
-          this.$emit('callSnackbar', {message: `You have to choose at least 1 language.`, type: 'warning'});
+          callSnackbar(`You have to choose at least 1 language.`, 'warning')
           return
         }
 
         if (this.applicationData.chosenLanguages.length > 3) {
-          this.$emit('callSnackbar', {message: `You can't choose more than 3 languages.`, type: 'warning'});
+          callSnackbar(`You can't choose more than 3 languages.`, 'warning')
           return
         }
 
         if (this.applicationData.chosenGames.length < 1) {
-          this.$emit('callSnackbar', {message: 'You have to choose at least 1 game', type: 'warning'});
+          callSnackbar(`You have to choose at least 1 game`, 'warning')
           return
         }
 
         if (this.applicationData.chosenGames.length > 5) {
-          this.$emit('callSnackbar', {message: `You can't choose more than 5 games`, type: 'warning'});
+          callSnackbar(`You can't choose more than 5 games`, 'warning')
           return
         }
 
         if (this.applicationData.message.length > 200) {
-          this.$emit('callSnackbar', {message: `The message cannot be more than 200 letters.`, type: 'warning'});
+          callSnackbar(`The message cannot be more than 200 letters.`, 'warning')
           return
         }
 
@@ -197,8 +199,7 @@
             message: this.applicationData.message,})
           .then(() => {
             this.dialog = false
-            // snackbar
-            this.$emit('callSnackbar', {message: 'Your application has been created!', type: 'success'})
+            callSnackbar(`Your application has been created!`, 'success')
           })
           .catch(() => {});
       }
