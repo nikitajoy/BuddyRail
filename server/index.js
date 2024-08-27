@@ -33,7 +33,6 @@ app.use(passport.session())
 // router
 app.use('/api', router)
 
-  
 
 // start
 const start = async () => {
@@ -49,8 +48,3 @@ const start = async () => {
 };
 
 start();
-
-
-
-
- 
