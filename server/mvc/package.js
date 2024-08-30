@@ -45,6 +45,10 @@ exports.getApplications = async (isAuthorized, languages, games, isMic, buddyMic
 
 
 
+exports.countDiscordApplications = async () => knex("user_applications").select()
+.count('id_application', 'discordProtectedApplications').where('is_authorized', true)
+
+
 exports.countApplications = async (isAuthorized, languages, games, isMic, buddyMicrophone, currentPage, maxApplications) => 
     knex("user_applications").select()
     .where((filter) => {
@@ -62,7 +66,7 @@ exports.countApplications = async (isAuthorized, languages, games, isMic, buddyM
         }
         if (buddyMicrophone === 'Has microphone') {
             filter.where('is_mic', true);
-        } 
+        }
         if(buddyMicrophone === 'Both'){
             filter.whereIn('is_mic', [true,false]);
         }

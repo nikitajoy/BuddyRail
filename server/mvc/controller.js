@@ -121,11 +121,14 @@ class qualityController {
         try {  
 
             let {isAuthorized, languages, games, isMic, buddyMicrophone, currentPage} = req.query
-            currentPage == 0 ? currentPage = 1 : ''
+            if(currentPage == 0) {currentPage = 1}
             const maxApplications = 3;
 
             const applications = await Package.getApplications(isAuthorized, languages, games, isMic, buddyMicrophone, currentPage, maxApplications)
             let totalPages = await Package.countApplications(isAuthorized, languages, games, isMic, buddyMicrophone, currentPage, maxApplications)
+
+            let discordProtectedApplications = await Package.countDiscordApplications();
+
             totalPages = Math.ceil(totalPages.length / maxApplications)
             const languagesFromDatabase = await Package.getLanguages()
             const gamesFromDatabase = await Package.getGames()
@@ -141,10 +144,9 @@ class qualityController {
                return application
             })
 
-            return res.status(200).json({ filteredApplications, totalPages })
+            return res.status(200).json({ filteredApplications, totalPages, discordProtectedApplications: discordProtectedApplications[0].count })
         } catch (error) {
             console.log('getApplications error:', error);
-
             return res.status(500).json({ message: "Error occurred." })
         }
     }

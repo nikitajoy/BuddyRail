@@ -16,7 +16,7 @@
             </v-expansion-panel>
             <v-expansion-panel
               title="Data privacy"
-              text="We keep some information from your Discord authorization: your nickname, Discord ID, registration date, and last activity date. The first part of this information is needed for finding buddies, and the other part is necessary for showing activity on our website. We do not keep your email or information about your location anywhere."
+              text="We keep some information from your Discord authorization: your nickname, Discord ID, registration date, and last activity date. The first part of this information is needed for finding buddies, and the other part is necessary for showing activity on our website. We also use third-party analytics provider to help us understand where our audience comes from. We do not keep your email anywhere."
             >
             </v-expansion-panel>
             <v-expansion-panel

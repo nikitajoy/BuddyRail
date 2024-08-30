@@ -30,12 +30,17 @@
             class="ma-0 pa-0" />
         </v-col>
         <v-col cols="10" class="mx-auto ma-0 pa-0">
-          <v-switch
+          <div class="d-flex align-center flex-wrap">
+            <v-switch
             v-model="applicationFilter.isAuthorized"
             label="Discord protection"
             color="yellow"
             hide-details
-            class="ma-0 pa-0" />
+            class="ma-0 pa-0 mr-5" />
+            <v-chip>
+              Protected applications: {{applicationFilter.discordProtectedApplications}}
+            </v-chip>
+          </div>
         </v-col>
         <v-col cols="10" class="mx-auto">
           <v-select
@@ -96,6 +101,7 @@
           chosenLanguages: [],
           currentPage: 1,
           totalPages: 1,
+          discordProtectedApplications: 0,
         },
         applications: [],
         isListLoading: false,
@@ -126,7 +132,6 @@
                 }
           })
           .then((response) => {
-
             if (this.applicationFilter.totalPages != response.data.totalPages) {
               this.applicationFilter.currentPage = 1
               this.applicationFilter.totalPages = response.data.totalPages
@@ -134,8 +139,10 @@
               if (this.applicationFilter.totalPages < 1) {
                 this.applicationFilter.currentPage = 0
               }
+
             }
 
+            this.applicationFilter.discordProtectedApplications = response.data.discordProtectedApplications
             this.applications = response.data.filteredApplications;
             this.isListLoading = false;
           })
