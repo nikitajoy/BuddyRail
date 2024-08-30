@@ -44,28 +44,37 @@
               {{ buddyInfo.is_mic ? 'Has microphone' : 'No microphone' }}
             </div>
 
-              <div>
-                <span class="text-h6 mr-3 d-inline">Microphone preference:</span>
-                {{ preferredMicrophone }}
-              </div>
+            <div>
+              <span class="text-h6 mr-3 d-inline">Microphone preference:</span>
+              {{ preferredMicrophone }}
+            </div>
 
-              <div>
-                <v-btn
-                  color="red"
-                  variant="tonal"
-                  class="ms-auto mr-5 mt-5"
-                  text="Close"
-                  @click="isDialog = false"
-                />
+            <div>
+              <v-chip class="pa-5 ma-2" @click="copyNickname(buddyNickname)" 
+              :class="{'bg-green-lighten-1': isCopied}"
+              >
+                {{ isCopied ? 'Nickname has been copied!' : 'Click to copy nickname' }}
+              </v-chip>
+            </div>
 
-                <a
-                target="blank" 
-                class="text-decoration-none	text-white"
-                :href="`https://discordapp.com/users/${buddyInfo.id_discord}`">
-                  <v-btn color="#7289da" class="ms-auto mr-5 mt-5">Contact</v-btn>
-                </a>
-                
-              </div>
+
+            <div>
+              <v-btn
+                color="red"
+                variant="tonal"
+                class="ms-auto mr-5 mt-5"
+                text="Close"
+                @click="isDialog = false"
+              />
+
+              <a
+              target="blank"
+              class="text-decoration-none	text-white"
+              :href="`https://discord.com/channels/@me`">
+                <v-btn color="#7289da" class="ms-auto mr-5 mt-5">Contact</v-btn>
+              </a>
+              
+            </div>
           </v-container>
         </v-form>
       </v-card>
@@ -76,6 +85,11 @@
 
 <script>
 export default {
+    data(){
+      return {
+        isCopied: false,
+      }
+    },
     props: {
       modelValue: Boolean,
       buddyInfo: Object
@@ -111,8 +125,15 @@ export default {
             return 'Not chosen'
         }
       }
-      
-
+    },
+    methods: {
+      copyNickname(nickname) {
+        this.isCopied = true;
+        navigator.clipboard.writeText(nickname);
+        setTimeout(()=> {
+          this.isCopied = false
+        }, 2500)
+      }
     }
 }
 </script>

@@ -133,7 +133,6 @@ class qualityController {
             const languagesFromDatabase = await Package.getLanguages()
             const gamesFromDatabase = await Package.getGames()
 
-
             const filteredApplications = applications.map((application)=> {
                let languagesSorted =  languagesFromDatabase.filter((elDb) => application.languages.includes(elDb.id_language))
                application.languages = languagesSorted
