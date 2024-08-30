@@ -63,10 +63,10 @@ export default {
         value: 2,
         },
         {
-        title: '3. Find someone you like, click to contact',
+        title: '3. Find someone you like, click to copy nickname',
         value: 3,
         }, {
-        title: '4. Message your buddy and have fun! ;D',
+        title: '4. Click contact, add a friend, insert copied nickname and send a friend request.',
         value: 4,
         },
       ],
