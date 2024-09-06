@@ -3,6 +3,13 @@
     name: "TrainVue",
     props: {
       applications: Array
+    },
+    methods: {
+      getAvatarUrl(buddy) {
+      return buddy.avatar
+        ? `https://cdn.discordapp.com/avatars/${buddy.id_discord}/${buddy.avatar}`
+        : new URL('@/assets/logo.png', import.meta.url).href;
+      },
     }
   }
 </script>
@@ -51,18 +58,20 @@
     />
 
     <image
-      v-show="applications.length > 0"
-      v-for="(buddy, index) in applications" :key="index"
-      @click="$emit('openBuddyApplication', buddy)"
-      :href="buddy.avatar ? `https://cdn.discordapp.com/avatars/${buddy.id_discord}/${buddy.avatar}` : '/src/assets/logo.png'"
-      alt="buddy-avatar"
-      :x="(75 * (index + 1)) - (25*(index+1))"
-      y="40.52"
-      width="20"
-      height="20"
-      class="cursor-pointer	"
-      :clip-path="'url(#circleClip' + (index +1) + ')'"
-    />
+  v-show="applications.length > 0"
+  v-for="(buddy, index) in applications" 
+  :key="index"
+  @click="$emit('openBuddyApplication', buddy)"
+  :xlink:href="getAvatarUrl(buddy)"
+  alt="buddy-avatar"
+  :x="(75 * (index + 1)) - (25*(index+1))"
+  y="40.52"
+  width="20"
+  height="20"
+  class="cursor-pointer"
+  :clip-path="'url(#circleClip' + (index + 1) + ')'"
+/>
+
 
     <path d="M190.18,31.13h2.62a0,0,0,0,1,0,0V55.5a1.31,1.31,0,0,1-1.31,1.31h0a1.31,1.31,0,0,1-1.31-1.31V31.13A0,0,0,0,1,190.18,31.13Z" style="fill:#e04c3d"/><path d="M253,164.1l-5.5,2a26.81,26.81,0,0,1-9.21,1.64H211.56a2.62,2.62,0,0,1-2.62-2.62h32l11.52-2.1Z" transform="translate(-18.76 -109.92)"/>
     <polygon points="194.52 68.05 194.52 68.05 199.46 55.52 202.03 57.32 194.52 68.05"/><polygon points="201.33 68.05 201.33 68.05 206.27 55.52 208.85 57.32 201.33 68.05"/><polygon points="209.71 68.05 209.71 68.05 214.65 55.52 217.23 57.32 209.71 68.05"/><polygon points="243.55 58.81 246.09 60.85 239.39 74.92 237.91 71.21 235.32 70.83 237.55 67.13 232.93 65.6 236.82 62.69 233.7 58.43 236.81 52.09 243.55 58.81"/><polygon points="242.05 69.38 252.18 73.57 262.48 70.95 249.38 64.14 245.66 60.21 242.05 69.38" style="fill:#505050"/>
@@ -76,5 +85,5 @@
 </template>
 
 <style scoped>
-
+ 
 </style>
