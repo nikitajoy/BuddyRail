@@ -34,7 +34,7 @@
 export default {
   data() {
     return {
-      links: [{title: 'Home', path: '/', router: true}, {title: 'Rules', path:'rules', router: true}, {title: 'Youtube', path: 'https://www.youtube.com/@JustNik_guides'}, {title: 'Discord', path: 'https://discord.gg/vRS3HTZR4U'}]
+      links: [{title: 'Home', path: '/', router: true}, {title: 'Rules', path:'rules', router: true}, {title: 'Youtube', path: 'https://www.youtube.com/channel/UCRCw_B9aANDmqywqv8VDGpA'}, {title: 'Discord', path: 'https://discord.gg/vRS3HTZR4U'}]
     }
   }
 }
