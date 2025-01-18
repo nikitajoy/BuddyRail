@@ -23,23 +23,9 @@
               title="About us"
             >
               <template v-slot:text>
-                This app was created by one person. My name's Nikita, and I'm a passionate web developer from Russia. This is my second free web service for public use. The first one is <a href="https://unturned.how" target="_blank">unturned.how</a>, a wiki website for Unturned. If you have any questions, suggestions, or advertisement queries, feel free to contact me on my <a href="https://discordapp.com/users/417710684781150211" target="_blank">Discord</a>. Join our 
+                This app was created by one person. My name's Nikita, and I'm a passionate web developer. This is my second free web service for public use. The first one is <a href="https://unturned.how" target="_blank">unturned.how</a>, a wiki website for Unturned. If you have any questions, suggestions, or advertisement queries, feel free to contact me on my email <strong>unturnedhow@gmail.com</strong>. Join our 
                 <a href="https://discord.com/invite/7NRmb8X3sJ" target="_blank">discord community.</a>
-                Subscribe to my <a href="https://www.youtube.com/@JustNik_guides" target="_blank">youtube channel</a>.        
-              </template>
-            </v-expansion-panel>
-            <v-expansion-panel
-              title="Make our service better"
-            >
-              <template v-slot:text>
-                If you have any ideas that you think will benefit our community, feel free to share them on our Discord server or message me privately on <a href="https://discordapp.com/users/417710684781150211" target="_blank">Discord</a>.
-              </template>
-            </v-expansion-panel>
-            <v-expansion-panel
-              title="Donation"
-            >
-              <template v-slot:text>
-                BuddyRail is totally free, but if you want to, you can help by donating. It's pretty hard to accept payments in Russia, so I'm using <a href="https://boosty.to/online_kino" target="_blank">Boosty</a>. You can also make <a href="https://steamcommunity.com/tradeoffer/new/?partner=1071903555&token=fpLMvyUm" target="_blank">a donation with Steam skins</a>.
+                Subscribe to my <a href="https://www.youtube.com/channel/UCRCw_B9aANDmqywqv8VDGpA" target="_blank">youtube channel</a>.        
               </template>
             </v-expansion-panel>
         </v-expansion-panels>
