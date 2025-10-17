@@ -1,6 +1,7 @@
 <template>
   <v-footer class="bg-grey-darken-1">
     <v-row justify="center" no-gutters>
+    
       <div v-for="link in links" :key="link">
         <router-link
           v-if="link.router"
